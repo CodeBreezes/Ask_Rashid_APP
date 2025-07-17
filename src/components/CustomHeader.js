@@ -23,7 +23,7 @@ const CustomHeader = ({ title, onMenuPress, hideMenu }) => {
 const styles = StyleSheet.create({
   headerContainer: {
     height: 55,
-    backgroundColor: '#6A5ACD',
+    backgroundColor: '#EAA64D',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',

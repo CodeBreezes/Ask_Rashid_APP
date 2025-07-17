@@ -188,19 +188,15 @@ const LoginScreen = () => {
                 placeholder="🔒 Password"
                 placeholderTextColor="#999"
                 secureTextEntry={!showPassword}
-                style={[styles.input, { flex: 1 }]}
+                style={styles.passwordInput}
                 value={password}
                 onChangeText={setPassword}
               />
-              <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
-                <Icon
-                  name={showPassword ? 'eye-off' : 'eye'}
-                  size={22}
-                  color="#666"
-                  style={styles.eyeIcon}
-                />
+              <TouchableOpacity onPress={() => setShowPassword(!showPassword)} style={styles.eyeButton}>
+                <Icon name={showPassword ? 'eye-off' : 'eye'} size={22} color="#666" />
               </TouchableOpacity>
             </View>
+
           </View>
 
           <TouchableOpacity style={styles.forgotPasswordContainer}>

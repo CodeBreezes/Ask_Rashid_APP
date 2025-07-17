@@ -1,4 +1,4 @@
- import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -18,6 +18,29 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     fontSize: 16,
     color: '#000',
+  },
+
+  // Password wrapper with eye icon inside input box
+  passwordWrapper: {
+    position: 'relative',
+  },
+
+  passwordInput: {
+    backgroundColor: '#f2f2f2',
+    borderRadius: 25,
+    paddingHorizontal: 20,
+    paddingVertical: 14,
+    fontSize: 16,
+    color: '#000',
+    paddingRight: 45, // space for the eye icon
+  },
+
+  eyeButton: {
+    position: 'absolute',
+    right: 15,
+    top: '50%',
+    transform: [{ translateY: -11 }], // eye icon vertical center
+    zIndex: 1,
   },
 
   forgotPasswordContainer: {
@@ -93,7 +116,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
 
-  // Beautiful Google Modal Styles
+  // Google Modal Styles
   googleModalOverlay: {
     flex: 1,
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
@@ -147,7 +170,7 @@ const styles = StyleSheet.create({
 
   googleSubmitButton: {
     width: '100%',
-    backgroundColor: '#6A5ACD',
+    backgroundColor: '#EAA64D',
     paddingVertical: 14,
     borderRadius: 25,
     alignItems: 'center',
@@ -172,7 +195,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
 
-  // Optional: Spinner/Loader overlay
   overlay: {
     flex: 1,
     backgroundColor: 'rgba(0,0,0,0.4)',
