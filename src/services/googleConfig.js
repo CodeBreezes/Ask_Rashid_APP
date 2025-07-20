@@ -21,6 +21,8 @@ export const handleGoogleLogin = async () => {
   const googleCredential = GoogleAuthProvider.credential(idToken);
   await signInWithCredential(getAuth(), googleCredential);
 
+  await AsyncStorage.setItem('googlePhoto', user.photo);
+
   await AsyncStorage.setItem('googleUser', JSON.stringify(user));
 
   return user;

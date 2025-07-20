@@ -9,6 +9,7 @@ import axios from 'axios';
 import MainLayout from '../components/MainLayout';
 import styles from '../styles/BookingScreen.styles';
 import { postBooking } from '../api/bookingApi';
+import { useNavigation } from '@react-navigation/native';
 
 const BookingScreen = () => {
   const [name, setName] = useState('');
@@ -26,6 +27,7 @@ const BookingScreen = () => {
   const [descriptionModalVisible, setDescriptionModalVisible] = useState(false);
   const [selectedServiceDescription, setSelectedServiceDescription] = useState('');
   const [loading, setLoading] = useState(false);
+  const navigation = useNavigation();
 
   const serviceApiUrl = 'http://appointment.bitprosofttech.com/api/Services';
   const serviceDetailsApiUrl = 'http://appointment.bitprosofttech.com/api/Services/api/services/GetAllServices';
@@ -87,7 +89,12 @@ const BookingScreen = () => {
     try {
       setLoading(true);
       await postBooking(payload);
-      Alert.alert('Success', 'Booking submitted successfully!');
+      Alert.alert('Success', 'Booking submitted successfully!', [
+        {
+          text: 'OK',
+          onPress: () => navigation.navigate('MyBookings'),
+        },
+      ]);
       setTopic('');
       setNotes('');
     } catch (error) {

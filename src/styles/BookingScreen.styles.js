@@ -12,7 +12,7 @@ export default StyleSheet.create({
   // Header (shared style with login/profile)
   headerContainer: {
     height: 55,
-    backgroundColor: '#7442ff',
+    backgroundColor: '#F9A825',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',

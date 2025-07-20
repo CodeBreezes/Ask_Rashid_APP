@@ -59,7 +59,7 @@ const MainLayout = ({ title, children }) => {
               <DrawerItem label="📋 Book Appointment" onPress={() => navigateTo('BookingScreen')} />
               <DrawerItem label="📝 My Bookings" onPress={() => navigateTo('MyBookings')} />
               <DrawerItem label="👤 Change Password" onPress={() => navigateTo('Dashboard')} />
-              <DrawerItem label="🚪 Logout" onPress={() => {/* add logout logic */}} />
+              <DrawerItem label="🚪 Logout"  onPress={() => navigation.navigate('Logout')}/>
             </ScrollView>
           </View>
         </TouchableOpacity>

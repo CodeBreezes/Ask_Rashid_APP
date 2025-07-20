@@ -91,9 +91,10 @@ const LoginScreen = () => {
 
   const handleGoogleSignIn = async () => {
     try {
+      setLoading(true);
       const user = await handleGoogleLogin();
 
-      // Check if already logged in with same email
+  
       const storedEmail = await AsyncStorage.getItem('email');
       const storedUserId = await AsyncStorage.getItem('userId');
       const storedToken = await AsyncStorage.getItem('token');
@@ -153,7 +154,7 @@ const LoginScreen = () => {
           await AsyncStorage.setItem('userId', user.userId.toString());
           await AsyncStorage.setItem('customerFullName', `${user.fName} ${user.lName}`);
           await AsyncStorage.setItem('email', user.email);
-
+         
           setShowGoogleModal(false);
           showModal('✅ Success', 'You are now logged in With Google!', () =>
             navigation.replace('Dashboard')

@@ -15,21 +15,23 @@ const { width, height } = Dimensions.get('window');
 
 const CustomDrawer = ({ visible, onClose }) => {
   const [fullName, setFullName] = useState('Guest');
-  const navigation = useNavigation(); // ✅ This gives you the navigation object
+  const navigation = useNavigation(); 
 
-  useEffect(() => {
-    const fetchName = async () => {
-      try {
-        const name = await AsyncStorage.getItem('customerFullName');
-        if (name) setFullName(name);
-      } catch (error) {
-        console.warn('Failed to load name', error);
-      }
-    };
+ useEffect(() => {
+  const fetchUserData = async () => {
+    try {
+      const name = await AsyncStorage.getItem('customerFullName');
+      const pic = await AsyncStorage.getItem('googleProfilePic');
 
-    fetchName();
-  }, []);
+      if (name) setFullName(name);
+      if (pic) setProfilePic(pic);
+    } catch (error) {
+      console.warn('Failed to load user data', error);
+    }
+  };
 
+  fetchUserData();
+}, []);
   if (!visible) return null;
 
   return (

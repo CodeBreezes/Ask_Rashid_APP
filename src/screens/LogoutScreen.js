@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 
@@ -9,21 +9,43 @@ const LogoutScreen = () => {
   useEffect(() => {
     const logout = async () => {
       await AsyncStorage.clear();
-      navigation.replace('Login');
+      setTimeout(() => {
+        navigation.replace('Login');
+      }, 1500);  
     };
     logout();
   }, []);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Logging out...</Text>
+      <Image
+        style={styles.image}
+      />
+      <Text style={styles.text}>Logging you out...</Text>
+      <ActivityIndicator size="large" color="#6A5ACD" style={{ marginTop: 20 }} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-  text: { fontSize: 16 },
+  container: {
+    flex: 1,
+    backgroundColor: '#f8f9fc',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+  },
+  text: {
+    marginTop: 20,
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#333',
+  },
+  image: {
+    width: 120,
+    height: 120,
+    resizeMode: 'contain',
+  },
 });
 
 export default LogoutScreen;
