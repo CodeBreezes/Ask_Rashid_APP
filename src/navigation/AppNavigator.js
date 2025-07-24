@@ -10,14 +10,14 @@ import ProfileScreen from '../screens/Auth/ProfileScreen';
 import DashboardScreen from '../screens/DashboardScreen';
 import MyBookingsScreen from '../screens/MyBookingsScreen';
 import AuthLoadingScreen from '../screens/Auth/AuthLoadingScreen'; 
-import SplashScreen from '../components/SplashScreen';  
+import PaymentScreen from '../screens/PaymentScreen';
+
 const Stack = createNativeStackNavigator();
 
 const AppNavigator = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Splash">
-        <Stack.Screen name="Splash" component={SplashScreen} options={{ headerShown: false }} />
+      <Stack.Navigator initialRouteName="AuthLoading">
         <Stack.Screen name="AuthLoading" component={AuthLoadingScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Signup" component={SignupScreen} options={{ headerShown: false }} />
@@ -27,6 +27,7 @@ const AppNavigator = () => {
         <Stack.Screen name="Dashboard" component={DashboardScreen} options={{ headerShown: false }} />
         <Stack.Screen name="MyBookings" component={MyBookingsScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Logout" component={LogoutScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="PaymentScreen" component={PaymentScreen} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

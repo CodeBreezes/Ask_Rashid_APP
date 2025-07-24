@@ -10,6 +10,9 @@ import MainLayout from '../components/MainLayout';
 import styles from '../styles/BookingScreen.styles';
 import { postBooking } from '../api/bookingApi';
 import { useNavigation } from '@react-navigation/native';
+import uuid from 'react-native-uuid';
+
+
 
 const BookingScreen = () => {
   const [name, setName] = useState('');
@@ -28,7 +31,8 @@ const BookingScreen = () => {
   const [selectedServiceDescription, setSelectedServiceDescription] = useState('');
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
-
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const serviceApiUrl = 'http://appointment.bitprosofttech.com/api/Services';
   const serviceDetailsApiUrl = 'http://appointment.bitprosofttech.com/api/Services/api/services/GetAllServices';
 
@@ -51,7 +55,7 @@ const BookingScreen = () => {
 
   useEffect(() => {
     axios.get(serviceApiUrl)
-      .then((res) => setServices(res.data)) // Load all services
+      .then((res) => setServices(res.data))
       .catch(() => Alert.alert('Error', 'Unable to load basic services'));
 
     axios.get(serviceDetailsApiUrl)
@@ -61,22 +65,34 @@ const BookingScreen = () => {
     const fetchUserData = async () => {
       const fullName = await AsyncStorage.getItem('customerFullName');
       const id = await AsyncStorage.getItem('userId');
+      const email = await AsyncStorage.getItem('email');
+      const phone = await AsyncStorage.getItem('phone');
+
       if (fullName) setName(fullName);
       if (id) setUserId(id);
+      if (email) setEmail(email);
+      if (phone) setPhone(phone);
     };
 
     fetchUserData();
   }, []);
 
-  const handleBooking = async () => {
+
+  const handlePaymentBooking = async () => {
     if (!serviceId || !userId || !topic.trim()) {
       Alert.alert('Error', 'Please fill in all required fields.');
       return;
     }
-
+    setLoading(true);
     const startedDate = date.toISOString().split('T')[0];
     const startedTime = time.toTimeString().split(' ')[0] + '.' + String(time.getMilliseconds()).padStart(3, '0');
 
+    const bookingId = `BK-${uuid.v4()}`;
+
+
+    const selectedService = services.find(s => s.uniqueId === serviceId);
+    const amount = selectedService?.cost || 0;
+    debugger;
     const payload = {
       serviceId,
       userId: parseInt(userId),
@@ -84,24 +100,18 @@ const BookingScreen = () => {
       startedTime,
       topic,
       notes,
+      amount,
+      currency: 'AED',
+      customerName: name,
+      email,
+      phoneNumber: phone,
+      stripePaymentIntentId: '',
+      bookingId,
+      createdAt: new Date().toISOString(),
     };
+    console.log('PAYLOAD:', payload);
 
-    try {
-      setLoading(true);
-      await postBooking(payload);
-      Alert.alert('Success', 'Booking submitted successfully!', [
-        {
-          text: 'OK',
-          onPress: () => navigation.navigate('MyBookings'),
-        },
-      ]);
-      setTopic('');
-      setNotes('');
-    } catch (error) {
-      Alert.alert('Error', 'Booking failed. Please try again.');
-    } finally {
-      setLoading(false);
-    }
+    navigation.navigate('PaymentScreen', { bookingData: payload });
   };
 
   const selectedService = services.find(s => s.uniqueId === serviceId);
@@ -255,11 +265,11 @@ const BookingScreen = () => {
               </View>
             </View>
 
-            <TouchableOpacity style={styles.bookButton} onPress={handleBooking} disabled={loading}>
+            <TouchableOpacity style={styles.bookButton} onPress={handlePaymentBooking} disabled={loading}>
               {loading ? (
                 <ActivityIndicator size="small" color="#fff" />
               ) : (
-                <Text style={styles.bookButtonText}>Confirm Booking</Text>
+                <Text style={styles.bookButtonText}>Confirm & Pay</Text>
               )}
             </TouchableOpacity>
           </View>

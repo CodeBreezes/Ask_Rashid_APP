@@ -70,12 +70,13 @@ const LoginScreen = () => {
       const response = await loginUser(payload);
 
       if (response?.status === 200 && response?.data?.isLoginSuccess && response?.data?.token) {
-        const { token, fName, lName, email, userId } = response.data;
+        const { token, fName, lName, email, userId,mobile  } = response.data;
 
         await AsyncStorage.setItem('token', token);
         await AsyncStorage.setItem('userId', userId.toString());
         await AsyncStorage.setItem('customerFullName', `${fName} ${lName}`);
         await AsyncStorage.setItem('email', email);
+        await AsyncStorage.setItem('phone', String(mobile));
 
         showModal('✅ Success', 'You are now logged in!', () => navigation.replace('Dashboard'));
       } else {
