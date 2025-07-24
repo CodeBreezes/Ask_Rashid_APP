@@ -1,4 +1,3 @@
-// screens/PaymentScreen.js
 import React, { useEffect, useState } from 'react';
 import {
   SafeAreaView,
@@ -10,6 +9,7 @@ import {
   ScrollView,
 } from 'react-native';
 import { StripeProvider, useStripe } from '@stripe/stripe-react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRoute, useNavigation } from '@react-navigation/native';
 
 const API_BASE_URL = 'http://appointment.bitprosofttech.com/api/Payment';
@@ -68,21 +68,72 @@ const PaymentInnerScreen = () => {
 
     if (error) {
       Alert.alert('Payment Failed', error.message);
+      setLoading(false);
     } else {
-      Alert.alert('Success', 'Payment successful!');
-      fetchPaymentDetails();
-    }
+      try {
+        const userIdFromStorage = await AsyncStorage.getItem('userId');
+        debugger;
+        // Step 1: Post Booking
+        const bookingPayload = {
+          ...bookingData,
+          userId: parseInt(userIdFromStorage || bookingData.userId),
+          stripePaymentIntentId: paymentIntentId,
+        };
 
-    setLoading(false);
-  };
+        const bookingRes = await fetch(`http://appointment.bitprosofttech.com/api/Bookings`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(bookingPayload),
+        });
 
-  const fetchPaymentDetails = async () => {
-    try {
-      const res = await fetch(`${API_BASE_URL}/get-payment-by-bookingid/${bookingData.bookingId}`);
-      const data = await res.json();
-      setPaymentResult(data);
-    } catch (err) {
-      Alert.alert('Failed to fetch payment details', err.message);
+        if (!bookingRes.ok) throw new Error('Booking failed');
+
+        const res = await fetch(`${API_BASE_URL}/get-payment-by-bookingid/${bookingData.bookingId}`);
+        const paymentData = await res.json();
+
+        debugger;
+        const paymentPayload = {
+          stripePaymentIntentId: paymentData.id,
+          customerName: bookingData.customerName,
+          email: bookingData.email,
+          phoneNumber: bookingData.phoneNumber,
+          amount: bookingData.amount,
+          currency: bookingData.currency,
+          createdAt: new Date().toISOString(),
+          bookingId:  bookingData.bookingId,
+          userId: parseInt(userIdFromStorage || bookingData.userId),
+        };
+        debugger;
+        const paymentRes = await fetch(`${API_BASE_URL}/save-payment`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(paymentPayload),
+        });
+
+        if (!paymentRes.ok) throw new Error('Saving payment failed');
+        const paymentSaved = await paymentRes.json();
+        setPaymentResult(paymentSaved);
+
+        Alert.alert(
+          '🎉 Payment Successful!',
+          'Your booking and payment have been completed successfully.',
+          [
+            {
+              text: 'Go to My Bookings',
+              onPress: () => navigation.navigate('MyBookings'),
+              style: 'default',
+            },
+          ],
+          { cancelable: false }
+        );
+
+      } catch (err) {
+        Alert.alert('Error', err.message);
+      }
+
+      setLoading(false);
     }
   };
 

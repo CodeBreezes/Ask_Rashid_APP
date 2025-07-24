@@ -92,7 +92,6 @@ const BookingScreen = () => {
 
     const selectedService = services.find(s => s.uniqueId === serviceId);
     const amount = selectedService?.cost || 0;
-    debugger;
     const payload = {
       serviceId,
       userId: parseInt(userId),
@@ -109,8 +108,7 @@ const BookingScreen = () => {
       bookingId,
       createdAt: new Date().toISOString(),
     };
-    console.log('PAYLOAD:', payload);
-
+   
     navigation.navigate('PaymentScreen', { bookingData: payload });
   };
 
