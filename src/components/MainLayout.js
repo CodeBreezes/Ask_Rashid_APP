@@ -58,6 +58,7 @@ const MainLayout = ({ title, children }) => {
               <DrawerItem label="🏠   Home" onPress={() => navigateTo('Home')} />
               <DrawerItem label="📋 Book Appointment" onPress={() => navigateTo('BookingScreen')} />
               <DrawerItem label="📝 My Bookings" onPress={() => navigateTo('MyBookings')} />
+                 <DrawerItem label="📝 Payment History" onPress={() => navigateTo('PaymentHistoryScreen')} />
               <DrawerItem label="👤 Change Password" onPress={() => navigateTo('Dashboard')} />
               <DrawerItem label="🚪 Logout"  onPress={() => navigation.navigate('Logout')}/>
             </ScrollView>
