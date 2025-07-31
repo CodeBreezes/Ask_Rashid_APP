@@ -70,7 +70,7 @@ const LoginScreen = () => {
       const response = await loginUser(payload);
 
       if (response?.status === 200 && response?.data?.isLoginSuccess && response?.data?.token) {
-        const { token, fName, lName, email, userId,mobile  } = response.data;
+        const { token, fName, lName, email, userId, mobile } = response.data;
 
         await AsyncStorage.setItem('token', token);
         await AsyncStorage.setItem('userId', userId.toString());
@@ -95,11 +95,10 @@ const LoginScreen = () => {
       setLoading(true);
       const user = await handleGoogleLogin();
 
-  
+
       const storedEmail = await AsyncStorage.getItem('email');
       const storedUserId = await AsyncStorage.getItem('userId');
-      const storedToken = await AsyncStorage.getItem('token');
-
+      const storedToken = await AsyncStorage.getItem('token');  
       if (
         storedEmail &&
         storedToken &&
@@ -155,7 +154,8 @@ const LoginScreen = () => {
           await AsyncStorage.setItem('userId', user.userId.toString());
           await AsyncStorage.setItem('customerFullName', `${user.fName} ${user.lName}`);
           await AsyncStorage.setItem('email', user.email);
-         
+          await AsyncStorage.setItem('phone', googlePhone);
+
           setShowGoogleModal(false);
           showModal('✅ Success', 'You are now logged in With Google!', () =>
             navigation.replace('Dashboard')

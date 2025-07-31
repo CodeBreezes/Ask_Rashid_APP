@@ -67,7 +67,7 @@ const BookingScreen = () => {
       const id = await AsyncStorage.getItem('userId');
       const email = await AsyncStorage.getItem('email');
       const phone = await AsyncStorage.getItem('phone');
-
+debugger;
       if (fullName) setName(fullName);
       if (id) setUserId(id);
       if (email) setEmail(email);
@@ -108,7 +108,7 @@ const BookingScreen = () => {
       bookingId,
       createdAt: new Date().toISOString(),
     };
-   
+
     navigation.navigate('PaymentScreen', { bookingData: payload });
   };
 
@@ -188,7 +188,7 @@ const BookingScreen = () => {
                 <View style={[styles.modalContent, { maxHeight: '85%' }]}>
                   <Text style={styles.modalTitle}>Service Description</Text>
                   <ScrollView style={{ marginBottom: 20 }} showsVerticalScrollIndicator>
-                    <Text style={styles.descriptionText}>
+                    <Text style={{ color: '#222', fontSize: 14, fontWeight: '500', lineHeight: 20 }}>
                       {selectedServiceDescription}
                     </Text>
                   </ScrollView>

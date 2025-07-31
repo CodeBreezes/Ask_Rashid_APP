@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import moment from 'moment';
+import MainLayout from '../components/MainLayout';
 
 const PaymentHistoryScreen = () => {
   const [paymentHistory, setPaymentHistory] = useState([]);
@@ -68,8 +69,9 @@ const PaymentHistoryScreen = () => {
   );
 
   return (
+     <MainLayout title="Payment History">
     <SafeAreaView style={styles.container}>
-      <Text style={styles.heading}>Payment History</Text>
+      
       {loading ? (
         <ActivityIndicator size="large" color="#6200ee" style={{ marginTop: 50 }} />
       ) : paymentHistory.length === 0 ? (
@@ -83,6 +85,7 @@ const PaymentHistoryScreen = () => {
         />
       )}
     </SafeAreaView>
+    </MainLayout>
   );
 };
 

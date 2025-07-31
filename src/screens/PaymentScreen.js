@@ -25,7 +25,11 @@ const PaymentInnerScreen = () => {
   const [paymentIntentId, setPaymentIntentId] = useState(null);
 
   const bookingData = route.params?.bookingData;
-
+debugger;
+  if (!bookingData) {
+    Alert.alert('Error', 'Booking data is missing');
+    return null;
+  }
   const fetchPaymentSheetParams = async () => {
     try {
       const response = await fetch(`${API_BASE_URL}/create-payment-intent`, {
@@ -115,10 +119,10 @@ const PaymentInnerScreen = () => {
         if (!paymentRes.ok) throw new Error('Saving payment failed');
         const paymentSaved = await paymentRes.json();
         setPaymentResult(paymentSaved);
-
+debugger;
         Alert.alert(
-          '🎉 Payment Successful!',
-          'Your booking and payment have been completed successfully.',
+          'Booking confirmed ✅',
+          'Our team will get back to you soon..',
           [
             {
               text: 'Go to My Bookings',
@@ -158,11 +162,6 @@ const PaymentInnerScreen = () => {
       {!loading && paymentResult && (
         <ScrollView style={styles.resultContainer}>
           <Text style={styles.title}>Payment Successful 🎉</Text>
-          {Object.entries(paymentResult).map(([key, value]) => (
-            <Text key={key} style={styles.line}>
-              {key}: {value}
-            </Text>
-          ))}
         </ScrollView>
       )}
     </SafeAreaView>
