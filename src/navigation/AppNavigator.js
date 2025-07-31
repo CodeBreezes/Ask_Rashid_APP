@@ -11,7 +11,9 @@ import DashboardScreen from '../screens/DashboardScreen';
 import MyBookingsScreen from '../screens/MyBookingsScreen';
 import AuthLoadingScreen from '../screens/Auth/AuthLoadingScreen'; 
 import PaymentScreen from '../screens/PaymentScreen';
+import HelpInfoScreen from '../screens/HelpInfoScreen';
 import PaymentHistoryScreen from '../screens/PaymentHistoryScreen';
+
 const Stack = createNativeStackNavigator();
 
 const AppNavigator = () => {
@@ -29,6 +31,7 @@ const AppNavigator = () => {
         <Stack.Screen name="Logout" component={LogoutScreen} options={{ headerShown: false }} />
         <Stack.Screen name="PaymentScreen" component={PaymentScreen} options={{ headerShown: false }} />
          <Stack.Screen name="PaymentHistoryScreen" component={PaymentHistoryScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="HelpInfoScreen" component={HelpInfoScreen} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

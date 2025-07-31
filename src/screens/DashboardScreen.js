@@ -51,7 +51,7 @@ const DashboardScreen = () => {
             <Text style={styles.boxTitle}>Profile</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.box} onPress={() => navigation.navigate('Help')}>
+          <TouchableOpacity style={styles.box} onPress={() => navigation.navigate('HelpInfoScreen')}>
             <AntDesign name="infocirlceo" size={26} color="#7442FF" />
             <Text style={styles.boxTitle}>Help & Info</Text>
           </TouchableOpacity>
