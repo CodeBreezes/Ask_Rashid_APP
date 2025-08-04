@@ -49,7 +49,7 @@ const PaymentHistoryScreen = () => {
       <Text style={styles.service}>{item.serviceName || 'N/A'}</Text>
       <View style={styles.row}>
         <Text style={styles.label}>Amount:</Text>
-        <Text style={styles.value}>₹{item.amount}</Text>
+        <Text style={styles.value}>د.إ {item.amount}</Text>
       </View>
       <View style={styles.row}>
         <Text style={styles.label}>Date:</Text>

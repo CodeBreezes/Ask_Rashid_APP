@@ -1,7 +1,13 @@
 import React from 'react';
 import { Modal, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-const CustomAlertModal = ({ visible, title, message, onClose, onConfirm, confirmText = 'OK' }) => {
+const CustomAlertModal = ({
+  visible,
+  title,
+  message,
+  onConfirm,
+  confirmText = 'OK',
+}) => {
   return (
     <Modal visible={visible} transparent animationType="fade">
       <View style={styles.overlay}>
@@ -9,13 +15,11 @@ const CustomAlertModal = ({ visible, title, message, onClose, onConfirm, confirm
           <Text style={styles.title}>{title}</Text>
           <Text style={styles.message}>{message}</Text>
 
-          <View style={styles.buttons}>
-            {onClose && (
-              <TouchableOpacity style={[styles.button, styles.cancelButton]} onPress={onClose}>
-                <Text style={styles.cancelText}>Cancel</Text>
-              </TouchableOpacity>
-            )}
-            <TouchableOpacity style={[styles.button, styles.confirmButton]} onPress={onConfirm}>
+          <View style={styles.buttonsCentered}>
+            <TouchableOpacity
+              style={[styles.button, styles.confirmButton]}
+              onPress={onConfirm}
+            >
               <Text style={styles.confirmText}>{confirmText}</Text>
             </TouchableOpacity>
           </View>
@@ -55,24 +59,17 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     textAlign: 'center',
   },
-  buttons: {
+  buttonsCentered: {
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
   },
   button: {
     paddingVertical: 10,
-    paddingHorizontal: 16,
-    marginLeft: 10,
+    paddingHorizontal: 20,
     borderRadius: 6,
   },
-  cancelButton: {
-    backgroundColor: '#eee',
-  },
   confirmButton: {
-    backgroundColor: '#7442ff',
-  },
-  cancelText: {
-    color: '#333',
+    backgroundColor: '#0D5EA6',
   },
   confirmText: {
     color: '#fff',

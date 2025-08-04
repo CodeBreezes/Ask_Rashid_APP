@@ -132,7 +132,7 @@ debugger;
             >
               <Text style={styles.dropdownText}>
                 {selectedService
-                  ? `${selectedService.name} - ₹${selectedService.cost}`
+                  ? `${selectedService.name} - د.إ ${selectedService.cost}`
                   : 'Choose a service'}
               </Text>
             </TouchableOpacity>
@@ -158,7 +158,7 @@ debugger;
                       >
                         <View style={styles.serviceRow}>
                           <Text style={styles.serviceName}>{item.name}</Text>
-                          <Text style={styles.serviceCost}>₹{item.cost}</Text>
+                          <Text style={styles.serviceCost}>د.إ {item.cost}</Text>
                         </View>
                         <View style={styles.eyeButtonContainer}>
                           <TouchableOpacity

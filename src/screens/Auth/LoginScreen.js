@@ -80,7 +80,7 @@ const LoginScreen = () => {
 
         showModal('✅ Success', 'You are now logged in!', () => navigation.replace('Dashboard'));
       } else {
-        showModal('Login Failed', response?.data?.errorMessages || 'Invalid login response.');
+        showModal('Login Failed','Incorrect username or password. Please try again.');
       }
     } catch (error) {
       const message = error?.response?.data?.errorMessages || 'Server error. Please try again.';
@@ -112,7 +112,7 @@ const LoginScreen = () => {
       setGoogleUserData(user);
       setShowGoogleModal(true);
     } catch (error) {
-      showModal('Google Sign-In Error', error.message);
+      showModal('Google Sign-In Error', 'Please try again.');
     }
   };
 

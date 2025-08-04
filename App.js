@@ -1,20 +1,41 @@
+// App.js
 import React from 'react';
-import { StatusBar, Platform } from 'react-native';
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { View, Platform, StatusBar } from 'react-native';
+import {
+  SafeAreaProvider,
+  useSafeAreaInsets,
+} from 'react-native-safe-area-context';
 import AppNavigator from './src/navigation/AppNavigator';
+
+function MainLayout({ children }) {
+  const insets = useSafeAreaInsets();
+
+  return (
+    <View
+      style={{
+        flex: 1,
+        paddingTop: insets.top,
+        backgroundColor: '#FFF',
+      }}
+    >
+      {children}
+    </View>
+  );
+}
 
 const App = () => {
   return (
     <SafeAreaProvider>
+      {/* Globally configure status bar */}
       <StatusBar
         barStyle="light-content"
-        backgroundColor={Platform.OS === 'android' ? '#6A5ACD' : 'transparent'}
-        translucent={Platform.OS === 'android'}
+        backgroundColor="#0D5EA6"
+        translucent={false}
       />
 
-      <SafeAreaView style={{ flex: 1, backgroundColor: '#FFF' }} edges={['top']}>
+      <MainLayout>
         <AppNavigator />
-      </SafeAreaView>
+      </MainLayout>
     </SafeAreaProvider>
   );
 };

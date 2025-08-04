@@ -22,14 +22,14 @@ const PaymentInnerScreen = () => {
   const [loading, setLoading] = useState(true);
   const [clientSecret, setClientSecret] = useState(null);
   const [paymentResult, setPaymentResult] = useState(null);
-  const [paymentIntentId, setPaymentIntentId] = useState(null);
 
   const bookingData = route.params?.bookingData;
-debugger;
+
   if (!bookingData) {
     Alert.alert('Error', 'Booking data is missing');
     return null;
   }
+
   const fetchPaymentSheetParams = async () => {
     try {
       const response = await fetch(`${API_BASE_URL}/create-payment-intent`, {
@@ -39,13 +39,11 @@ debugger;
       });
 
       const data = await response.json();
-
-      if (data?.clientSecret) {
+      if (data?.clientSecret && data?.paymentIntentId) {
         setClientSecret(data.clientSecret);
-        const intentId = data.clientSecret.split('_secret')[0];
-        setPaymentIntentId(intentId);
+        bookingData.stripePaymentIntentId = data.paymentIntentId; // ✅ Fix: Store it here
       } else {
-        throw new Error('Client secret not received');
+        throw new Error('Client secret or paymentIntentId not received');
       }
     } catch (error) {
       Alert.alert('Error', error.message);
@@ -76,12 +74,10 @@ debugger;
     } else {
       try {
         const userIdFromStorage = await AsyncStorage.getItem('userId');
-        debugger;
-        // Step 1: Post Booking
+debugger;
         const bookingPayload = {
           ...bookingData,
           userId: parseInt(userIdFromStorage || bookingData.userId),
-          stripePaymentIntentId: paymentIntentId,
         };
 
         const bookingRes = await fetch(`http://appointment.bitprosofttech.com/api/Bookings`, {
@@ -97,7 +93,6 @@ debugger;
         const res = await fetch(`${API_BASE_URL}/get-payment-by-bookingid/${bookingData.bookingId}`);
         const paymentData = await res.json();
 
-        debugger;
         const paymentPayload = {
           stripePaymentIntentId: paymentData.id,
           customerName: bookingData.customerName,
@@ -106,10 +101,10 @@ debugger;
           amount: bookingData.amount,
           currency: bookingData.currency,
           createdAt: new Date().toISOString(),
-          bookingId:  bookingData.bookingId,
+          bookingId: bookingData.bookingId,
           userId: parseInt(userIdFromStorage || bookingData.userId),
         };
-        debugger;
+
         const paymentRes = await fetch(`${API_BASE_URL}/save-payment`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -117,9 +112,10 @@ debugger;
         });
 
         if (!paymentRes.ok) throw new Error('Saving payment failed');
+
         const paymentSaved = await paymentRes.json();
         setPaymentResult(paymentSaved);
-debugger;
+
         Alert.alert(
           'Booking confirmed ✅',
           'Our team will get back to you soon..',
