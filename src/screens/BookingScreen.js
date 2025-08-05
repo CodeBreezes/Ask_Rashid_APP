@@ -67,7 +67,7 @@ const BookingScreen = () => {
       const id = await AsyncStorage.getItem('userId');
       const email = await AsyncStorage.getItem('email');
       const phone = await AsyncStorage.getItem('phone');
-debugger;
+      debugger;
       if (fullName) setName(fullName);
       if (id) setUserId(id);
       if (email) setEmail(email);
@@ -108,7 +108,7 @@ debugger;
       bookingId,
       createdAt: new Date().toISOString(),
     };
-
+debugger;
     navigation.navigate('PaymentScreen', { bookingData: payload });
   };
 
@@ -124,7 +124,7 @@ debugger;
         <ScrollView contentContainerStyle={styles.pageContainer} keyboardShouldPersistTaps="handled">
           <View style={styles.card}>
             <Text style={styles.label}>Welcome, {name}</Text>
-
+            <Text style={styles.label}>Welcome, {name}</Text>
             <Text style={styles.label}>Select Service</Text>
             <TouchableOpacity
               style={styles.dropdownTouchable}

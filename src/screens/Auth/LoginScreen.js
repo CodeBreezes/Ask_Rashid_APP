@@ -18,7 +18,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import styles from '../../styles/Auth/LoginScreen.styles';
 import CustomHeader from '../../components/CustomHeader';
 import CustomAlertModal from '../../components/CustomAlertModal';
-import { loginUser } from '../../api/loginApi';
+import { loginUser, checkEmailExists, getUserByEmail } from '../../api/loginApi';
 import { registerUser } from '../../api/userApi';
 import { configureGoogleSignIn, handleGoogleLogin } from '../../services/googleConfig';
 
@@ -80,7 +80,7 @@ const LoginScreen = () => {
 
         showModal('✅ Success', 'You are now logged in!', () => navigation.replace('Dashboard'));
       } else {
-        showModal('Login Failed','Incorrect username or password. Please try again.');
+        showModal('Login Failed', 'Incorrect username or password. Please try again.');
       }
     } catch (error) {
       const message = error?.response?.data?.errorMessages || 'Server error. Please try again.';
@@ -94,25 +94,40 @@ const LoginScreen = () => {
     try {
       setLoading(true);
       const user = await handleGoogleLogin();
-
-
-      const storedEmail = await AsyncStorage.getItem('email');
-      const storedUserId = await AsyncStorage.getItem('userId');
-      const storedToken = await AsyncStorage.getItem('token');  
-      if (
-        storedEmail &&
-        storedToken &&
-        storedEmail.toLowerCase() === user.email.toLowerCase()
-      ) {
-        return showModal('✅ Success', 'You are now logged in With Google!', () =>
-          navigation.replace('Dashboard')
-        );
+      const emailExists = await checkEmailExists(user.email);
+      const userData = await getUserByEmail(user.email);
+      debugger;
+      try {
+        if (userData?.loginEmail) {
+          await AsyncStorage.setItem('customerFullName', userData.fullName || '');
+          await AsyncStorage.setItem('email', userData.loginEmail || '');
+          await AsyncStorage.setItem('userId', userData.uniqueId.toString());
+          await AsyncStorage.setItem('phone', userData.phoneNumber?.toString() || '');
+        } else {
+          console.warn('userData is missing required fields:', userData);
+        }
+      } catch (error) {
+        console.error('Error storing user data:', error);
       }
+      debugger;
+      if (emailExists) {
 
-      setGoogleUserData(user);
-      setShowGoogleModal(true);
+        if (userData) {
+          return showModal('✅ Success', 'You are now logged in With Google!', () =>
+            navigation.replace('Dashboard')
+          );
+        } else {
+          return showModal('Login Error', 'Something went wrong while verifying login. Please try again.');
+        }
+      } else {
+        setGoogleUserData(user);
+        setShowGoogleModal(true);
+      }
     } catch (error) {
+      console.error(error);
       showModal('Google Sign-In Error', 'Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
