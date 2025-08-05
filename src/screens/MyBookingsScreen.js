@@ -168,7 +168,7 @@ const MyBookingsScreen = () => {
                       </View>
                     </View>
                     <View style={styles.modalInfoItem}>
-                      <MaterialIcons name="event-available" size={16} color="#FF6B6B" />
+                      <MaterialIcons name="event-available" size={16} color="green" />
                       <View style={{ marginLeft: 10 }}>
                         <Text style={styles.modalInfoLabel}>Status</Text>
                         <Text style={styles.modalInfoValue}>Paid</Text>

@@ -103,6 +103,7 @@ debugger;
           createdAt: new Date().toISOString(),
           bookingId: bookingData.bookingId,
           userId: parseInt(userIdFromStorage || bookingData.userId),
+          serviceId: bookingData.serviceId,
         };
 
         const paymentRes = await fetch(`${API_BASE_URL}/save-payment`, {

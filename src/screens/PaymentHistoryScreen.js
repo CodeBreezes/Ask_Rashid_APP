@@ -36,6 +36,7 @@ const PaymentHistoryScreen = () => {
       );
 
       const result = await response.json();
+      debugger;
       setPaymentHistory(result || []);
     } catch (error) {
       console.error('Error fetching payment history:', error);
