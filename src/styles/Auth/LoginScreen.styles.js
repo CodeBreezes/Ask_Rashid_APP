@@ -170,12 +170,12 @@ const styles = StyleSheet.create({
 
   googleSubmitButton: {
     width: '100%',
-    backgroundColor: '#EAA64D',
+    backgroundColor: '#0D5EA6',
     paddingVertical: 14,
     borderRadius: 25,
     alignItems: 'center',
     marginTop: 8,
-    shadowColor: '#6A5ACD',
+    shadowColor: '#0D5EA6',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.3,
     shadowRadius: 5,

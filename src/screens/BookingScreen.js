@@ -108,7 +108,7 @@ const BookingScreen = () => {
       bookingId,
       createdAt: new Date().toISOString(),
     };
-debugger;
+    debugger;
     navigation.navigate('PaymentScreen', { bookingData: payload });
   };
 
@@ -124,7 +124,7 @@ debugger;
         <ScrollView contentContainerStyle={styles.pageContainer} keyboardShouldPersistTaps="handled">
           <View style={styles.card}>
             <Text style={styles.label}>Welcome, {name}</Text>
-            <Text style={styles.label}>Welcome, {name}</Text>
+            <Text style={styles.label}>Please fill out the details to Book Your Service</Text>
             <Text style={styles.label}>Select Service</Text>
             <TouchableOpacity
               style={styles.dropdownTouchable}
@@ -204,8 +204,9 @@ debugger;
 
             <Text style={styles.label}>Enter Topic</Text>
             <TextInput
-              style={styles.input}
+              style={[styles.input, { height: 100, textAlignVertical: 'top' }]}
               placeholder="Enter topic"
+              placeholderTextColor="#888"
               value={topic}
               onChangeText={setTopic}
             />
@@ -216,6 +217,7 @@ debugger;
               placeholder="Additional notes..."
               value={notes}
               onChangeText={setNotes}
+              placeholderTextColor="#888"
               multiline
               numberOfLines={4}
             />

@@ -31,7 +31,7 @@ export default StyleSheet.create({
     tintColor: '#fff',
   },
   headerSpacer: {
-    width: 24, // For balance (if no right icon)
+    width: 24, 
   },
 
   card: {
@@ -53,14 +53,16 @@ export default StyleSheet.create({
     marginTop: 10,
   },
 
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 25,
-    padding: 12,
-    marginBottom: 10,
-    backgroundColor: '#f9f9f9',
-  },
+ input: {
+  borderWidth: 1,
+  borderColor: '#ccc',
+  borderRadius: 25,
+  padding: 12,
+  marginBottom: 10,
+  backgroundColor: '#fff',   
+  color: '#000',              
+},
+
 
   dropdownTouchable: {
     backgroundColor: '#fff',
@@ -89,7 +91,7 @@ export default StyleSheet.create({
   },
 
   bookButton: {
-    backgroundColor: '#EAA64D',
+    backgroundColor: '#0D5EA6',
     padding: 16,
     borderRadius: 25,
     marginTop: 20,

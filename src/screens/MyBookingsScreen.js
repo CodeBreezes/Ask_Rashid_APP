@@ -13,16 +13,30 @@ import axios from 'axios';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-const SERVICE_NAMES = {
-  1: '1 to 1 Live Counseling Session',
-  2: 'Share Your Story',
-  3: 'Book a Talk',
-  4: 'Brand Collaborations',
-};
+
 
 const MyBookingsScreen = () => {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
+    const [serviceMap, setServiceMap] = useState({});
+
+
+const fetchServices = async () => {
+    try {
+      debugger;
+      const response = await axios.get('http://appointment.bitprosofttech.com/api/Services/api/services/GetAllServices');
+      const services = response.data;
+
+      const serviceMapObj = {};
+      services.forEach(service => {
+        serviceMapObj[service.uniqueId] = service.name;
+      });
+
+      setServiceMap(serviceMapObj);
+    } catch (error) {
+      console.error('Failed to fetch services:', error);
+    }
+  };
 
   const fetchBookings = async () => {
     try {
@@ -48,6 +62,7 @@ const MyBookingsScreen = () => {
 
   useEffect(() => {
     fetchBookings();
+    fetchServices();
   }, []);
 
   const formatDate = (dateStr) => {
@@ -75,7 +90,7 @@ const MyBookingsScreen = () => {
       <View style={styles.row}>
         <FontAwesome5 name="wrench" size={18} color="#7442FF" />
         <Text style={styles.label}>Service:</Text>
-        <Text style={styles.value}>{SERVICE_NAMES[item.serviceId] || 'N/A'}</Text>
+       <Text style={styles.value}>{serviceMap[item.serviceId] || 'N/A'}</Text>
       </View>
       <View style={styles.row}>
         <MaterialIcons name="date-range" size={20} color="#7442FF" />
