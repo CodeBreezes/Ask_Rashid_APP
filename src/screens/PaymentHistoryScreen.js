@@ -10,14 +10,36 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import moment from 'moment';
 import MainLayout from '../components/MainLayout';
+import axios from 'axios';
 
 const PaymentHistoryScreen = () => {
   const [paymentHistory, setPaymentHistory] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [serviceMap, setServiceMap] = useState({});
+  const fetchServices = async () => {
+    try {
+      const response = await axios.get(
+        'http://appointment.bitprosofttech.com/api/Services/api/services/GetAllServices'
+      );
+      const services = response.data;
+      const map = {};
+      services.forEach((service) => {
+        map[service.uniqueId] = service.name;
+      });
+      setServiceMap(map);
+    } catch (error) {
+      console.error('Error fetching services:', error);
+    }
+  };
 
   useEffect(() => {
-    fetchPaymentHistory();
+    const initialize = async () => {
+      await fetchServices();
+      await fetchPaymentHistory();
+    };
+    initialize();
   }, []);
+
 
   const fetchPaymentHistory = async () => {
     try {
@@ -36,7 +58,8 @@ const PaymentHistoryScreen = () => {
       );
 
       const result = await response.json();
-      debugger;
+      console.log('Payment History Response:', result);
+  
       setPaymentHistory(result || []);
     } catch (error) {
       console.error('Error fetching payment history:', error);
@@ -47,7 +70,7 @@ const PaymentHistoryScreen = () => {
 
   const renderItem = ({ item }) => (
     <View style={styles.card}>
-      <Text style={styles.service}>{item.serviceName || 'N/A'}</Text>
+      <Text style={styles.service}>{serviceMap[item.serviceId] || 'Unknown Service'}</Text>
       <View style={styles.row}>
         <Text style={styles.label}>Amount:</Text>
         <Text style={styles.value}>د.إ {item.amount}</Text>
@@ -70,22 +93,22 @@ const PaymentHistoryScreen = () => {
   );
 
   return (
-     <MainLayout title="Payment History">
-    <SafeAreaView style={styles.container}>
-      
-      {loading ? (
-        <ActivityIndicator size="large" color="#6200ee" style={{ marginTop: 50 }} />
-      ) : paymentHistory.length === 0 ? (
-        <Text style={styles.noData}>No payment history available.</Text>
-      ) : (
-        <FlatList
-          data={paymentHistory}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={renderItem}
-          contentContainerStyle={styles.list}
-        />
-      )}
-    </SafeAreaView>
+    <MainLayout title="Payment History">
+      <SafeAreaView style={styles.container}>
+
+        {loading ? (
+          <ActivityIndicator size="large" color="#6200ee" style={{ marginTop: 50 }} />
+        ) : paymentHistory.length === 0 ? (
+          <Text style={styles.noData}>No payment history available.</Text>
+        ) : (
+          <FlatList
+            data={paymentHistory}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={renderItem}
+            contentContainerStyle={styles.list}
+          />
+        )}
+      </SafeAreaView>
     </MainLayout>
   );
 };
