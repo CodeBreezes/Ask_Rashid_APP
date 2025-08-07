@@ -58,7 +58,7 @@ const MainLayout = ({ title, children }) => {
               <DrawerItem label="📅 Book Appointment" onPress={() => navigateTo('BookingScreen')} />
               <DrawerItem label="📖 My Bookings" onPress={() => navigateTo('MyBookings')} />
               <DrawerItem label="💳 Payment History" onPress={() => navigateTo('PaymentHistoryScreen')} />
-              <DrawerItem label="🔒 Change Password" onPress={() => navigateTo('Dashboard')} />
+              <DrawerItem label="🔒 Change Password" onPress={() => navigateTo('ChangePasswordScreen')} />
               <DrawerItem label="ℹ️ About Rashid Bahattab" onPress={() => navigateTo('AboutScreen')} />
               <DrawerItem label="❓ Help & Info" onPress={() => navigateTo('HelpInfoScreen')} />
               <DrawerItem label="🚪 Logout" onPress={() => navigation.navigate('Logout')} />

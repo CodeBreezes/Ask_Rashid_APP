@@ -14,6 +14,7 @@ import PaymentScreen from '../screens/PaymentScreen';
 import HelpInfoScreen from '../screens/HelpInfoScreen';
 import PaymentHistoryScreen from '../screens/PaymentHistoryScreen';
 import AboutScreen from '../screens/AboutScreen'; 
+import ChangePasswordScreen from '../screens/Auth/ChangePasswordScreen'
 
 const Stack = createNativeStackNavigator();
 
@@ -34,6 +35,8 @@ const AppNavigator = () => {
          <Stack.Screen name="PaymentHistoryScreen" component={PaymentHistoryScreen} options={{ headerShown: false }} />
         <Stack.Screen name="HelpInfoScreen" component={HelpInfoScreen} options={{ headerShown: false }} />
         <Stack.Screen name="AboutScreen" component={AboutScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="ChangePasswordScreen" component={ChangePasswordScreen} options={{ headerShown: false }} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
