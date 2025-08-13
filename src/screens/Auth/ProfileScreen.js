@@ -56,6 +56,7 @@ const ProfileScreen = () => {
   };
 
   const handleSubmit = async () => {
+   
     if (!firstName || !lastLame || !phoneNumber || !email || !password || !confirmPassword) {
       return showModal('Validation Error', 'All fields are required.');
     }
@@ -75,10 +76,10 @@ const ProfileScreen = () => {
     if (password !== confirmPassword) {
       return showModal('Validation Error', 'Passwords do not match.');
     }
-
+ setLoading(true);
     const payload = {
       firstName,
-      lastLame,
+      lastName,
       phoneNumber,
       email,
       password,
@@ -126,6 +127,8 @@ const ProfileScreen = () => {
     } catch (error) {
       const message = error?.response?.data?.errorMessage || 'Server error. Please try again.';
       showModal('❌ Error', message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -165,7 +168,7 @@ const ProfileScreen = () => {
             style={styles.input}
             placeholder="Last Name"
             placeholderTextColor="#999"
-            value={lastLame}
+            value={lastName}
             onChangeText={setLastLame}
           />
           <TextInput

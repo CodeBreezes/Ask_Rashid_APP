@@ -25,34 +25,34 @@ const DashboardScreen = () => {
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.grid}>
           <TouchableOpacity style={styles.box} onPress={() => navigation.navigate('BookingScreen')}>
-            <MaterialIcons name="record-voice-over" size={26} color="#7442FF" />
+            <MaterialIcons name="record-voice-over" size={26} color="#0D5EA6" />
             <Text style={styles.boxTitle}>Book a Talk</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.box} onPress={() => navigation.navigate('ShareStory')}>
-            <FontAwesome5 name="book-open" size={24} color="#7442FF" />
+            <FontAwesome5 name="book-open" size={24} color="#0D5EA6" />
             <Text style={styles.boxTitle}>Share Your Story</Text>
           </TouchableOpacity>
 
          
 
           <TouchableOpacity style={styles.box} onPress={() => navigation.navigate('Collaboration')}>
-            <FontAwesome5 name="handshake" size={24} color="#7442FF" />
+            <FontAwesome5 name="handshake" size={24} color="#0D5EA6" />
             <Text style={styles.boxTitle}>Collaborations</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.box} onPress={() => navigation.navigate('MyBookings')}>
-            <AntDesign name="calendar" size={26} color="#7442FF" />
+            <AntDesign name="calendar" size={26} color="#0D5EA6" />
             <Text style={styles.boxTitle}>My Bookings</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.box} onPress={() => navigation.navigate('Profile')}>
-            <AntDesign name="user" size={26} color="#7442FF" />
+          <TouchableOpacity style={styles.box} onPress={() => navigation.navigate('UpdateProfileScreen')}>
+            <AntDesign name="user" size={26} color="#0D5EA6" />
             <Text style={styles.boxTitle}>Profile</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.box} onPress={() => navigation.navigate('HelpInfoScreen')}>
-            <AntDesign name="infocirlceo" size={26} color="#7442FF" />
+            <AntDesign name="infocirlceo" size={26} color="#0D5EA6" />
             <Text style={styles.boxTitle}>Help & Info</Text>
           </TouchableOpacity>
         </View>

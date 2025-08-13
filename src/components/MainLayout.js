@@ -62,6 +62,7 @@ const MainLayout = ({ title, children }) => {
               <DrawerItem label="ℹ️ About Rashid Bahattab" onPress={() => navigateTo('AboutScreen')} />
               <DrawerItem label="❓ Help & Info" onPress={() => navigateTo('HelpInfoScreen')} />
               <DrawerItem label="🚪 Logout" onPress={() => navigation.navigate('Logout')} />
+                <DrawerItem label="🚪 ContactUs" onPress={() => navigation.navigate('ContactUsScreen')} />
             </ScrollView>
           </View>
         </TouchableOpacity>

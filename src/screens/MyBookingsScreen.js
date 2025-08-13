@@ -154,21 +154,21 @@ const MyBookingsScreen = () => {
 
                   <View style={styles.modalInfoCard}>
                     <View style={styles.modalInfoItem}>
-                      <FontAwesome5 name="calendar-alt" size={16} color="#FF6B6B" />
+                      <FontAwesome5 name="calendar-alt" size={16} color="#0D5EA6" />
                       <View style={{ marginLeft: 10 }}>
                         <Text style={styles.modalInfoLabel}>Date</Text>
                         <Text style={styles.modalInfoValue}>{formatDate(selectedBooking.startedDate)}</Text>
                       </View>
                     </View>
                     <View style={styles.modalInfoItem}>
-                      <FontAwesome5 name="clock" size={16} color="#FF6B6B" />
+                      <FontAwesome5 name="clock" size={16} color="#0D5EA6" />
                       <View style={{ marginLeft: 10 }}>
                         <Text style={styles.modalInfoLabel}>Time</Text>
                         <Text style={styles.modalInfoValue}>{formatTime(selectedBooking.startedTime)}</Text>
                       </View>
                     </View>
                     <View style={styles.modalInfoItem}>
-                      <MaterialIcons name="event-available" size={16} color="green" />
+                      <MaterialIcons name="event-available" size={16} color="#0D5EA6" />
                       <View style={{ marginLeft: 10 }}>
                         <Text style={styles.modalInfoLabel}>Status</Text>
                         <Text style={styles.modalInfoValue}>Paid</Text>
@@ -214,7 +214,7 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     elevation: 3,
     borderLeftWidth: 5,
-    borderLeftColor: '#FF6B6B',
+    borderLeftColor: '#0D5EA6',
   },
   cardHeader: {
     flexDirection: 'row',
@@ -319,7 +319,7 @@ const styles = StyleSheet.create({
     color: '#333',
     marginBottom: 8,
     borderLeftWidth: 3,
-    borderLeftColor: '#FF6B6B',
+    borderLeftColor: '#0D5EA6',
     paddingLeft: 8,
   },
   sectionText: {

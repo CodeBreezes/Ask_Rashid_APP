@@ -14,6 +14,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { changePassword } from '../../api/userApi';
 import MainLayout from '../../components/MainLayout';
+import Icon from 'react-native-vector-icons/Ionicons'; // 👈 Added for eye icons
 
 const { width } = Dimensions.get('window');
 
@@ -25,7 +26,12 @@ const ChangePasswordScreen = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState('');
-    const [messageType, setMessageType] = useState(null); // 'success' | 'error'
+    const [messageType, setMessageType] = useState(null);
+
+    // 👇 Added states for visibility toggles
+    const [showOld, setShowOld] = useState(false);
+    const [showNew, setShowNew] = useState(false);
+    const [showConfirm, setShowConfirm] = useState(false);
 
     const handleChangePassword = async () => {
         setMessage('');
@@ -110,39 +116,60 @@ const ChangePasswordScreen = () => {
                     ) : null}
 
                     <View style={styles.card}>
+                        {/* Old Password */}
                         <View style={styles.inputGroup}>
                             <Text style={styles.label}>Old Password</Text>
-                            <TextInput
-                                style={styles.input}
-                                secureTextEntry
-                                placeholder="Enter your current password"
-                                placeholderTextColor="#999"
-                                value={oldPassword}
-                                onChangeText={setOldPassword}
-                            />
+                            <View style={styles.inputWrapper}>
+                                <TextInput
+                                    style={styles.input}
+                                    secureTextEntry={!showOld}
+                                    placeholder="Enter your current password"
+                                    placeholderTextColor="#999"
+                                    value={oldPassword}
+                                    onChangeText={setOldPassword}
+                                />
+                                <TouchableOpacity onPress={() => setShowOld(!showOld)} style={styles.eyeIcon}>
+                                    <Icon name={showOld ? 'eye-off' : 'eye'} size={20} color="#666" />
+                                </TouchableOpacity>
+                            </View>
                         </View>
+
+                        {/* New Password */}
                         <View style={styles.inputGroup}>
                             <Text style={styles.label}>New Password</Text>
-                            <TextInput
-                                style={styles.input}
-                                secureTextEntry
-                                placeholder="Create a strong new password"
-                                placeholderTextColor="#999"
-                                value={newPassword}
-                                onChangeText={setNewPassword}
-                            />
+                            <View style={styles.inputWrapper}>
+                                <TextInput
+                                    style={styles.input}
+                                    secureTextEntry={!showNew}
+                                    placeholder="Create a strong new password"
+                                    placeholderTextColor="#999"
+                                    value={newPassword}
+                                    onChangeText={setNewPassword}
+                                />
+                                <TouchableOpacity onPress={() => setShowNew(!showNew)} style={styles.eyeIcon}>
+                                    <Icon name={showNew ? 'eye-off' : 'eye'} size={20} color="#666" />
+                                </TouchableOpacity>
+                            </View>
                         </View>
+
+                        {/* Confirm New Password */}
                         <View style={styles.inputGroup}>
                             <Text style={styles.label}>Confirm New Password</Text>
-                            <TextInput
-                                style={styles.input}
-                                secureTextEntry
-                                placeholder="Confirm your new password"
-                                placeholderTextColor="#999"
-                                value={confirmPassword}
-                                onChangeText={setConfirmPassword}
-                            />
+                            <View style={styles.inputWrapper}>
+                                <TextInput
+                                    style={styles.input}
+                                    secureTextEntry={!showConfirm}
+                                    placeholder="Confirm your new password"
+                                    placeholderTextColor="#999"
+                                    value={confirmPassword}
+                                    onChangeText={setConfirmPassword}
+                                />
+                                <TouchableOpacity onPress={() => setShowConfirm(!showConfirm)} style={styles.eyeIcon}>
+                                    <Icon name={showConfirm ? 'eye-off' : 'eye'} size={20} color="#666" />
+                                </TouchableOpacity>
+                            </View>
                         </View>
+
                         <TouchableOpacity
                             style={[styles.button, loading && styles.buttonDisabled]}
                             onPress={handleChangePassword}
@@ -209,20 +236,29 @@ const styles = StyleSheet.create({
         color: '#333',
         marginBottom: 8,
     },
-    input: {
+    inputWrapper: {
+        flexDirection: 'row',
+        alignItems: 'center',
         backgroundColor: '#f0f4f8',
-        borderRadius: 10,
+        borderRadius: 25,
+        borderWidth: 1,
+        borderColor: '#e2e8f0',
+        paddingRight: 10,
+    },
+    input: {
+        flex: 1,
         paddingHorizontal: 15,
         paddingVertical: 12,
         fontSize: 16,
         color: '#333',
-        borderWidth: 1,
-        borderColor: '#e2e8f0',
+    },
+    eyeIcon: {
+        paddingHorizontal: 6,
     },
     button: {
         backgroundColor: '#4c66f5',
         paddingVertical: 15,
-        borderRadius: 10,
+        borderRadius: 25,
         alignItems: 'center',
         marginTop: 10,
         shadowColor: '#4c66f5',
