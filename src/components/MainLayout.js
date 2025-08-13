@@ -16,16 +16,29 @@ const { width, height } = Dimensions.get('window');
 const MainLayout = ({ title, children }) => {
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [fullName, setFullName] = useState('Guest');
+  const [phone, setPhone] = useState('');
+  const [profileImage, setProfileImage] = useState(null);
   const navigation = useNavigation();
 
   useEffect(() => {
-    const loadName = async () => {
-      const name = await AsyncStorage.getItem('customerFullName');
-      if (name) setFullName(name);
-    };
-    loadName();
-  }, []);
+    const loadUserData = async () => {
+      try {
+        const name = await AsyncStorage.getItem('customerFullName');
+        const phoneNumber = await AsyncStorage.getItem('phone');
+        const imageUrl = await AsyncStorage.getItem('profileImageUrl');
 
+        if (name) setFullName(name);
+        if (phoneNumber) setPhone(phoneNumber);
+        if (imageUrl && imageUrl !== 'null' && imageUrl !== 'undefined') {
+          setProfileImage(imageUrl);
+        }
+      } catch (error) {
+        console.warn('Failed to load user data', error);
+      }
+    };
+
+    loadUserData();
+  }, []);
   const navigateTo = (screen) => {
     setDrawerVisible(false);
     navigation.navigate(screen);
@@ -50,7 +63,7 @@ const MainLayout = ({ title, children }) => {
             <View style={styles.profileContainer}>
               <Image source={require('../assets/rashidprofile.jpg')} style={styles.avatar} />
               <Text style={styles.name}>{fullName}</Text>
-              <Text style={styles.subtitle}>Customer</Text>
+              <Text style={styles.subtitle}>{phone || 'No phone available'}</Text>
             </View>
 
             <ScrollView style={styles.menuContainer}>
@@ -62,7 +75,6 @@ const MainLayout = ({ title, children }) => {
               <DrawerItem label="ℹ️ About Rashid Bahattab" onPress={() => navigateTo('AboutScreen')} />
               <DrawerItem label="❓ Help & Info" onPress={() => navigateTo('HelpInfoScreen')} />
               <DrawerItem label="🚪 Logout" onPress={() => navigation.navigate('Logout')} />
-                <DrawerItem label="🚪 ContactUs" onPress={() => navigation.navigate('ContactUsScreen')} />
             </ScrollView>
           </View>
         </TouchableOpacity>

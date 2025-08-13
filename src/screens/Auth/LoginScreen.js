@@ -14,7 +14,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/Ionicons';
-
+import axios from 'axios';
 import styles from '../../styles/Auth/LoginScreen.styles';
 import CustomHeader from '../../components/CustomHeader';
 import CustomAlertModal from '../../components/CustomAlertModal';
@@ -71,13 +71,21 @@ const LoginScreen = () => {
 
       if (response?.status === 200 && response?.data?.isLoginSuccess && response?.data?.token) {
         const { token, fName, lName, email, userId, mobile } = response.data;
-
         await AsyncStorage.setItem('token', token);
         await AsyncStorage.setItem('userId', userId.toString());
         await AsyncStorage.setItem('customerFullName', `${fName} ${lName}`);
         await AsyncStorage.setItem('email', email);
         await AsyncStorage.setItem('phone', String(mobile));
-
+        try {
+          debugger;
+          const imgRes = await axios.get(`http://appointment.bitprosofttech.com/api/Services/GetUserById?uniqueId=${userId}`);
+           debugger;
+          if (imgRes.status === 200 && imgRes.data?.profileImageUrl) {
+            await AsyncStorage.setItem('profileImageUrl', imgRes.data.profileImageUrl);
+          }
+        } catch (imgErr) {
+          console.warn('Could not fetch profile image', imgErr);
+        }
         showModal('✅ Success', 'You are now logged in!', () => navigation.replace('Dashboard'));
       } else {
         showModal('Login Failed', 'Incorrect username or password. Please try again.');
@@ -92,6 +100,7 @@ const LoginScreen = () => {
 
   const handleGoogleSignIn = async () => {
     try {
+      debugger;
       setLoading(true);
       const user = await handleGoogleLogin();
       const emailExists = await checkEmailExists(user.email);
@@ -103,6 +112,9 @@ const LoginScreen = () => {
           await AsyncStorage.setItem('email', userData.loginEmail || '');
           await AsyncStorage.setItem('userId', userData.uniqueId.toString());
           await AsyncStorage.setItem('phone', userData.phoneNumber?.toString() || '');
+          if (user.photoUrl) {
+            await AsyncStorage.setItem('profileImageUrl', user.photoUrl);
+          }
         } else {
           console.warn('userData is missing required fields:', userData);
         }

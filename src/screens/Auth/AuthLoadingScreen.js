@@ -11,7 +11,6 @@ const AuthLoadingScreen = () => {
       try {
         const token = await AsyncStorage.getItem('token');
         if (token) {
-            debugger;
           navigation.replace('Dashboard');  
         } else {
           navigation.replace('Login');
