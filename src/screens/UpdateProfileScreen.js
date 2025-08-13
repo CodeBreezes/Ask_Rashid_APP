@@ -11,13 +11,12 @@ import {
   ActivityIndicator,
   KeyboardAvoidingView,
   Dimensions,
-  Alert,
 } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage'; // Import AsyncStorage
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { launchImageLibrary } from 'react-native-image-picker';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { Picker } from '@react-native-picker/picker';
-import { showModal } from '../components/CustomAlertModal';
+import CustomAlertModal from '../components/CustomAlertModal';
 import MainLayout from '../components/MainLayout';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -27,6 +26,7 @@ const UpdateProfileScreen = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [dob, setDob] = useState(null);
   const [address, setAddress] = useState('');
   const [gender, setGender] = useState('');
@@ -36,13 +36,27 @@ const UpdateProfileScreen = () => {
   const [fetchLoading, setFetchLoading] = useState(true);
   const [uniqueId, setUniqueId] = useState(null);
 
+  // New state variables to store the initial fetched values
+  const [initialDob, setInitialDob] = useState(null);
+  const [initialGender, setInitialGender] = useState('');
+  const [initialImageUri, setInitialImageUri] = useState(null);
+  const [initialPhoneNumber, setInitialPhoneNumber] = useState('');
+  const [initialEmail, setInitialEmail] = useState('');
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalContent, setModalContent] = useState({ title: '', message: '' });
+
   // API Endpoints
   const API_BASE_URL = 'http://appointment.bitprosofttech.com/api';
   const UPDATE_USER_API = `${API_BASE_URL}/UserAccount/UpdateProfile`;
   const IMAGE_BASE_URL = 'http://appointment.bitprosofttech.com';
 
+  const showModal = (title, message) => {
+    setModalContent({ title, message });
+    setModalVisible(true);
+  };
+
   useEffect(() => {
-    // Call the function to get the user ID and then fetch details
     const loadData = async () => {
       const id = await AsyncStorage.getItem('userId');
       if (id) {
@@ -53,9 +67,9 @@ const UpdateProfileScreen = () => {
         setFetchLoading(false);
       }
     };
-
     loadData();
   }, []);
+
   const fetchUserDetails = async (userId) => {
     try {
       const response = await fetch(`${API_BASE_URL}/Services/GetUserById?uniqueId=${userId}`);
@@ -65,11 +79,20 @@ const UpdateProfileScreen = () => {
         setFirstName(user.firstName);
         setLastName(user.lastName);
         setEmail(user.loginEmail);
+        setPhoneNumber(user.phoneNumber);
+         
         setDob(new Date(user.dateOfBirth));
+        setInitialDob(new Date(user.dateOfBirth));
+
         setAddress(user.address);
+
         setGender(user.gender);
+        setInitialGender(user.gender);
+
         if (user.profileImageUrl) {
-          setProfileImage({ uri: `${IMAGE_BASE_URL}${user.profileImageUrl}` });
+          const imageUri = `${IMAGE_BASE_URL}${user.profileImageUrl}`;
+          setProfileImage({ uri: imageUri });
+          setInitialImageUri(imageUri);
         }
       } else {
         showModal('Error', 'Failed to fetch user data.');
@@ -94,7 +117,7 @@ const UpdateProfileScreen = () => {
   };
 
   const handleSubmit = async () => {
-    if (!firstName || !lastName || !email || !dob || !gender) {
+    if (!firstName || !lastName || !email || !phoneNumber || !dob || !gender) {
       showModal('Error', 'Please fill in all required fields.');
       return;
     }
@@ -105,12 +128,23 @@ const UpdateProfileScreen = () => {
     formData.append('UserId', uniqueId);
     formData.append('FirstName', firstName);
     formData.append('LastName', lastName);
-    formData.append('Email', email);
-    formData.append('DateOfBirth', dob.toISOString());
-    formData.append('Address', address);
-    formData.append('Gender', gender);
+    formData.append('Email', email); 
+    formData.append('phoneNumber', phoneNumber);
+    
+    // Use the stored initial value if the current state is null
+    const dateToSubmit = dob || initialDob;
+    if (dateToSubmit) {
+      formData.append('DateOfBirth', dateToSubmit.toISOString());
+    }
 
-    if (profileImage && profileImage.uri && !profileImage.uri.startsWith(IMAGE_BASE_URL)) {
+    formData.append('Address', address);
+    
+    // Use the stored initial value if the current state is empty
+    const genderToSubmit = gender || initialGender;
+    formData.append('Gender', genderToSubmit);
+
+    // Only append the image if it's a new one, not the one from the database
+    if (profileImage && profileImage.uri && profileImage.uri !== initialImageUri) {
       formData.append('ProfileImage', {
         uri: profileImage.uri,
         name: profileImage.fileName || 'profile.jpg',
@@ -121,18 +155,20 @@ const UpdateProfileScreen = () => {
     try {
       const response = await fetch(UPDATE_USER_API, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
         body: formData,
       });
 
+      if (!response.ok) {
+        const errorData = await response.json();
+        showModal('Update Failed', errorData?.errorMessages?.[0] || 'Something went wrong.');
+        setLoading(false);
+        return;
+      }
+
       const data = await response.json();
-debugger;
 
       if (data?.isUpdated) {
         showModal('✅ Success', 'Your profile has been updated.');
-        // Re-fetch user details to display the updated data
         fetchUserDetails(uniqueId);
       } else {
         showModal('Update Failed', data?.errorMessages?.[0] || 'Something went wrong.');
@@ -201,13 +237,23 @@ debugger;
 
           <Text style={styles.label}>Email</Text>
           <TextInput
-                style={styles.input}
-                value={email}
-                onChangeText={setEmail}
-                placeholder="Enter Email"
-                placeholderTextColor="#999"
-                keyboardType="email-address"
-              />
+            style={styles.input}
+            value={email}
+            onChangeText={setEmail}
+            placeholder="Enter Email"
+            placeholderTextColor="#999"
+            keyboardType="email-address"
+          />
+
+          <Text style={styles.label}>Phone Number</Text>
+          <TextInput
+            style={styles.input}
+            value={phoneNumber}
+            onChangeText={setPhoneNumber}
+            placeholder="Enter Phone Number"
+            placeholderTextColor="#999"
+            keyboardType="phone-pad"
+          />
 
           <View style={styles.row}>
             <View style={styles.column}>
@@ -261,6 +307,12 @@ debugger;
           </TouchableOpacity>
         </ScrollView>
       </KeyboardAvoidingView>
+      <CustomAlertModal
+        visible={modalVisible}
+        title={modalContent.title}
+        message={modalContent.message}
+        onConfirm={() => setModalVisible(false)}
+      />
     </MainLayout>
   );
 };
