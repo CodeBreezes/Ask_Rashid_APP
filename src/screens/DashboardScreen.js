@@ -6,13 +6,10 @@ import {
   StyleSheet,
   Dimensions,
   ScrollView,
+  Image,
 } from 'react-native';
 import MainLayout from '../components/MainLayout';
 import { useNavigation } from '@react-navigation/native';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 const { width } = Dimensions.get('window');
 const boxSize = width / 2.6;
@@ -24,37 +21,67 @@ const DashboardScreen = () => {
     <MainLayout title="Dashboard">
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.grid}>
+
+          {/* Book a Talk */}
           <TouchableOpacity style={styles.box} onPress={() => navigation.navigate('BookingScreen')}>
-            <MaterialIcons name="record-voice-over" size={26} color="#0D5EA6" />
+            <Image
+              source={require('../assets/icons/microphone.png')}
+              style={styles.icon}
+              resizeMode="contain"
+            />
             <Text style={styles.boxTitle}>Book a Talk</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.box} onPress={() => navigation.navigate('ShareStory')}>
-            <FontAwesome5 name="book-open" size={24} color="#0D5EA6" />
-            <Text style={styles.boxTitle}>Share Your Story</Text>
+          {/* Share Your Story */}
+          <TouchableOpacity style={styles.box} onPress={() => navigation.navigate('ContactUsScreen')}>
+            <Image
+              source={require('../assets/icons/chat.png')}
+              style={styles.icon}
+              resizeMode="contain"
+            />
+            <Text style={styles.boxTitle}>ContactUs</Text>
           </TouchableOpacity>
 
-         
-
-          <TouchableOpacity style={styles.box} onPress={() => navigation.navigate('Collaboration')}>
-            <FontAwesome5 name="handshake" size={24} color="#0D5EA6" />
+          {/* Collaborations */}
+          <TouchableOpacity style={styles.box} onPress={() => navigation.navigate('ContactUsScreen')}>
+            <Image
+              source={require('../assets/icons/deal.png')}
+              style={styles.icon}
+              resizeMode="contain"
+            />
             <Text style={styles.boxTitle}>Collaborations</Text>
           </TouchableOpacity>
 
+          {/* My Bookings */}
           <TouchableOpacity style={styles.box} onPress={() => navigation.navigate('MyBookings')}>
-            <AntDesign name="calendar" size={26} color="#0D5EA6" />
+            <Image
+              source={require('../assets/icons/calendar.png')}
+              style={styles.icon}
+              resizeMode="contain"
+            />
             <Text style={styles.boxTitle}>My Bookings</Text>
           </TouchableOpacity>
 
+          {/* Profile */}
           <TouchableOpacity style={styles.box} onPress={() => navigation.navigate('UpdateProfileScreen')}>
-            <AntDesign name="user" size={26} color="#0D5EA6" />
+            <Image
+              source={require('../assets/icons/user.png')}
+              style={styles.icon}
+              resizeMode="contain"
+            />
             <Text style={styles.boxTitle}>Profile</Text>
           </TouchableOpacity>
 
+          {/* Help & Info */}
           <TouchableOpacity style={styles.box} onPress={() => navigation.navigate('HelpInfoScreen')}>
-            <AntDesign name="infocirlceo" size={26} color="#0D5EA6" />
+            <Image
+              source={require('../assets/icons/info.png')}
+              style={styles.icon}
+              resizeMode="contain"
+            />
             <Text style={styles.boxTitle}>Help & Info</Text>
           </TouchableOpacity>
+
         </View>
       </ScrollView>
     </MainLayout>
@@ -84,6 +111,11 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
+  },
+  icon: {
+    width: 30,
+    height: 30,
+    tintColor: '#0D5EA6', // remove if you want original colors
   },
   boxTitle: {
     marginTop: 8,

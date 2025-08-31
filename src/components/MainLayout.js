@@ -10,8 +10,10 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 
 const { width, height } = Dimensions.get('window');
+const BASE_URL = 'http://appointment.bitprosofttech.com'; // ✅ Your backend base
 
 const MainLayout = ({ title, children }) => {
   const [drawerVisible, setDrawerVisible] = useState(false);
@@ -25,12 +27,35 @@ const MainLayout = ({ title, children }) => {
       try {
         const name = await AsyncStorage.getItem('customerFullName');
         const phoneNumber = await AsyncStorage.getItem('phone');
-        const imageUrl = await AsyncStorage.getItem('profileImageUrl');
+        let imageUrl = await AsyncStorage.getItem('profileImageUrl');
+        const userId = await AsyncStorage.getItem('userId');
 
         if (name) setFullName(name);
         if (phoneNumber) setPhone(phoneNumber);
-        if (imageUrl && imageUrl !== 'null' && imageUrl !== 'undefined') {
+
+        // Remove accidental quotes if any
+        if (imageUrl) {
+          imageUrl = imageUrl.replace(/^"|"$/g, '');
+        }
+
+        // If no valid image, fetch from API
+        if ((!imageUrl || imageUrl === 'null' || imageUrl === 'undefined') && userId) {
+          const res = await axios.get(
+            `${BASE_URL}/api/Services/GetUserById?uniqueId=${userId}`
+          );
+          if (res.status === 200 && res.data?.profileImageUrl) {
+            imageUrl = res.data.profileImageUrl;
+          }
+        }
+
+        // ✅ Normalize image URL (prepend BASE_URL if relative)
+        if (imageUrl && !imageUrl.startsWith('http')) {
+          imageUrl = `${BASE_URL}${imageUrl}`;
+        }
+
+        if (imageUrl) {
           setProfileImage(imageUrl);
+          await AsyncStorage.setItem('profileImageUrl', imageUrl);
         }
       } catch (error) {
         console.warn('Failed to load user data', error);
@@ -39,6 +64,7 @@ const MainLayout = ({ title, children }) => {
 
     loadUserData();
   }, []);
+
   const navigateTo = (screen) => {
     setDrawerVisible(false);
     navigation.navigate(screen);
@@ -49,7 +75,10 @@ const MainLayout = ({ title, children }) => {
       {/* HEADER */}
       <View style={styles.headerContainer}>
         <TouchableOpacity onPress={() => setDrawerVisible(true)}>
-          <Image source={require('../assets/menu.png')} style={styles.menuIcon} />
+          <Image
+            source={require('../assets/menu.png')}
+            style={[styles.menuIcon, { tintColor: '#fff' }]}
+          />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>{title}</Text>
         <View style={{ width: 25 }} />
@@ -57,24 +86,66 @@ const MainLayout = ({ title, children }) => {
 
       {/* DRAWER */}
       {drawerVisible && (
-        <TouchableOpacity style={styles.overlay} activeOpacity={1} onPress={() => setDrawerVisible(false)}>
+        <TouchableOpacity
+          style={styles.overlay}
+          activeOpacity={1}
+          onPress={() => setDrawerVisible(false)}
+        >
           <View style={styles.drawer}>
-           
             <View style={styles.profileContainer}>
-              <Image source={require('../assets/rashidprofile.jpg')} style={styles.avatar} />
+              <Image
+                source={
+                  profileImage
+                    ? { uri: profileImage }
+                    : require('../assets/rashidprofile.jpg')
+                }
+                style={styles.avatar}
+              />
               <Text style={styles.name}>{fullName}</Text>
               <Text style={styles.subtitle}>{phone || 'No phone available'}</Text>
             </View>
 
             <ScrollView style={styles.menuContainer}>
-              <DrawerItem label="🏠 Dashboard" onPress={() => navigateTo('Dashboard')} />
-              <DrawerItem label="📅 Book Appointment" onPress={() => navigateTo('BookingScreen')} />
-              <DrawerItem label="📖 My Bookings" onPress={() => navigateTo('MyBookings')} />
-              <DrawerItem label="💳 Payment History" onPress={() => navigateTo('PaymentHistoryScreen')} />
-              <DrawerItem label="🔒 Change Password" onPress={() => navigateTo('ChangePasswordScreen')} />
-              <DrawerItem label="ℹ️ About Rashid Bahattab" onPress={() => navigateTo('AboutScreen')} />
-              <DrawerItem label="❓ Help & Info" onPress={() => navigateTo('HelpInfoScreen')} />
-              <DrawerItem label="🚪 Logout" onPress={() => navigation.navigate('Logout')} />
+              <DrawerItem
+                icon={require('../assets/icons/home.png')}
+                label="Dashboard"
+                onPress={() => navigateTo('Dashboard')}
+              />
+              <DrawerItem
+                icon={require('../assets/icons/home.png')}
+                label="Book Appointment"
+                onPress={() => navigateTo('BookingScreen')}
+              />
+              <DrawerItem
+                icon={require('../assets/icons/calendar.png')}
+                label="My Bookings"
+                onPress={() => navigateTo('MyBookings')}
+              />
+              <DrawerItem
+                icon={require('../assets/icons/credit.png')}
+                label="Payment History"
+                onPress={() => navigateTo('PaymentHistoryScreen')}
+              />
+              <DrawerItem
+                icon={require('../assets/icons/padlock.png')}
+                label="Change Password"
+                onPress={() => navigateTo('ChangePasswordScreen')}
+              />
+              <DrawerItem
+                icon={require('../assets/icons/info.png')}
+                label="About Rashid Bahattab"
+                onPress={() => navigateTo('AboutScreen')}
+              />
+              <DrawerItem
+                icon={require('../assets/icons/question.png')}
+                label="Help & Info"
+                onPress={() => navigateTo('HelpInfoScreen')}
+              />
+              <DrawerItem
+                icon={require('../assets/icons/logout.png')}
+                label="Logout"
+                onPress={() => navigation.navigate('Logout')}
+              />
             </ScrollView>
           </View>
         </TouchableOpacity>
@@ -86,15 +157,16 @@ const MainLayout = ({ title, children }) => {
   );
 };
 
-const DrawerItem = ({ label, onPress }) => (
+const DrawerItem = ({ icon, label, onPress }) => (
   <TouchableOpacity style={styles.menuItem} onPress={onPress}>
+    <Image source={icon} style={styles.menuIconItem} resizeMode="contain" />
     <Text style={styles.label}>{label}</Text>
   </TouchableOpacity>
 );
 
 const styles = StyleSheet.create({
   headerContainer: {
-    height: 55,
+    height: 45,
     backgroundColor: '#0D5EA6',
     flexDirection: 'row',
     alignItems: 'center',
@@ -104,7 +176,7 @@ const styles = StyleSheet.create({
   menuIcon: {
     width: 25,
     height: 25,
-    tintColor: '#fff',
+    tintColor: '#0D5EA6',
   },
   headerTitle: {
     color: '#fff',
@@ -128,16 +200,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingBottom: 20,
     justifyContent: 'space-between',
-  },
-  headerBackground: {
-    position: 'absolute',
-    top: -70,
-    left: -50,
-    width: 300,
-    height: 300,
-    borderRadius: 150,
-    backgroundColor: 'white',
-    zIndex: -1,
   },
   profileContainer: {
     alignItems: 'center',
@@ -165,9 +227,17 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   menuItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
     paddingVertical: 14,
     borderBottomWidth: 0.5,
     borderBottomColor: '#eee',
+  },
+  menuIconItem: {
+    width: 20,
+    height: 20,
+    tintColor: '#0D5EA6',
+    marginRight: 12,
   },
   label: {
     fontSize: 16,
