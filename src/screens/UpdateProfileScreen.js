@@ -80,7 +80,7 @@ const UpdateProfileScreen = () => {
         setLastName(user.lastName);
         setEmail(user.loginEmail);
         setPhoneNumber(user.phoneNumber);
-         
+
         setDob(new Date(user.dateOfBirth));
         setInitialDob(new Date(user.dateOfBirth));
 
@@ -93,6 +93,13 @@ const UpdateProfileScreen = () => {
           const imageUri = `${IMAGE_BASE_URL}${user.profileImageUrl}`;
           setProfileImage({ uri: imageUri });
           setInitialImageUri(imageUri);
+        }
+        await AsyncStorage.setItem('userId', userId.toString());
+        await AsyncStorage.setItem('customerFullName', `${user.firstName} ${user.lastName}`);
+        await AsyncStorage.setItem('email', user.loginEmail || '');
+        await AsyncStorage.setItem('phone', user.phoneNumber ? String(user.phoneNumber) : '');
+        if (imageUri) {
+          await AsyncStorage.setItem('profileImageUrl', user.profileImageUrl);
         }
       } else {
         showModal('Error', 'Failed to fetch user data.');
@@ -117,7 +124,7 @@ const UpdateProfileScreen = () => {
   };
 
   const handleSubmit = async () => {
-    if (!firstName || !lastName || !email || !phoneNumber || !dob || !gender) {
+    if (!firstName || !lastName || !email || !phoneNumber) {
       showModal('Error', 'Please fill in all required fields.');
       return;
     }
@@ -128,9 +135,9 @@ const UpdateProfileScreen = () => {
     formData.append('UserId', uniqueId);
     formData.append('FirstName', firstName);
     formData.append('LastName', lastName);
-    formData.append('Email', email); 
+    formData.append('Email', email);
     formData.append('phoneNumber', phoneNumber);
-    
+
     // Use the stored initial value if the current state is null
     const dateToSubmit = dob || initialDob;
     if (dateToSubmit) {
@@ -138,7 +145,7 @@ const UpdateProfileScreen = () => {
     }
 
     formData.append('Address', address);
-    
+
     // Use the stored initial value if the current state is empty
     const genderToSubmit = gender || initialGender;
     formData.append('Gender', genderToSubmit);

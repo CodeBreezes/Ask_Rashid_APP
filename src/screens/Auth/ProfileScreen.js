@@ -25,7 +25,7 @@ const ProfileScreen = () => {
 
   const [profileImageUri, setProfileImageUri] = useState(null);
   const [firstName, setFirstName] = useState('');
-  const [lastLame, setLastLame] = useState('');
+  const [lastName, setLastName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -169,7 +169,7 @@ const ProfileScreen = () => {
             placeholder="Last Name"
             placeholderTextColor="#999"
             value={lastName}
-            onChangeText={setLastLame}
+            onChangeText={setLastName}
           />
           <TextInput
             style={styles.input}

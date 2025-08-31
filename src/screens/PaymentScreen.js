@@ -167,7 +167,7 @@ debugger;
 
 export default function PaymentScreenWrapper() {
   return (
-    <StripeProvider publishableKey="pk_test_51RYkoFP0IEEQYhPOMWhlS8I0qRN1JD2h4B2PpRJCiK1E0i1UDh2iNhRh0yOFm29mwTLh2H02VcucxOXnwKNWgXtv00I4LcFPWn">
+    <StripeProvider publishableKey="pk_test_51RxwU0RzXoJ7ZFZb0LyMaXbIcsNaUJLkJpfI69IGYnD1kNiCL9KpFaGAojgCPMRD9r0xzWR8ReBwCwU8ChAxdg7v00Eplb6J6t">
       <PaymentInnerScreen />
     </StripeProvider>
   );
