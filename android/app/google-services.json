@@ -14,11 +14,35 @@
       },
       "oauth_client": [
         {
+          "client_id": "204813832132-anh42o50nrqu6cgg2fetgonem5iih807.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.askrashidapk",
+            "certificate_hash": "7abd3c87581748ca916905a9b740cd5869cce846"
+          }
+        },
+        {
+          "client_id": "204813832132-lmog1tne0lp2dlkhrsksdafoka7i2ds5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.askrashidapk",
+            "certificate_hash": "fbbc4b45e5809b1c4d340d1263b2b3aaaf6029fd"
+          }
+        },
+        {
           "client_id": "204813832132-tag9mq9ngdk7bgqloauj2fllpvlooie8.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.askrashidapk",
             "certificate_hash": "2567e0ad7c5bb4933920d68a45c7ec57f6fdcf81"
+          }
+        },
+        {
+          "client_id": "204813832132-vd2g6q7npcioiufij9b4msto5i46qsag.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.askrashidapk",
+            "certificate_hash": "d6dbaf093ae86d07b8fea83c99e9910480cdd0e7"
           }
         },
         {
@@ -37,6 +61,13 @@
             {
               "client_id": "204813832132-gov8tj7qp66aj5m8oj1ss7sgpigt9rm2.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "204813832132-ni1dsoksqc3r9e22rg0cbkk9ia56unff.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.askrashidapk"
+              }
             }
           ]
         }

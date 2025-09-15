@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
-  SafeAreaView,
   ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
@@ -14,11 +13,10 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import CustomAlertModal from '../components/CustomAlertModal';  
-import AntDesign from 'react-native-vector-icons/AntDesign';  
+import CustomAlertModal from '../components/CustomAlertModal';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import MainLayout from '../components/MainLayout';
-
-
+import { useRoute } from '@react-navigation/native';
 
 const StyledDropdown = ({ label, items, selectedValue, onSelect, placeholder = "Select an option" }) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -67,6 +65,9 @@ const StyledDropdown = ({ label, items, selectedValue, onSelect, placeholder = "
 };
 
 const ContactUsScreen = () => {
+  const route = useRoute();
+  const defaultCategory = route.params?.defaultCategory || '';
+
   const [userId, setUserId] = useState('');
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
@@ -93,6 +94,11 @@ const ContactUsScreen = () => {
       setUserId(id || '');
       setFullName(name || '');
       setEmail(emailStored || '');
+
+      // Set default category if passed
+      if (defaultCategory) {
+        setCategory(defaultCategory);
+      }
     })();
   }, []);
 
@@ -147,7 +153,7 @@ const ContactUsScreen = () => {
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       >
         <ScrollView contentContainerStyle={styles.container}>
-          
+
           <Text style={styles.subHeaderText}>
             Please fill out the form below and we'll get back to you as soon as possible.
           </Text>
@@ -212,39 +218,23 @@ const ContactUsScreen = () => {
         visible={modalVisible}
         title={modalContent.title}
         message={modalContent.message}
-        onConfirm={() => setModalVisible(false)} // Changed from 'onClose' to 'onConfirm'
+        onConfirm={() => setModalVisible(false)}
       />
-     </MainLayout>
+
+    </MainLayout>
   );
 };
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: '#F7F9FC',
-  },
-  keyboardAvoidingView: {
-    flex: 1,
-  },
-  container: {
-    padding: 24,
-  },
-  headerText: {
-    fontSize: 26,
-    fontWeight: 'bold',
-    color: '#1C2E49',
-    marginBottom: 8,
-    textAlign: 'center',
-  },
+  keyboardAvoidingView: { flex: 1 },
+  container: { padding: 24 },
   subHeaderText: {
     fontSize: 16,
     color: '#6E7C8B',
     marginBottom: 24,
     textAlign: 'center',
   },
-  inputGroup: {
-    marginBottom: 20,
-  },
+  inputGroup: { marginBottom: 20 },
   label: {
     fontSize: 16,
     fontWeight: '600',
@@ -265,15 +255,8 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     elevation: 2,
   },
-  inputDisabled: {
-    backgroundColor: '#EAEFF4',
-    color: '#6E7C8B',
-  },
-  textArea: {
-    height: 120,
-    paddingTop: 14,
-  },
-  // Custom Dropdown Styles
+  inputDisabled: { backgroundColor: '#EAEFF4', color: '#6E7C8B' },
+  textArea: { height: 120, paddingTop: 14 },
   dropdownButton: {
     backgroundColor: '#FFFFFF',
     borderWidth: 1,
@@ -289,14 +272,8 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     elevation: 2,
   },
-  dropdownText: {
-    fontSize: 16,
-    color: '#333',
-  },
-  dropdownPlaceholder: {
-    fontSize: 16,
-    color: '#999',
-  },
+  dropdownText: { fontSize: 16, color: '#333' },
+  dropdownPlaceholder: { fontSize: 16, color: '#999' },
   modalOverlay: {
     flex: 1,
     backgroundColor: 'rgba(0, 0, 0, 0.5)',

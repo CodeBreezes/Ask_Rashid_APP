@@ -42,8 +42,10 @@ const DashboardScreen = () => {
             <Text style={styles.boxTitle}>ContactUs</Text>
           </TouchableOpacity>
 
-          {/* Collaborations */}
-          <TouchableOpacity style={styles.box} onPress={() => navigation.navigate('ContactUsScreen')}>
+          <TouchableOpacity
+            style={styles.box}
+            onPress={() => navigation.navigate('ContactUsScreen', { defaultCategory: 'BrandCollaboration' })}
+          >
             <Image
               source={require('../assets/icons/deal.png')}
               style={styles.icon}
@@ -51,6 +53,7 @@ const DashboardScreen = () => {
             />
             <Text style={styles.boxTitle}>Collaborations</Text>
           </TouchableOpacity>
+
 
           {/* My Bookings */}
           <TouchableOpacity style={styles.box} onPress={() => navigation.navigate('MyBookings')}>
