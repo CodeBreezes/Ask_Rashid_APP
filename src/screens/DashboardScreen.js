@@ -39,20 +39,23 @@ const DashboardScreen = () => {
               style={styles.icon}
               resizeMode="contain"
             />
-            <Text style={styles.boxTitle}>ContactUs</Text>
+            <Text style={styles.boxTitle}>Contact Us</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.box}
-            onPress={() => navigation.navigate('ContactUsScreen', { defaultCategory: 'BrandCollaboration' })}
+            onPress={() =>
+              navigation.navigate('ContactUsScreen', { defaultCategory: 'Brand Collaboration' })
+            }
           >
             <Image
               source={require('../assets/icons/deal.png')}
               style={styles.icon}
               resizeMode="contain"
             />
-            <Text style={styles.boxTitle}>Collaborations</Text>
+            <Text style={styles.boxTitle}>Collaboration</Text>
           </TouchableOpacity>
+
 
 
           {/* My Bookings */}
