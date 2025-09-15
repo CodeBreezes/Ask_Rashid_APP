@@ -16,7 +16,7 @@ import { useNavigation } from '@react-navigation/native';
 
 
 const HelpInfoScreen = () => {
-const navigation = useNavigation();
+  const navigation = useNavigation();
 
   const openPhone = () => Linking.openURL('tel:+971505706200');
   const openWhatsApp = () => Linking.openURL('https://wa.me/971505706200');
@@ -99,6 +99,11 @@ const navigation = useNavigation();
             <Text style={styles.paragraph}>
               We value your privacy. All your personal and payment details are stored securely and are not shared with any third parties.
             </Text>
+            <TouchableOpacity onPress={() => Linking.openURL('http://appointment.bitprosofttech.com/service/PrivacyPolicy')}>
+              <Text style={[styles.paragraph, { color: 'blue', textDecorationLine: 'underline' }]}>
+                Privacy Policy
+              </Text>
+            </TouchableOpacity>
           </View>
         </ScrollView>
       </SafeAreaView>

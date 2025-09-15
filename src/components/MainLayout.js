@@ -112,7 +112,7 @@ const MainLayout = ({ title, children }) => {
                 onPress={() => navigateTo('Dashboard')}
               />
               <DrawerItem
-                icon={require('../assets/icons/home.png')}
+                icon={require('../assets/icons/booking.png')}
                 label="Book Appointment"
                 onPress={() => navigateTo('BookingScreen')}
               />
