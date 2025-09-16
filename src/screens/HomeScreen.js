@@ -4,19 +4,35 @@ import {
   Text,
   Image,
   TouchableOpacity,
-  ScrollView
+  ScrollView,
+  Linking,
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import styles from '../styles/HomeScreen.styles'; 
+import styles from '../styles/HomeScreen.styles';
 
+// Social media links
+const socialLinks = [
+  { name: 'tiktok', type: 'image', url: 'https://tiktok.com/@rashid.bahattab', source: require('../assets/icons/tik-tok.png') },
+  { name: 'instagram', type: 'font', url: 'https://instagr.am/rashid.bahattab', color: '#C13584' },
+  { name: 'youtube', type: 'font', url: 'https://youtube.com/rashidbahattab', color: '#FF0000' },
+  { name: 'linkedin', type: 'font', url: 'https://ae.linkedin.com/in/rashid-bahattab-84127a88', color: '#0077B5' },
+  { name: 'twitter', type: 'font', url: 'https://x.com/rashid.bahattab', color: '#1DA1F2' },
+  { name: 'snapchat', type: 'font', url: 'https://snapchat.com/add/rashidbahattab', color: '#FFFC00' },
+  { name: 'globe', type: 'font', url: 'https://rashidbahattab.com/who-is-rashid', color: '#7442ff' },
+  { name: 'facebook', type: 'font', url: 'https://facebook.com/rashid.ad.7587', color: '#3b5998' },
+];
+
+const openLink = (url) => {
+  Linking.openURL(url).catch((err) => console.error('Failed to open URL:', err));
+};
 
 const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.screen}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <Image
-          source={require('../assets/rashidprofile.jpg')} 
+          source={require('../assets/rashidprofile.jpg')}
           style={styles.profileImage}
           resizeMode="cover"
         />
@@ -36,13 +52,30 @@ const HomeScreen = ({ navigation }) => {
 
           <Text style={styles.sectionTitle}>About</Text>
           <Text style={styles.description}>
-            Rashid offers transformative services including 1:1 lifestyle coaching,
-            story-sharing features on his platforms, motivational event speaking,
-            and brand collaborations – all designed to empower his community
-            through authentic connection.
+          Rashid, an Emirati public figure from Abu Dhabi, UAE, offers transformative services including 1:1 lifestyle coaching, story-sharing features on his platforms, motivational event speaking, and brand collaborations — all designed to empower his community through authentic connection.
           </Text>
 
-          <Text style={styles.role}>Social Media Influencer</Text>
+          {/* Social Media Icons Section */}
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around', marginVertical: 16 }}>
+            {socialLinks.map((item, index) => (
+              <TouchableOpacity key={index} onPress={() => openLink(item.url)}>
+                {item.type === 'font' ? (
+                  <FontAwesome
+                    name={item.name}
+                    size={28}
+                    color={item.color}
+                    style={{ marginHorizontal: 12, marginVertical: 8 }}
+                  />
+                ) : (
+                  <Image
+                    source={item.source}
+                    style={{ width: 32, height: 32, marginHorizontal: 12, marginVertical: 8 }}
+                    resizeMode="contain"
+                  />
+                )}
+              </TouchableOpacity>
+            ))}
+          </View>
 
           <TouchableOpacity
             style={styles.button}
