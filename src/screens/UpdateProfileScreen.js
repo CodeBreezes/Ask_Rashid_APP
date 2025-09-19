@@ -261,7 +261,7 @@ const UpdateProfileScreen = () => {
               <Text style={styles.label}>Gender</Text>
               {showGenderDropdown ? (
                 <View style={styles.dropdownContainer}>
-                  {['Male', 'Female', 'Other'].map((option) => (
+                  {['Male', 'Female', 'Prefer Not to Say'].map((option) => (
                     <TouchableOpacity
                       key={option}
                       style={styles.dropdownItem}
@@ -335,7 +335,7 @@ const styles = StyleSheet.create({
     bottom: 5,
     right: 5,
     backgroundColor: '#0D5EA6',
-    borderRadius: 20,
+    borderRadius: 25,
     width: 40,
     height: 40,
     justifyContent: 'center',
@@ -349,7 +349,7 @@ const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
     borderColor: '#ddd',
-    borderRadius: 10,
+    borderRadius: 25,
     paddingHorizontal: 16,
     paddingVertical: Platform.OS === 'ios' ? 16 : 12,
     backgroundColor: '#fff',
@@ -361,7 +361,7 @@ const styles = StyleSheet.create({
   genderDisplay: {
     borderWidth: 1,
     borderColor: '#ddd',
-    borderRadius: 10,
+    borderRadius: 25,
     paddingHorizontal: 16,
     paddingVertical: 14,
     backgroundColor: '#fff',
@@ -373,7 +373,7 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: '#0D5EA6',
     paddingVertical: 16,
-    borderRadius: 10,
+    borderRadius: 25,
     marginTop: 40,
     alignItems: 'center',
     width: '100%',

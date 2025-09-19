@@ -18,9 +18,17 @@ const PaymentHistoryScreen = () => {
   const [serviceMap, setServiceMap] = useState({});
   const fetchServices = async () => {
     try {
+      const token = await AsyncStorage.getItem('token');
       const response = await axios.get(
-        'http://appointment.bitprosofttech.com/api/Services/api/services/GetAllServices'
+        'http://appointment.bitprosofttech.com/api/Services/api/services/GetAllServices',
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        }
       );
+
       const services = response.data;
       const map = {};
       services.forEach((service) => {
@@ -123,7 +131,7 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   heading: {
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 10,
     color: '#6200ee',

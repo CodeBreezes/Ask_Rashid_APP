@@ -54,28 +54,46 @@ const BookingScreen = () => {
   };
 
   useEffect(() => {
-    axios.get(serviceApiUrl)
+  const fetchData = async () => {
+    try {
+      const token = await AsyncStorage.getItem('token');
+      if (!token) {
+        Alert.alert('Error', 'Session Expired. Please login again.');
+        return;
+      }
+
+      // ✅ Fetch Basic Services
+      axios.get(serviceApiUrl, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((res) => setServices(res.data))
       .catch(() => Alert.alert('Error', 'Unable to load basic services'));
 
-    axios.get(serviceDetailsApiUrl)
+      // ✅ Fetch Detailed Services
+      axios.get(serviceDetailsApiUrl, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((res) => setDetailedServices(res.data))
       .catch(() => Alert.alert('Error', 'Unable to load service descriptions'));
 
-    const fetchUserData = async () => {
+      // ✅ Fetch User Data from AsyncStorage
       const fullName = await AsyncStorage.getItem('customerFullName');
       const id = await AsyncStorage.getItem('userId');
       const email = await AsyncStorage.getItem('email');
       const phone = await AsyncStorage.getItem('phone');
-      debugger;
+
       if (fullName) setName(fullName);
       if (id) setUserId(id);
       if (email) setEmail(email);
       if (phone) setPhone(phone);
-    };
+    } catch (error) {
+      console.error('Error in useEffect:', error);
+    }
+  };
 
-    fetchUserData();
-  }, []);
+  fetchData();
+}, []);
+
 
 
   const handlePaymentBooking = async () => {

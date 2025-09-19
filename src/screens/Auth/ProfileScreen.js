@@ -112,9 +112,9 @@ const ProfileScreen = () => {
         ) {
           
           showModal(
-            'Registration Successful',
-            'Please Login!',
-            'Login',
+            '✅ Success',
+            'Your Form has been Submitted successfully',
+            'OK',
             () => {
               setModalVisible(false);
               navigation.replace('Login');
@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
   cardContainer: {
     width: '100%',
     backgroundColor: '#fff',
-    borderRadius: 20,
+    borderRadius: 25,
     padding: 20,
     alignItems: 'center',
     ...Platform.select({
@@ -305,7 +305,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 55,
     backgroundColor: '#4285f4',
-    borderRadius: 10,
+    borderRadius: 25,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 10,

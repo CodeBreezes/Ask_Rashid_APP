@@ -32,9 +32,13 @@ const PaymentInnerScreen = () => {
 
   const fetchPaymentSheetParams = async () => {
     try {
+      const token = await AsyncStorage.getItem('token');
       const response = await fetch(`${API_BASE_URL}/create-payment-intent`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
         body: JSON.stringify(bookingData),
       });
 
@@ -74,23 +78,34 @@ const PaymentInnerScreen = () => {
     } else {
       try {
         const userIdFromStorage = await AsyncStorage.getItem('userId');
-debugger;
         const bookingPayload = {
           ...bookingData,
           userId: parseInt(userIdFromStorage || bookingData.userId),
         };
-
+        const token = await AsyncStorage.getItem('token');
         const bookingRes = await fetch(`http://appointment.bitprosofttech.com/api/Bookings`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
           },
           body: JSON.stringify(bookingPayload),
         });
 
         if (!bookingRes.ok) throw new Error('Booking failed');
 
-        const res = await fetch(`${API_BASE_URL}/get-payment-by-bookingid/${bookingData.bookingId}`);
+        const res = await fetch(
+          `${API_BASE_URL}/get-payment-by-bookingid/${bookingData.bookingId}`,
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (!res.ok) throw new Error('Fetching payment by bookingId failed');
         const paymentData = await res.json();
 
         const paymentPayload = {
@@ -108,7 +123,10 @@ debugger;
 
         const paymentRes = await fetch(`${API_BASE_URL}/save-payment`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+          },
           body: JSON.stringify(paymentPayload),
         });
 
@@ -167,7 +185,7 @@ debugger;
 
 export default function PaymentScreenWrapper() {
   return (
-    <StripeProvider publishableKey="pk_test_51RxwU0RzXoJ7ZFZb0LyMaXbIcsNaUJLkJpfI69IGYnD1kNiCL9KpFaGAojgCPMRD9r0xzWR8ReBwCwU8ChAxdg7v00Eplb6J6t">
+    <StripeProvider publishableKey="pk_test_51S7vZWIutE88E4iRMhuS7JGNNkBygOa1Jasd3RlKf5ZwfZy2Lia52pZ0450KozM0r2AurHXOEnSU0kY03VVCJM6200SBQqQuGt">
       <PaymentInnerScreen />
     </StripeProvider>
   );

@@ -52,24 +52,30 @@ const HomeScreen = ({ navigation }) => {
 
           <Text style={styles.sectionTitle}>About</Text>
           <Text style={styles.description}>
-          Rashid, an Emirati public figure from Abu Dhabi, UAE, offers transformative services including 1:1 lifestyle coaching, story-sharing features on his platforms, motivational event speaking, and brand collaborations — all designed to empower his community through authentic connection.
+            Rashid, an Emirati public figure from Abu Dhabi, UAE, offers transformative services including 1:1 lifestyle coaching, story-sharing features on his platforms, motivational event speaking, and brand collaborations — all designed to empower his community through authentic connection.
           </Text>
 
-          {/* Social Media Icons Section */}
-          <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around', marginVertical: 16 }}>
+          {/* Updated Social Media Icons Section */}
+          <View style={{
+            flexDirection: 'row',
+            flexWrap: 'nowrap',
+            justifyContent: 'space-between',
+            marginVertical: 16,
+            flexShrink: 1,
+          }}>
             {socialLinks.map((item, index) => (
               <TouchableOpacity key={index} onPress={() => openLink(item.url)}>
                 {item.type === 'font' ? (
                   <FontAwesome
                     name={item.name}
-                    size={28}
+                    size={20}
                     color={item.color}
-                    style={{ marginHorizontal: 12, marginVertical: 8 }}
+                    style={{ marginHorizontal: 10 }}
                   />
                 ) : (
                   <Image
                     source={item.source}
-                    style={{ width: 32, height: 32, marginHorizontal: 12, marginVertical: 8 }}
+                    style={{ width: 24, height: 24, marginHorizontal: 0 }}
                     resizeMode="contain"
                   />
                 )}

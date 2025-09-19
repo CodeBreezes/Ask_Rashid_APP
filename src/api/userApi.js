@@ -5,7 +5,10 @@ const BASE_URL = 'http://appointment.bitprosofttech.com/api/UserAccount';
 export const registerUser = async (payload) => {
   try {
     const response = await axios.post(`${BASE_URL}/UserRegistration`, payload, {
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+       },
     });
     return response;
   } catch (error) {

@@ -25,9 +25,21 @@ const MyBookingsScreen = () => {
 
   const fetchServices = async () => {
     try {
+      const token = await AsyncStorage.getItem('token');
+      if (!token) {
+        Alert.alert('Session Expired', 'Please login again.', [
+          { text: 'OK', onPress: () => navigation.replace('Login') },
+        ]);
+        return;
+      }
+
       const response = await axios.get(
-        'http://appointment.bitprosofttech.com/api/Services/api/services/GetAllServices'
+        'http://appointment.bitprosofttech.com/api/Services/api/services/GetAllServices',
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
       );
+
       const services = response.data;
       const serviceMapObj = {};
       services.forEach((service) => {
@@ -223,7 +235,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   cardTitle: {
-    fontSize: 18,
+    fontSize: 15,
     fontWeight: 'bold',
     color: '#333',
   },
@@ -284,7 +296,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   modalTitle: {
-    fontSize: 24,
+    fontSize: 18,
     fontWeight: 'bold',
     color: '#333',
   },

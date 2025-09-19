@@ -20,7 +20,7 @@ export default StyleSheet.create({
   },
   content: {
     paddingHorizontal: 10,
-    paddingVertical: 5,
+    paddingVertical: 25,
     backgroundColor: '#f7f4ff',
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
@@ -71,7 +71,7 @@ export default StyleSheet.create({
     backgroundColor: '#0D5EA6',
     paddingVertical: 16,
     borderRadius: 25,
-    marginTop: 15,
+    marginTop: 10,
     alignItems: 'center',
   },
   buttonText: {

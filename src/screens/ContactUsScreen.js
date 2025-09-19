@@ -83,7 +83,7 @@ const ContactUsScreen = () => {
       );
 
       if (res.status === 200 || res.status === 201) {
-        showModal('✅ Success', 'Your feedback has been submitted successfully.');
+        showModal('✅ Success', 'Your Form has been submitted successfully.');
         if (!isCategoryReadonly) setCategory('');
         setMessage('');
       } else {
@@ -216,20 +216,22 @@ const styles = StyleSheet.create({
     backgroundColor: '#EAEFF4',
     color: '#6E7C8B',
   },
-  pickerContainer: {
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: '#E0E6ED',
-  },
-  picker: {
-    height: 50,
-    width: '100%',
-  },
+ pickerContainer: {
+  backgroundColor: '#fff',
+  borderRadius: 25,
+  borderWidth: 1,
+  borderColor: '#E0E6ED',
+},
+
+picker: {
+  height: 50,
+  width: '100%',
+  color: '#333',
+},
   readonlyText: {
     padding: 14,
     backgroundColor: '#e9ecef',
-    borderRadius: 12,
+    borderRadius: 25,
     fontSize: 16,
     color: '#555',
   },
