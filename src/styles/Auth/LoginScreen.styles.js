@@ -46,11 +46,12 @@ const styles = StyleSheet.create({
   forgotPasswordContainer: {
     alignItems: 'flex-end',
     marginTop: 10,
+    color: '#0D5EA6',
   },
 
   forgotPasswordText: {
     fontSize: 14,
-    color: '#666',
+    color: 'blue',
   },
 
   loginButton: {

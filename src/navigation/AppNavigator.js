@@ -6,6 +6,7 @@ import HomeScreen from '../screens/HomeScreen';
 import BookingScreen from '../screens/BookingScreen';
 import LoginScreen from '../screens/Auth/LoginScreen';
 import SignupScreen from '../screens/Auth/SignupScreen';
+import ForgotPasswordScreen from '../screens/Auth/ForgotPasswordScreen';
 import ProfileScreen from '../screens/Auth/ProfileScreen';
 import DashboardScreen from '../screens/DashboardScreen';
 import MyBookingsScreen from '../screens/MyBookingsScreen';
@@ -40,6 +41,7 @@ const AppNavigator = () => {
         <Stack.Screen name="ChangePasswordScreen" component={ChangePasswordScreen} options={{ headerShown: false }} /> 
         <Stack.Screen name="UpdateProfileScreen" component={UpdateProfileScreen} options={{ headerShown: false }} /> 
         <Stack.Screen name="ContactUsScreen" component={ContactUsScreen} options={{ headerShown: false }} /> 
+         <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} options={{ headerShown: false }} /> 
       </Stack.Navigator>
     </NavigationContainer>
   );
