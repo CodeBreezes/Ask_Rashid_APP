@@ -22,16 +22,13 @@ const ForgotPasswordScreen = ({ navigation }) => {
     try {
       setLoading(true);
 
-      // Build API URL with query param
       const url = `http://appointment.bitprosofttech.com/api/Services/ForgotPassword?email=${encodeURIComponent(
         email
       )}`;
 
       const res = await fetch(url, {
         method: "POST",
-        headers: {
-          Accept: "application/json",
-        },
+        headers: { Accept: "application/json" },
       });
 
       const data = await res.text();
@@ -39,8 +36,6 @@ const ForgotPasswordScreen = ({ navigation }) => {
 
       if (res.ok) {
         setStep("check");
-
-        // Redirect to Login after 5 seconds
         setTimeout(() => {
           navigation.navigate("Login");
         }, 5000);
@@ -71,15 +66,16 @@ const ForgotPasswordScreen = ({ navigation }) => {
 
       {step === "enter" ? (
         <>
-          <Text style={styles.title}>Forgot password</Text>
+          <Text style={styles.title}>Forgot Password</Text>
           <Text style={styles.subtitle}>
-            Please enter your email to reset the password
+            Please enter your email to reset your password
           </Text>
 
           <Text style={styles.label}>Your Email</Text>
           <TextInput
             style={styles.input}
             placeholder="email@gmail.com"
+            placeholderTextColor="#999"
             value={email}
             onChangeText={setEmail}
             keyboardType="email-address"
@@ -98,7 +94,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
         </>
       ) : (
         <>
-          <Text style={styles.title}>Check your email</Text>
+          <Text style={styles.title}>Check Your Email</Text>
           <Text style={styles.subtitle}>
             We sent a reset link to{" "}
             {email.replace(/(.{2})(.*)(@.*)/, "$1***$3")}
@@ -120,19 +116,25 @@ const ForgotPasswordScreen = ({ navigation }) => {
 export default ForgotPasswordScreen;
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#fff", padding: 20 },
+  container: {
+    flex: 1,
+    backgroundColor: "#f5f5f5", // slightly soft white for better visibility
+    padding: 20,
+  },
   backButton: { marginBottom: 20 },
-  backArrow: { fontSize: 24 },
-  title: { fontSize: 22, fontWeight: "bold", marginBottom: 10 },
-  subtitle: { fontSize: 14, color: "#777", marginBottom: 20 },
-  label: { fontSize: 14, fontWeight: "600", marginBottom: 5 },
+  backArrow: { fontSize: 24, color: "#0D5EA6" },
+  title: { fontSize: 24, fontWeight: "bold", marginBottom: 10, color: "#222" },
+  subtitle: { fontSize: 15, color: "#333", marginBottom: 20, lineHeight: 22 },
+  label: { fontSize: 14, fontWeight: "600", marginBottom: 5, color: "#222" },
   input: {
     borderWidth: 1,
-    borderColor: "#ddd",
+    borderColor: "#ccc",
     borderRadius: 25,
     padding: 12,
     marginBottom: 20,
     paddingHorizontal: 15,
+    backgroundColor: "#fff",
+    color: "#222",
   },
   button: {
     backgroundColor: "#0D5EA6",
@@ -142,6 +144,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   buttonText: { color: "#fff", fontSize: 16, fontWeight: "600" },
-  subtitleSmall: { fontSize: 14, color: "#555", marginTop: 20 },
-  link: { color: "#4A4DE6", fontWeight: "600" },
+  subtitleSmall: { fontSize: 14, color: "#444", marginTop: 20 },
+  link: { color: "#0D5EA6", fontWeight: "600" },
 });

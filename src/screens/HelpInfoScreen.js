@@ -79,11 +79,13 @@ const HelpInfoScreen = () => {
             <Text style={styles.sectionTitle}>
               <Icon name="headset" size={18} /> Contact Support
             </Text>
-              <Text style={styles.paragraph}>For any support-related questions or concerns, feel free to reach out to us through our Contact Us page or email us directly.</Text>
+            <Text style={styles.paragraph}>For any support-related questions or concerns, feel free to reach out to us through our Contact Us page or email us directly.</Text>
             <TouchableOpacity onPress={() => navigation.navigate('ContactUsScreen')}>
               <Text style={styles.link}>💬 Contact Us</Text>
             </TouchableOpacity>
-
+            <TouchableOpacity onPress={() => Linking.openURL('mailto:info@rashidbahattab.com')}>
+              <Text style={[styles.link, { marginTop: 8 }]}>📧 info@rashidbahattab.com</Text>
+            </TouchableOpacity>
           </View>
 
           {/* Privacy */}
