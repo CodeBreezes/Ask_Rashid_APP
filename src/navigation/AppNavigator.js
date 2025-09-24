@@ -10,14 +10,16 @@ import ForgotPasswordScreen from '../screens/Auth/ForgotPasswordScreen';
 import ProfileScreen from '../screens/Auth/ProfileScreen';
 import DashboardScreen from '../screens/DashboardScreen';
 import MyBookingsScreen from '../screens/MyBookingsScreen';
-import AuthLoadingScreen from '../screens/Auth/AuthLoadingScreen'; 
+import AuthLoadingScreen from '../screens/Auth/AuthLoadingScreen';
 import PaymentScreen from '../screens/PaymentScreen';
 import HelpInfoScreen from '../screens/HelpInfoScreen';
 import PaymentHistoryScreen from '../screens/PaymentHistoryScreen';
-import AboutScreen from '../screens/AboutScreen'; 
+import AboutScreen from '../screens/AboutScreen';
 import ChangePasswordScreen from '../screens/Auth/ChangePasswordScreen'
 import UpdateProfileScreen from '../screens/UpdateProfileScreen'
-import ContactUsScreen from '../screens/ContactUsScreen'  
+import ContactUsScreen from '../screens/ContactUsScreen'
+import DeleteAccountScreen from '../screens/Auth/DeleteAccountScreen';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -38,10 +40,12 @@ const AppNavigator = () => {
         <Stack.Screen name="PaymentHistoryScreen" component={PaymentHistoryScreen} options={{ headerShown: false }} />
         <Stack.Screen name="HelpInfoScreen" component={HelpInfoScreen} options={{ headerShown: false }} />
         <Stack.Screen name="AboutScreen" component={AboutScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="ChangePasswordScreen" component={ChangePasswordScreen} options={{ headerShown: false }} /> 
-        <Stack.Screen name="UpdateProfileScreen" component={UpdateProfileScreen} options={{ headerShown: false }} /> 
-        <Stack.Screen name="ContactUsScreen" component={ContactUsScreen} options={{ headerShown: false }} /> 
-         <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} options={{ headerShown: false }} /> 
+        <Stack.Screen name="ChangePasswordScreen" component={ChangePasswordScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="UpdateProfileScreen" component={UpdateProfileScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="ContactUsScreen" component={ContactUsScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Delete" component={DeleteAccountScreen} options={{ headerShown: false }} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );

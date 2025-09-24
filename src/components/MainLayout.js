@@ -146,6 +146,14 @@ const MainLayout = ({ title, children }) => {
                 label="Logout"
                 onPress={() => navigation.navigate('Logout')}
               />
+              <DrawerItem
+                icon={require('../assets/icons/delete.png')}
+                label="Delete Account"
+                 onPress={() => navigateTo('Delete')}
+                style={{ backgroundColor: 'transparent' }}
+                iconStyle={{ tintColor: 'red' }}
+                labelStyle={{ color: 'red', fontWeight: 'bold' }}
+              />
             </ScrollView>
           </View>
         </TouchableOpacity>
@@ -157,10 +165,10 @@ const MainLayout = ({ title, children }) => {
   );
 };
 
-const DrawerItem = ({ icon, label, onPress }) => (
-  <TouchableOpacity style={styles.menuItem} onPress={onPress}>
-    <Image source={icon} style={styles.menuIconItem} resizeMode="contain" />
-    <Text style={styles.label}>{label}</Text>
+const DrawerItem = ({ icon, label, onPress, style, iconStyle, labelStyle }) => (
+  <TouchableOpacity style={[styles.menuItem, style]} onPress={onPress}>
+    {icon && <Image source={icon} style={[styles.menuIconItem, iconStyle]} resizeMode="contain" />}
+    <Text style={[styles.label, labelStyle]}>{label}</Text>
   </TouchableOpacity>
 );
 

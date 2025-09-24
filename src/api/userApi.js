@@ -7,7 +7,6 @@ export const registerUser = async (payload) => {
     const response = await axios.post(`${BASE_URL}/UserRegistration`, payload, {
       headers: { 
         'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
        },
     });
     return response;
