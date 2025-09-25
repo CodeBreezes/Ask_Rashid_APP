@@ -22,7 +22,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
     try {
       setLoading(true);
 
-      const url = `http://appointment.bitprosofttech.com/api/Services/ForgotPassword?email=${encodeURIComponent(
+      const url = `https://askrashid.grahak.online/api/Services/ForgotPassword?email=${encodeURIComponent(
         email
       )}`;
 

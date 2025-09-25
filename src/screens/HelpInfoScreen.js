@@ -27,7 +27,7 @@ const HelpInfoScreen = () => {
           {/* How to Book */}
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>
-              <Icon name="clipboard-list" size={18} /> How to Book an Appointment?
+              <Icon name="clipboard-list" size={18} /> How to Book an appointment?
             </Text>
             {[
               'Choose a Service\nBrowse through our list and pick the service you need.',
@@ -96,7 +96,7 @@ const HelpInfoScreen = () => {
             <Text style={styles.paragraph}>
               We value your privacy. All your personal and payment details are stored securely and are not shared with any third parties.
             </Text>
-            <TouchableOpacity onPress={() => Linking.openURL('http://appointment.bitprosofttech.com/service/PrivacyPolicy')}>
+            <TouchableOpacity onPress={() => Linking.openURL('https://askrashid.grahak.online/service/PrivacyPolicy')}>
               <Text style={[styles.paragraph, { color: '#0D5EA6', textDecorationLine: 'underline' }]}>
                 Privacy Policy
               </Text>

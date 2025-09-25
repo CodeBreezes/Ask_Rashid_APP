@@ -20,7 +20,7 @@ const PaymentHistoryScreen = () => {
     try {
       const token = await AsyncStorage.getItem('token');
       const response = await axios.get(
-        'http://appointment.bitprosofttech.com/api/Services/api/services/GetAllServices',
+        'https://askrashid.grahak.online/api/Services/api/services/GetAllServices',
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -55,7 +55,7 @@ const PaymentHistoryScreen = () => {
       const phone = await AsyncStorage.getItem('phone');
 
       const response = await fetch(
-        `http://appointment.bitprosofttech.com/api/Payment/get-payments-by-phone/${phone}`,
+        `https://askrashid.grahak.online/api/Payment/get-payments-by-phone/${phone}`,
         {
           method: 'GET',
           headers: {

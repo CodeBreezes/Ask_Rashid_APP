@@ -78,7 +78,7 @@ const ContactUsScreen = () => {
       };
 
       const res = await axios.post(
-        'http://appointment.bitprosofttech.com/api/Feedbacks',
+        'https://askrashid.grahak.online/api/Feedbacks',
         payload
       );
 

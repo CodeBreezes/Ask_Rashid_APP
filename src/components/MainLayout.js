@@ -13,7 +13,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
 const { width, height } = Dimensions.get('window');
-const BASE_URL = 'http://appointment.bitprosofttech.com'; // ✅ Your backend base
+const BASE_URL = 'https://askrashid.grahak.online'; 
 
 const MainLayout = ({ title, children }) => {
   const [drawerVisible, setDrawerVisible] = useState(false);

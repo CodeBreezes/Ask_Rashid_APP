@@ -1,7 +1,7 @@
 // 📁 src/api/serviceApi.js
 import axios from 'axios';
 
-const BASE_URL = 'http://appointment.bitprosofttech.com/api';
+const BASE_URL = 'https://askrashid.grahak.online/api';
 
 export const getServices = async () => {
   try {

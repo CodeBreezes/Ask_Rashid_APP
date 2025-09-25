@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 
-const BASE_URL = 'http://appointment.bitprosofttech.com/api/UserAccount';
+const BASE_URL = 'https://askrashid.grahak.online/api/UserAccount';
 
 export const loginUser = async (credentials) => {
   try {
@@ -16,7 +16,7 @@ export const loginUser = async (credentials) => {
 export const checkEmailExists = async (email) => {
   try {
     const response = await axios.get(
-      `http://appointment.bitprosofttech.com/api/UserAccount/CheckEmailExists`,
+      `https://askrashid.grahak.online/api/UserAccount/CheckEmailExists`,
       {
         params: { email }, 
       }
@@ -33,7 +33,7 @@ export const checkEmailExists = async (email) => {
 export const getUserByEmail = async (email) => {
   try {
     const response = await axios.get(
-      `http://appointment.bitprosofttech.com/api/Services/GetUserByEmail`,
+      `https://askrashid.grahak.online/api/Services/GetUserByEmail`,
       {
         params: { email },
       }

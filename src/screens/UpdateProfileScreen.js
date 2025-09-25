@@ -43,9 +43,9 @@ const UpdateProfileScreen = () => {
 
   const [showGenderDropdown, setShowGenderDropdown] = useState(false);
 
-  const API_BASE_URL = 'http://appointment.bitprosofttech.com/api';
+  const API_BASE_URL = 'https://askrashid.grahak.online/api';
   const UPDATE_USER_API = `${API_BASE_URL}/UserAccount/UpdateProfile`;
-  const IMAGE_BASE_URL = 'http://appointment.bitprosofttech.com';
+  const IMAGE_BASE_URL = 'https://askrashid.grahak.online';
 
   const showModal = (title, message) => {
     setModalContent({ title, message });

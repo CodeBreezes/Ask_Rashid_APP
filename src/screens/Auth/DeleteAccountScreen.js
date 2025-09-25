@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const BASE_URL = "http://appointment.bitprosofttech.com";
+const BASE_URL = "https://askrashid.grahak.online";
 
 const DeleteAccountScreen = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(true);

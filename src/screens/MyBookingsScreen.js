@@ -34,7 +34,7 @@ const MyBookingsScreen = () => {
       }
 
       const response = await axios.get(
-        'http://appointment.bitprosofttech.com/api/Services/api/services/GetAllServices',
+        'https://askrashid.grahak.online/api/Services/api/services/GetAllServices',
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -56,7 +56,7 @@ const MyBookingsScreen = () => {
       const userId = await AsyncStorage.getItem('userId');
       const token = await AsyncStorage.getItem('token');
       const response = await axios.get(
-        'http://appointment.bitprosofttech.com/api/Bookings',
+        'https://askrashid.grahak.online/api/Bookings',
         {
           headers: {
             Authorization: `Bearer ${token}`,

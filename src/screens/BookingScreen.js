@@ -33,8 +33,8 @@ const BookingScreen = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const serviceApiUrl = 'http://appointment.bitprosofttech.com/api/Services';
-  const serviceDetailsApiUrl = 'http://appointment.bitprosofttech.com/api/Services/api/services/GetAllServices';
+  const serviceApiUrl = 'https://askrashid.grahak.online/api/Services';
+  const serviceDetailsApiUrl = 'https://askrashid.grahak.online/api/Services/api/services/GetAllServices';
 
   const formatServiceDescription = (serviceId) => {
     const detailedService = detailedServices.find(s => s.uniqueId === serviceId);

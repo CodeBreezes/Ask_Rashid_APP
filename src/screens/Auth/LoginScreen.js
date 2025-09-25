@@ -77,7 +77,7 @@ const LoginScreen = () => {
         await AsyncStorage.setItem('email', email);
         await AsyncStorage.setItem('phone', String(mobile));
         try {
-          const imgRes = await axios.get(`http://appointment.bitprosofttech.com/api/Services/GetUserById?uniqueId=${userId}`);
+          const imgRes = await axios.get(`https://askrashid.grahak.online/api/Services/GetUserById?uniqueId=${userId}`);
           debugger;
           if (imgRes.status === 200 && imgRes.data?.profileImageUrl) {
             await AsyncStorage.setItem('profileImageUrl', imgRes.data.profileImageUrl);

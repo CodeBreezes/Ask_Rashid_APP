@@ -1,6 +1,6 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-const BASE_URL = 'http://appointment.bitprosofttech.com/api/UserAccount';
+const BASE_URL = 'https://askrashid.grahak.online/api/UserAccount';
 
 export const registerUser = async (payload) => {
   try {
