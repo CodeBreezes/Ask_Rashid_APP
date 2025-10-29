@@ -146,14 +146,14 @@ const MainLayout = ({ title, children }) => {
                 label="Logout"
                 onPress={() => navigation.navigate('Logout')}
               />
-              <DrawerItem
+              {/* <DrawerItem
                 icon={require('../assets/icons/delete.png')}
                 label="Delete Account"
                  onPress={() => navigateTo('Delete')}
                 style={{ backgroundColor: 'transparent' }}
                 iconStyle={{ tintColor: 'red' }}
                 labelStyle={{ color: 'red', fontWeight: 'bold' }}
-              />
+              /> */}
             </ScrollView>
           </View>
         </TouchableOpacity>

@@ -148,6 +148,7 @@ const LoginScreen = () => {
 
 
   const handleGoogleRegistration = async () => {
+    setLoading(true);
     if (!googlePhone || !googlePassword || !googleConfirmPassword) {
       return showModal('Validation Error', 'All fields are required');
     }
@@ -200,6 +201,8 @@ const LoginScreen = () => {
       }
     } catch (err) {
       showModal('Error', err?.message || 'Something went wrong');
+    } finally {
+      setLoading(false);
     }
   };
 

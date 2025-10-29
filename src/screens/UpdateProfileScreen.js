@@ -18,10 +18,13 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import CustomAlertModal from '../components/CustomAlertModal';
 import MainLayout from '../components/MainLayout';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
 
 const UpdateProfileScreen = () => {
+  const navigation = useNavigation();
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -298,6 +301,12 @@ const UpdateProfileScreen = () => {
               <Text style={styles.buttonText}>Update Profile</Text>
             )}
           </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.deleteButton}
+            onPress={() => navigation.navigate('Delete')}
+          >
+            <Text style={styles.deleteButtonText}>Delete Account</Text>
+          </TouchableOpacity>
         </ScrollView>
       </KeyboardAvoidingView>
 
@@ -356,6 +365,25 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#333',
   },
+  deleteButton: {
+    marginTop: 20,
+    paddingVertical: 14,
+    borderRadius: 25,
+    backgroundColor: 'white',
+    alignItems: 'center',
+    width: '100%',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    elevation: 3,
+  },
+  deleteButtonText: {
+    color: 'red',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+
   placeholderText: { color: '#999' },
   dateText: { color: '#333' },
   genderDisplay: {
