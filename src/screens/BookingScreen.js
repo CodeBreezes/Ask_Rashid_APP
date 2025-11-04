@@ -11,8 +11,10 @@ import styles from '../styles/BookingScreen.styles';
 import { postBooking } from '../api/bookingApi';
 import { useNavigation } from '@react-navigation/native';
 import uuid from 'react-native-uuid';
+import { Dimensions } from 'react-native';
 
 
+const { height: screenHeight, width: screenWidth } = Dimensions.get('window');
 
 const BookingScreen = () => {
   const [name, setName] = useState('');
@@ -257,19 +259,35 @@ const BookingScreen = () => {
             {/* Description Modal */}
             <Modal visible={descriptionModalVisible} animationType="slide" transparent>
               <View style={styles.modalOverlay}>
-                <View style={[styles.modalContent, { maxHeight: '85%' }]}>
+                <View
+                  style={[
+                    styles.modalContent,
+                    { maxHeight: screenHeight * 0.8 } // ✅ responsive max height (80% of device)
+                  ]}
+                >
                   <Text style={styles.modalTitle}>Service Description</Text>
-                  <ScrollView style={{ marginBottom: 20 }} showsVerticalScrollIndicator>
-                    <Text style={{ color: '#222', fontSize: 14, fontWeight: '500', lineHeight: 20 }}>
-                      {selectedServiceDescription}
-                    </Text>
-                  </ScrollView>
-                  <TouchableOpacity
-                    style={styles.modalClose}
-                    onPress={() => setDescriptionModalVisible(false)}
-                  >
-                    <Text style={styles.modalCloseText}>Close</Text>
-                  </TouchableOpacity>
+
+                  {/* ✅ Scrollable content area */}
+                  <View style={{ flex: 1 }}>
+                    <ScrollView
+                      style={{ flex: 1, marginBottom: 10 }}
+                      contentContainerStyle={{ paddingBottom: 20 }}
+                      showsVerticalScrollIndicator={true}
+                    >
+                      <Text style={{ color: '#222', fontSize: 14, fontWeight: '500', lineHeight: 20 }}>
+                        {selectedServiceDescription}
+                      </Text>
+                    </ScrollView>
+
+
+                    {/* ✅ Close button stays fixed below scroll */}
+                    <TouchableOpacity
+                      style={styles.modalClose}
+                      onPress={() => setDescriptionModalVisible(false)}
+                    >
+                      <Text style={styles.modalCloseText}>Close</Text>
+                    </TouchableOpacity>
+                  </View>
                 </View>
               </View>
             </Modal>

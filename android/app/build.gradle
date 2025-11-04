@@ -49,7 +49,6 @@ react {
     // hermesCommand = "$rootDir/my-custom-hermesc/bin/hermesc"
     //
     //   The list of flags to pass to the Hermes compiler. By default is "-O", "-output-source-map"
-    // hermesFlags = ["-O", "-output-source-map"]
 
     /* Autolinking */
     autolinkLibrariesWithApp()
@@ -83,8 +82,8 @@ android {
         applicationId "com.askrashidapk"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 7
-        versionName "1.0.8"
+        versionCode 17
+        versionName "1.1.17"
     }
     signingConfigs {
         debug {

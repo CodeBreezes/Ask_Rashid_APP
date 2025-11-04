@@ -31,7 +31,7 @@ export default StyleSheet.create({
     tintColor: '#fff',
   },
   headerSpacer: {
-    width: 24, 
+    width: 24,
   },
 
   card: {
@@ -53,15 +53,15 @@ export default StyleSheet.create({
     marginTop: 10,
   },
 
- input: {
-  borderWidth: 1,
-  borderColor: '#ccc',
-  borderRadius: 25,
-  padding: 12,
-  marginBottom: 10,
-  backgroundColor: '#fff',   
-  color: '#000',              
-},
+  input: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 25,
+    padding: 12,
+    marginBottom: 10,
+    backgroundColor: '#fff',
+    color: '#000',
+  },
 
 
   dropdownTouchable: {
@@ -111,11 +111,13 @@ export default StyleSheet.create({
   },
   modalContent: {
     width: '90%',
-    maxHeight: '80%',
+    height: '70%',
     backgroundColor: '#fff',
     borderRadius: 20,
     padding: 20,
+    justifyContent: 'space-between',
   },
+
   modalTitle: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -137,17 +139,17 @@ export default StyleSheet.create({
     marginBottom: 4,
   },
   serviceName: {
-    fontSize: 15,
+    fontSize: 11,
     fontWeight: '600',
     color: '#333',
   },
   serviceCost: {
-    fontSize: 15,
+    fontSize: 12,
     fontWeight: '600',
     color: '#28a745',
   },
   serviceDescription: {
-    fontSize: 13,
+    fontSize: 12,
     color: '#666',
     marginTop: 2,
   },
@@ -163,6 +165,8 @@ export default StyleSheet.create({
     fontWeight: '600',
   },
   detailsButtonText: {
+    fontSize: 10,
+    paddingLeft: 10,
     color: 'blue',
-    }
+  }
 });
