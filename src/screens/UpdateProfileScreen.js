@@ -19,6 +19,9 @@ import CustomAlertModal from '../components/CustomAlertModal';
 import MainLayout from '../components/MainLayout';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
+import { BASE_API_URL } from '../api/apiConfig';
+
+
 
 const { width } = Dimensions.get('window');
 
@@ -46,9 +49,9 @@ const UpdateProfileScreen = () => {
 
   const [showGenderDropdown, setShowGenderDropdown] = useState(false);
 
-  const API_BASE_URL = 'https://askrashid.grahak.online/api';
+  const API_BASE_URL = `${BASE_API_URL}/api`;
   const UPDATE_USER_API = `${API_BASE_URL}/UserAccount/UpdateProfile`;
-  const IMAGE_BASE_URL = 'https://askrashid.grahak.online';
+  const IMAGE_BASE_URL = `${BASE_API_URL}`;
 
   const showModal = (title, message) => {
     setModalContent({ title, message });
