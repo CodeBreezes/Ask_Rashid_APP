@@ -1,15 +1,14 @@
 // bookingApi.js
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-const BASE_URL = 'https://askrashid.grahak.online/api';
+import { BASE_URL } from './apiConfig';
 
 // ✅ Post a new booking
 export const postBooking = async (bookingData) => {
   try {
     const token = await AsyncStorage.getItem('token');
 
-    const response = await axios.post(`${BASE_URL}/Bookings`, bookingData, {
+    const response = await axios.post(`${BASE_URL}/api/Bookings`, bookingData, {
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
@@ -27,7 +26,7 @@ export const getAllBookings = async () => {
   try {
     const token = await AsyncStorage.getItem('token');
 
-    const response = await axios.get(`${BASE_URL}/Bookings`, {
+    const response = await axios.get(`${BASE_URL}/api/Bookings`, {
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',

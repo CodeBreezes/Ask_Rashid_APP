@@ -12,7 +12,7 @@ import { postBooking } from '../api/bookingApi';
 import { useNavigation } from '@react-navigation/native';
 import uuid from 'react-native-uuid';
 import { Dimensions } from 'react-native';
-
+import { BASE_API_URL } from '../api/apiConfig';
 
 const { height: screenHeight, width: screenWidth } = Dimensions.get('window');
 
@@ -36,8 +36,9 @@ const BookingScreen = () => {
   const [serviceLoading, setServiceLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const serviceApiUrl = 'https://askrashid.grahak.online/api/Services';
-  const serviceDetailsApiUrl = 'https://askrashid.grahak.online/api/Services/api/services/GetAllServices';
+
+  const serviceApiUrl = `${BASE_API_URL}/api/Services`;
+  const serviceDetailsApiUrl = `${BASE_API_URL}/api/Services/api/services/GetAllServices`;
 
   const formatServiceDescription = (serviceId) => {
     if (!Array.isArray(detailedServices)) return 'Service details not available.';
@@ -175,10 +176,10 @@ const BookingScreen = () => {
                   }
 
                   const [basicRes, detailedRes] = await Promise.all([
-                    axios.get('https://askrashid.grahak.online/api/Services', {
+                    axios.get(`${BASE_API_URL}/api/Services`, {
                       headers: { Authorization: `Bearer ${token}` },
                     }),
-                    axios.get('https://askrashid.grahak.online/api/Services/api/services/GetAllServices', {
+                    axios.get(`${BASE_API_URL}/api/Services/api/services/GetAllServices`, {
                       headers: { Authorization: `Bearer ${token}` },
                     }),
                   ]);

@@ -9,8 +9,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
-const BASE_URL = "https://askrashid.grahak.online";
+import { BASE_URL } from './apiConfig';
 
 const DeleteAccountScreen = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(true);

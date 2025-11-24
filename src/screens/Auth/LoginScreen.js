@@ -18,7 +18,7 @@ import axios from 'axios';
 import styles from '../../styles/Auth/LoginScreen.styles';
 import CustomHeader from '../../components/CustomHeader';
 import CustomAlertModal from '../../components/CustomAlertModal';
-import { loginUser, checkEmailExists, getUserByEmail } from '../../api/loginApi';
+import { loginUser, checkEmailExists, getUserByEmail, CheckIfLoginFromGoogle } from '../../api/loginApi';
 import { registerUser } from '../../api/userApi';
 import { configureGoogleSignIn, handleGoogleLogin } from '../../services/googleConfig';
 
@@ -101,13 +101,14 @@ const LoginScreen = () => {
     try {
       setLoading(true);
       const user = await handleGoogleLogin();
-      const emailExists = await checkEmailExists(user.email);
+      const emailExists = await CheckIfLoginFromGoogle(user.email);
       debugger;
       if (emailExists?.exists) {
         try {
           const loginRes = await loginUser({
             loginName: user.email,
             password: "12345678",
+            isGoogleSignIn: true,
           });
 
           if (loginRes?.status === 200 && loginRes?.data?.isLoginSuccess && loginRes?.data?.token) {
@@ -170,13 +171,14 @@ const LoginScreen = () => {
 
     try {
       const regRes = await registerUser(payload);
-
-      if (regRes.status === 200 || regRes.status === 201) {
+      const data = regRes?.data;
+      if (data.isCreated === true) {
         const loginRes = await loginUser({
           loginName: googlePhone,
           password: googlePassword,
+          isGoogleSignIn: true,
         });
-
+        debugger;
         if (
           loginRes.status === 200 &&
           loginRes.data?.isLoginSuccess &&
@@ -200,7 +202,8 @@ const LoginScreen = () => {
         showModal('Registration Failed', regRes?.data?.errorMessage || 'Unexpected registration error');
       }
     } catch (err) {
-      showModal('Error', err?.message || 'Something went wrong');
+
+      showModal('Error', apiErrorMessage);
     } finally {
       setLoading(false);
     }
@@ -236,7 +239,7 @@ const LoginScreen = () => {
 
           </View>
 
-          <TouchableOpacity style={styles.forgotPasswordContainer}onPress={() => navigation.navigate('ForgotPassword')} >
+          <TouchableOpacity style={styles.forgotPasswordContainer} onPress={() => navigation.navigate('ForgotPassword')} >
             <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
           </TouchableOpacity>
 

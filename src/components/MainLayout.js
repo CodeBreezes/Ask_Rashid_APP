@@ -11,9 +11,11 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+import { BASE_API_URL } from '../api/apiConfig';
+
 
 const { width, height } = Dimensions.get('window');
-const BASE_URL = 'https://askrashid.grahak.online'; 
+
 
 const MainLayout = ({ title, children }) => {
   const [drawerVisible, setDrawerVisible] = useState(false);
@@ -41,7 +43,7 @@ const MainLayout = ({ title, children }) => {
         // If no valid image, fetch from API
         if ((!imageUrl || imageUrl === 'null' || imageUrl === 'undefined') && userId) {
           const res = await axios.get(
-            `${BASE_URL}/api/Services/GetUserById?uniqueId=${userId}`
+            `${BASE_API_URL}/api/Services/GetUserById?uniqueId=${userId}`
           );
           if (res.status === 200 && res.data?.profileImageUrl) {
             imageUrl = res.data.profileImageUrl;

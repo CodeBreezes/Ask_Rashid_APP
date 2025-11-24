@@ -11,6 +11,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import moment from 'moment';
 import MainLayout from '../components/MainLayout';
 import axios from 'axios';
+import { BASE_API_URL } from '../api/apiConfig';
 
 const PaymentHistoryScreen = () => {
   const [paymentHistory, setPaymentHistory] = useState([]);
@@ -20,7 +21,7 @@ const PaymentHistoryScreen = () => {
     try {
       const token = await AsyncStorage.getItem('token');
       const response = await axios.get(
-        'https://askrashid.grahak.online/api/Services/api/services/GetAllServices',
+        `${BASE_API_URL}/api/Services/api/services/GetAllServices`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -55,7 +56,7 @@ const PaymentHistoryScreen = () => {
       const phone = await AsyncStorage.getItem('phone');
 
       const response = await fetch(
-        `https://askrashid.grahak.online/api/Payment/get-payments-by-phone/${phone}`,
+        `${BASE_API_URL}/api/Payment/get-payments-by-phone/${phone}`,
         {
           method: 'GET',
           headers: {
@@ -67,7 +68,7 @@ const PaymentHistoryScreen = () => {
 
       const result = await response.json();
       console.log('Payment History Response:', result);
-  
+
       setPaymentHistory(result || []);
     } catch (error) {
       console.error('Error fetching payment history:', error);

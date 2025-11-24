@@ -1,11 +1,10 @@
 // 📁 src/api/serviceApi.js
 import axios from 'axios';
-
-const BASE_URL = 'https://askrashid.grahak.online/api';
+import { BASE_URL } from './apiConfig';
 
 export const getServices = async () => {
   try {
-    const response = await axios.get(`${BASE_URL}/Services`);
+    const response = await axios.get(`${BASE_URL}/api/Services`);
     return response.data;
     debugger;
   } catch (error) {

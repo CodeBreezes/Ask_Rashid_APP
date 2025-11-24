@@ -11,8 +11,10 @@ import {
 import { StripeProvider, useStripe } from '@stripe/stripe-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRoute, useNavigation } from '@react-navigation/native';
+import { BASE_API_URL } from '../api/apiConfig';
 
-const API_BASE_URL = 'https://askrashid.grahak.online/api/Payment';
+const API_BASE_URL = `${BASE_API_URL}/api/Payment`;
+
 
 const PaymentInnerScreen = () => {
   const { initPaymentSheet, presentPaymentSheet } = useStripe();
@@ -83,7 +85,7 @@ const PaymentInnerScreen = () => {
           userId: parseInt(userIdFromStorage || bookingData.userId),
         };
         const token = await AsyncStorage.getItem('token');
-        const bookingRes = await fetch(`https://askrashid.grahak.online/api/Bookings`, {
+        const bookingRes = await fetch(`${BASE_API_URL}/api/Bookings`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

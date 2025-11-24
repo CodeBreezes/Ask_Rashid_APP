@@ -14,6 +14,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import CustomAlertModal from '../components/CustomAlertModal';
 import MainLayout from '../components/MainLayout';
+import { BASE_API_URL } from '../api/apiConfig';
 
 const ContactUsScreen = () => {
   const route = useRoute();
@@ -78,7 +79,7 @@ const ContactUsScreen = () => {
       };
 
       const res = await axios.post(
-        'https://askrashid.grahak.online/api/Feedbacks',
+        `${BASE_API_URL}/api/Feedbacks`,
         payload
       );
 
