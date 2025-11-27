@@ -9,7 +9,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { BASE_URL } from './apiConfig';
+import { BASE_API_URL } from './apiConfig';
 
 const DeleteAccountScreen = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(true);
@@ -34,7 +34,7 @@ const DeleteAccountScreen = ({ navigation }) => {
       setLoading(true);
 
       // Correct API call with email as query string
-      const url = `${BASE_URL}/api/Services/DeleteAccount?email=${encodeURIComponent(
+      const url = `${BASE_API_URL}/api/Services/DeleteAccount?email=${encodeURIComponent(
         userEmail
       )}`;
 

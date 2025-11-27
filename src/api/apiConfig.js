@@ -1,1 +1,1 @@
-export const BASE_API_URL = 'https://askrashid.grahak.online';
+export const BASE_API_URL = 'https://askrashid.me';

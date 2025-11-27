@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Alert,
 } from "react-native";
+import { BASE_API_URL } from '../../api/apiConfig';
 
 const ForgotPasswordScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -22,7 +23,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
     try {
       setLoading(true);
 
-      const url = `https://askrashid.grahak.online/api/Services/ForgotPassword?email=${encodeURIComponent(
+      const url = `${BASE_API_URL}/api/Services/ForgotPassword?email=${encodeURIComponent(
         email
       )}`;
 

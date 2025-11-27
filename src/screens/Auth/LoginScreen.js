@@ -21,7 +21,7 @@ import CustomAlertModal from '../../components/CustomAlertModal';
 import { loginUser, checkEmailExists, getUserByEmail, CheckIfLoginFromGoogle } from '../../api/loginApi';
 import { registerUser } from '../../api/userApi';
 import { configureGoogleSignIn, handleGoogleLogin } from '../../services/googleConfig';
-
+import { BASE_API_URL } from '../../api/apiConfig';
 const LoginScreen = () => {
   const navigation = useNavigation();
 
@@ -77,7 +77,7 @@ const LoginScreen = () => {
         await AsyncStorage.setItem('email', email);
         await AsyncStorage.setItem('phone', String(mobile));
         try {
-          const imgRes = await axios.get(`https://askrashid.grahak.online/api/Services/GetUserById?uniqueId=${userId}`);
+          const imgRes = await axios.get(`${BASE_API_URL}/api/Services/GetUserById?uniqueId=${userId}`);
           debugger;
           if (imgRes.status === 200 && imgRes.data?.profileImageUrl) {
             await AsyncStorage.setItem('profileImageUrl', imgRes.data.profileImageUrl);

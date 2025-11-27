@@ -1,10 +1,10 @@
 // 📁 src/api/serviceApi.js
 import axios from 'axios';
-import { BASE_URL } from './apiConfig';
+import { BASE_API_URL } from './apiConfig';
 
 export const getServices = async () => {
   try {
-    const response = await axios.get(`${BASE_URL}/api/Services`);
+    const response = await axios.get(`${BASE_API_URL}/api/Services`);
     return response.data;
     debugger;
   } catch (error) {
