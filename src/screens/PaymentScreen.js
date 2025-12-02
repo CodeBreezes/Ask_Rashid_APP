@@ -61,6 +61,10 @@ const PaymentInnerScreen = () => {
     const { error } = await initPaymentSheet({
       paymentIntentClientSecret: clientSecret,
       merchantDisplayName: 'Ask Rashid',
+      googlePay: {
+        merchantCountryCode: "AE",
+        testEnv: false,   
+      },
     });
 
     if (!error) {
@@ -187,7 +191,7 @@ const PaymentInnerScreen = () => {
 
 export default function PaymentScreenWrapper() {
   return (
-    <StripeProvider publishableKey="pk_test_51S7vZWIutE88E4iRMhuS7JGNNkBygOa1Jasd3RlKf5ZwfZy2Lia52pZ0450KozM0r2AurHXOEnSU0kY03VVCJM6200SBQqQuGt">
+    <StripeProvider merchantDisplayName="Ask Rashid" publishableKey="pk_live_51S7vZWIutE88E4iRjM2b6qV77z4DO2yi0k1vvmIeGtQHZvk0c3aCbsCfuVGVkrfeo6gVkPewfHpEPvcWlwjFw1km00MGR6Roji">
       <PaymentInnerScreen />
     </StripeProvider>
   );

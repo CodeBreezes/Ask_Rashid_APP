@@ -52,7 +52,7 @@ const MainLayout = ({ title, children }) => {
 
         // ✅ Normalize image URL (prepend BASE_URL if relative)
         if (imageUrl && !imageUrl.startsWith('http')) {
-          imageUrl = `${BASE_URL}${imageUrl}`;
+          imageUrl = `${BASE_API_URL}${imageUrl}`;
         }
 
         if (imageUrl) {
@@ -99,7 +99,7 @@ const MainLayout = ({ title, children }) => {
                 source={
                   profileImage
                     ? { uri: profileImage }
-                    : require('../assets/rashidprofile.jpg')
+                    : require('../assets/profiled.png')
                 }
                 style={styles.avatar}
               />

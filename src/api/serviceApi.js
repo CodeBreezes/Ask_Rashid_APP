@@ -6,7 +6,6 @@ export const getServices = async () => {
   try {
     const response = await axios.get(`${BASE_API_URL}/api/Services`);
     return response.data;
-    debugger;
   } catch (error) {
     console.error('Error fetching services:', error.message);
     throw error;

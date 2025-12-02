@@ -12,12 +12,10 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import MainLayout from '../components/MainLayout';
 import { useNavigation } from '@react-navigation/native';
-
-
+import { BASE_API_URL } from '../api/apiConfig';
 
 const HelpInfoScreen = () => {
   const navigation = useNavigation();
-
 
   return (
     <MainLayout title="Help & Info">
@@ -96,7 +94,7 @@ const HelpInfoScreen = () => {
             <Text style={styles.paragraph}>
               We value your privacy. All your personal and payment details are stored securely and are not shared with any third parties.
             </Text>
-            <TouchableOpacity onPress={() => Linking.openURL('https://askrashid.grahak.online/service/PrivacyPolicy')}>
+            <TouchableOpacity onPress={() => Linking.openURL(`${BASE_API_URL}/service/PrivacyPolicy`)}>
               <Text style={[styles.paragraph, { color: '#0D5EA6', textDecorationLine: 'underline' }]}>
                 Privacy Policy
               </Text>
