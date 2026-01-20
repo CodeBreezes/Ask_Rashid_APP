@@ -65,7 +65,7 @@ const HelpInfoScreen = () => {
           {/* Rescheduling */}
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>
-              <Icon name="calendar-alt" size={18} /> Rescheduling or Cancelling?
+              <Icon name="calendar-alt" size={18} /> Rescheduling
             </Text>
             <Text style={styles.paragraph}>
               If you need to change your appointment, please use our Contact Us form as soon as possible and provide your booking details so we can assist you accordingly. Rescheduling options may depend on service availability.
@@ -99,6 +99,10 @@ const HelpInfoScreen = () => {
                 Privacy Policy
               </Text>
             </TouchableOpacity>
+          </View>
+           <View style={styles.section}>
+            <Text style={styles.paragraph}>
+              You have accepted our Terms and Conditions Agreement</Text>
           </View>
         </ScrollView>
       </SafeAreaView>
