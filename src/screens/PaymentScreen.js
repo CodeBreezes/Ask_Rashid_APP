@@ -43,7 +43,7 @@ const PaymentInnerScreen = () => {
         },
         body: JSON.stringify(bookingData),
       });
-
+debugger;
       const data = await response.json();
       if (data?.clientSecret && data?.paymentIntentId) {
         setClientSecret(data.clientSecret);
@@ -63,7 +63,7 @@ const PaymentInnerScreen = () => {
       merchantDisplayName: 'Ask Rashid',
       googlePay: {
         merchantCountryCode: "AE",
-        testEnv: false,   
+        testEnv: true,   
       },
     });
 
@@ -88,6 +88,7 @@ const PaymentInnerScreen = () => {
           ...bookingData,
           userId: parseInt(userIdFromStorage || bookingData.userId),
         };
+        debugger;
         const token = await AsyncStorage.getItem('token');
         const bookingRes = await fetch(`${BASE_API_URL}/api/Bookings`, {
           method: 'POST',
@@ -97,7 +98,7 @@ const PaymentInnerScreen = () => {
           },
           body: JSON.stringify(bookingPayload),
         });
-
+debugger;
         if (!bookingRes.ok) throw new Error('Booking failed');
 
         const res = await fetch(
@@ -191,7 +192,7 @@ const PaymentInnerScreen = () => {
 
 export default function PaymentScreenWrapper() {
   return (
-    <StripeProvider merchantDisplayName="Ask Rashid" publishableKey="pk_live_51S7vZWIutE88E4iRjM2b6qV77z4DO2yi0k1vvmIeGtQHZvk0c3aCbsCfuVGVkrfeo6gVkPewfHpEPvcWlwjFw1km00MGR6Roji">
+    <StripeProvider merchantDisplayName="Ask Rashid" publishableKey="pk_test_51S7vZWIutE88E4iRMhuS7JGNNkBygOa1Jasd3RlKf5ZwfZy2Lia52pZ0450KozM0r2AurHXOEnSU0kY03VVCJM6200SBQqQuGt">
       <PaymentInnerScreen />
     </StripeProvider>
   );

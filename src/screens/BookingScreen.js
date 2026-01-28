@@ -13,6 +13,7 @@ import { useNavigation } from '@react-navigation/native';
 import uuid from 'react-native-uuid';
 import { Dimensions } from 'react-native';
 import { BASE_API_URL } from '../api/apiConfig';
+import { useRoute } from '@react-navigation/native';
 
 const { height: screenHeight, width: screenWidth } = Dimensions.get('window');
 
@@ -36,7 +37,8 @@ const BookingScreen = () => {
   const [serviceLoading, setServiceLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-
+  const route = useRoute();
+  const [slotId, setSlotId] = useState(null);
   const serviceApiUrl = `${BASE_API_URL}/api/Services`;
   const serviceDetailsApiUrl = `${BASE_API_URL}/api/Services/api/services/GetAllServices`;
 
@@ -59,6 +61,14 @@ const BookingScreen = () => {
     return desc.trim();
   };
 
+  useEffect(() => {
+    if (route.params?.startedDate && route.params?.startedTime) {
+      setDate(new Date(route.params.startedDate));
+      setTime(new Date(`1970-01-01T${route.params.startedTime}`));
+      setSlotId(route.params.slotId);
+    }
+  }, [route.params]);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -76,7 +86,7 @@ const BookingScreen = () => {
           .then((res) => setServices(res.data))
           .catch(() => Alert.alert('Error', 'Unable to load basic services'));
 
-        // ✅ Fetch Detailed Services
+
         axios.get(serviceDetailsApiUrl, {
           headers: { Authorization: `Bearer ${token}` },
         })
@@ -132,6 +142,7 @@ const BookingScreen = () => {
       stripePaymentIntentId: '',
       bookingId,
       createdAt: new Date().toISOString(),
+      endedTime: route.params.endedTime,
     };
     navigation.navigate('PaymentScreen', { bookingData: payload });
   };
@@ -314,7 +325,7 @@ const BookingScreen = () => {
               multiline
               numberOfLines={4}
             />
-
+            {/*
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 10 }}>
               <View style={{ flex: 1 }}>
                 <Text style={styles.label}>Date</Text>
@@ -335,7 +346,7 @@ const BookingScreen = () => {
               </View>
             </View>
 
-            {/* New Modal Date/Time Pickers */}
+            
             <DateTimePickerModal
               isVisible={showDatePicker}
               mode="date"
@@ -352,7 +363,19 @@ const BookingScreen = () => {
               onCancel={() => setShowTimePicker(false)}
               date={time}
             />
-            {/* End of New Modal Pickers */}
+            End of New Modal Pickers */}
+            <Text style={styles.label}>Select Date & Time</Text>
+
+            <TouchableOpacity
+              onPress={() => navigation.navigate('SlotPicker')}
+              style={styles.dateButton}
+            >
+              <Text style={styles.dateButtonText}>
+                {slotId
+                  ? `📅 ${date.toDateString()}  🕒 ${time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`
+                  : 'Select Available Slot'}
+              </Text>
+            </TouchableOpacity>
 
             <TouchableOpacity style={styles.bookButton} onPress={handlePaymentBooking} disabled={loading}>
               {loading ? (

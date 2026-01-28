@@ -19,7 +19,7 @@ import ChangePasswordScreen from '../screens/Auth/ChangePasswordScreen'
 import UpdateProfileScreen from '../screens/UpdateProfileScreen'
 import ContactUsScreen from '../screens/ContactUsScreen'
 import DeleteAccountScreen from '../screens/Auth/DeleteAccountScreen';
-
+import SlotPickerScreen from '../screens/SlotPickerScreen'
 
 const Stack = createNativeStackNavigator();
 
@@ -45,7 +45,7 @@ const AppNavigator = () => {
         <Stack.Screen name="ContactUsScreen" component={ContactUsScreen} options={{ headerShown: false }} />
         <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Delete" component={DeleteAccountScreen} options={{ headerShown: false }} />
-
+        <Stack.Screen name="SlotPicker" component={SlotPickerScreen} options={{ headerShown: false }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
