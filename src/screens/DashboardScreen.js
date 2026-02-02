@@ -10,12 +10,15 @@ import {
 } from 'react-native';
 import MainLayout from '../components/MainLayout';
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
+
 
 const { width } = Dimensions.get('window');
 const boxSize = width / 2.6;
 
 const DashboardScreen = () => {
   const navigation = useNavigation();
+  const { t } = useTranslation();
 
   return (
     <MainLayout title="Dashboard">
@@ -29,7 +32,7 @@ const DashboardScreen = () => {
               style={styles.icon}
               resizeMode="contain"
             />
-            <Text style={styles.boxTitle}>Book a Talk</Text>
+            <Text style={styles.boxTitle}>{t('bookTalk')}</Text>
           </TouchableOpacity>
 
           {/* Share Your Story */}
@@ -39,7 +42,7 @@ const DashboardScreen = () => {
               style={styles.icon}
               resizeMode="contain"
             />
-            <Text style={styles.boxTitle}>Contact Us</Text>
+            <Text style={styles.boxTitle}>{t('contactUs')}</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -53,7 +56,7 @@ const DashboardScreen = () => {
               style={styles.icon}
               resizeMode="contain"
             />
-            <Text style={styles.boxTitle}>Collaboration</Text>
+            <Text style={styles.boxTitle}>{t('collaboration')}</Text>
           </TouchableOpacity>
 
 
@@ -65,7 +68,7 @@ const DashboardScreen = () => {
               style={styles.icon}
               resizeMode="contain"
             />
-            <Text style={styles.boxTitle}>My Bookings</Text>
+            <Text style={styles.boxTitle}>{t('myBookings')}</Text>
           </TouchableOpacity>
 
           {/* Profile */}
@@ -75,7 +78,7 @@ const DashboardScreen = () => {
               style={styles.icon}
               resizeMode="contain"
             />
-            <Text style={styles.boxTitle}>Profile</Text>
+            <Text style={styles.boxTitle}>{t('profile')}</Text>
           </TouchableOpacity>
 
           {/* Help & Info */}
@@ -85,7 +88,7 @@ const DashboardScreen = () => {
               style={styles.icon}
               resizeMode="contain"
             />
-            <Text style={styles.boxTitle}>Help & Info</Text>
+            <Text style={styles.boxTitle}>{t('helpInfo')}</Text>
           </TouchableOpacity>
 
         </View>

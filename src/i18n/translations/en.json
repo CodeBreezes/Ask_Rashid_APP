@@ -1,0 +1,16 @@
+{
+  "language": "Language",
+  "dashboard": "Dashboard",
+  "bookAppointment": "Book Appointment",
+  "myBookings": "My Bookings",
+  "paymentHistory": "Payment History",
+  "changePassword": "Change Password",
+  "about": "About Rashid Bahattab",
+  "help": "Help & Info",
+  "logout": "Logout",
+  "bookTalk": "Book a Talk",
+  "contactUs": "Contact Us",
+  "collaboration": "Collaboration",
+  "profile": "Profile",
+  "helpInfo": "Help & Info"
+}
