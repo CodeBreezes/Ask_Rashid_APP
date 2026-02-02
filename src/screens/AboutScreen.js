@@ -11,6 +11,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MainLayout from '../components/MainLayout';
 import styles from '../styles/HomeScreen.styles';
+import { useTranslation } from 'react-i18next';
 
 // Social media links
 const socialLinks = [
@@ -29,6 +30,8 @@ const openLink = (url) => {
 };
 
 const AboutScreen = () => {
+  const { t } = useTranslation();
+
   return (
     <MainLayout title="About Rashid Bahattab">
       <View style={styles.screen}>
@@ -41,7 +44,7 @@ const AboutScreen = () => {
 
           <View style={styles.content}>
             <View style={styles.nameRow}>
-              <Text style={styles.name}>Rashid Bahattab</Text>
+              <Text style={styles.name}>{t('name')}</Text>
               <MaterialIcons name="verified" size={20} color="#7442ff" />
             </View>
 
@@ -49,12 +52,12 @@ const AboutScreen = () => {
               {[1, 2, 3, 4, 5].map((_, i) => (
                 <FontAwesome key={i} name="star" size={18} color="#FFD700" />
               ))}
-              <Text style={styles.reviewText}> 5 reviews</Text>
+              <Text style={styles.reviewText}>  {t('reviews')}</Text>
             </View>
 
-            <Text style={styles.sectionTitle}>About</Text>
+            <Text style={styles.sectionTitle}> {t('aboutTitle')}</Text>
             <Text style={styles.description}>
-              Rashid, an Emirati public figure from Abu Dhabi, UAE, offers transformative services including 1:1 lifestyle coaching, story-sharing features on his platforms, motivational event speaking, and brand collaborations — all designed to empower his community through authentic connection.
+               {t('aboutDescription')}
             </Text>
 
             {/* Social Media Icons */}
