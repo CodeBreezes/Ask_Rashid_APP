@@ -15,6 +15,7 @@ import axios from 'axios';
 import CustomAlertModal from '../components/CustomAlertModal';
 import MainLayout from '../components/MainLayout';
 import { BASE_API_URL } from '../api/apiConfig';
+import { useTranslation } from 'react-i18next';
 
 const ContactUsScreen = () => {
   const route = useRoute();
@@ -31,11 +32,13 @@ const ContactUsScreen = () => {
   const [modalContent, setModalContent] = useState({ title: '', message: '' });
 
   const categoryOptions = [
-    { label: 'Brand Collaboration', value: 'Brand Collaboration' },
-    { label: 'Feedback / Suggestions', value: 'FeedbackSuggestions' },
-    { label: 'Complaint Issue', value: 'ComplaintIssue' },
-    { label: 'General Enquiry', value: 'GeneralEnquiry' },
+    { label: t('brandCollaboration'), value: 'BrandCollaboration' },
+    { label: t('feedbackSuggestions'), value: 'FeedbackSuggestions' },
+    { label: t('complaintIssue'), value: 'ComplaintIssue' },
+    { label: t('generalEnquiry'), value: 'GeneralEnquiry' },
   ];
+
+  const { t } = useTranslation();
 
   const isCategoryReadonly = defaultCategory === 'Brand Collaboration';
 
@@ -62,10 +65,10 @@ const ContactUsScreen = () => {
 
   const handleSubmit = async () => {
     if (!category) {
-      return showModal('Validation Error', 'Please select a category.');
+      return showModal(t('validationError'), t('selectCategoryError'));
     }
     if (!message.trim()) {
-      return showModal('Validation Error', 'Please enter your message.');
+      return showModal(t('validationError'), t('enterMessageError'));
     }
 
     setLoading(true);
@@ -84,15 +87,16 @@ const ContactUsScreen = () => {
       );
 
       if (res.status === 200 || res.status === 201) {
-        showModal('✅ Success', 'Your Form has been submitted successfully.');
+        showModal(t('success'), t('formSubmitted'));
         if (!isCategoryReadonly) setCategory('');
         setMessage('');
       } else {
-        showModal('Error', 'Failed to submit feedback. Please try again.');
+        showModal(t('Error'), t('submitFailed'));
       }
     } catch (err) {
       console.error(err);
-      showModal('Error', 'Something went wrong. Please try again.');
+      showModal(t('Error'), t('somethingWentWrong'));
+
     } finally {
       setLoading(false);
     }
@@ -102,11 +106,12 @@ const ContactUsScreen = () => {
     <MainLayout title="Contact Us">
       <ScrollView contentContainerStyle={styles.container}>
         <Text style={styles.subHeaderText}>
-          Please fill out the form below and we'll get back to you as soon as possible.
+          {t('contactIntro')}
         </Text>
 
+
         <View style={styles.inputGroup}>
-          <Text style={styles.label}>Name</Text>
+          <Text style={styles.label}>{t('Name')}</Text>
           <TextInput
             value={fullName}
             editable={false}
@@ -115,7 +120,7 @@ const ContactUsScreen = () => {
         </View>
 
         <View style={styles.inputGroup}>
-          <Text style={styles.label}>Email</Text>
+          <Text style={styles.label}>{t('email')}</Text>
           <TextInput
             value={email}
             editable={false}
@@ -124,7 +129,7 @@ const ContactUsScreen = () => {
         </View>
 
         <View style={styles.inputGroup}>
-          <Text style={styles.label}>Category</Text>
+          <Text style={styles.label}>{t('category')}</Text>
 
           {isCategoryReadonly ? (
             <Text style={styles.readonlyText}>{category}</Text>
@@ -135,7 +140,7 @@ const ContactUsScreen = () => {
                 onValueChange={setCategory}
                 style={styles.picker}
               >
-                <Picker.Item label="-- Select Category --" value="" />
+                <Picker.Item label={t('selectCategory')}  value="" />
                 {categoryOptions.map((option) => (
                   <Picker.Item
                     key={option.value}
@@ -149,9 +154,9 @@ const ContactUsScreen = () => {
         </View>
 
         <View style={styles.inputGroup}>
-          <Text style={styles.label}>Message</Text>
+          <Text style={styles.label}>{t('message')}</Text>
           <TextInput
-            placeholder="Write your message here..."
+            placeholder={t('messagePlaceholder')}
             placeholderTextColor="#999"
             style={[styles.input, styles.textArea]}
             value={message}
@@ -170,7 +175,7 @@ const ContactUsScreen = () => {
           {loading ? (
             <ActivityIndicator color="#fff" />
           ) : (
-            <Text style={styles.submitButtonText}>Submit</Text>
+            <Text style={styles.submitButtonText}> {t('submit')}</Text>
           )}
         </TouchableOpacity>
 
@@ -217,18 +222,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#EAEFF4',
     color: '#6E7C8B',
   },
- pickerContainer: {
-  backgroundColor: '#fff',
-  borderRadius: 25,
-  borderWidth: 1,
-  borderColor: '#E0E6ED',
-},
+  pickerContainer: {
+    backgroundColor: '#fff',
+    borderRadius: 25,
+    borderWidth: 1,
+    borderColor: '#E0E6ED',
+  },
 
-picker: {
-  height: 50,
-  width: '100%',
-  color: '#333',
-},
+  picker: {
+    height: 50,
+    width: '100%',
+    color: '#333',
+  },
   readonlyText: {
     padding: 14,
     backgroundColor: '#e9ecef',

@@ -20,7 +20,7 @@ const HelpInfoScreen = () => {
   const { t } = useTranslation();
 
   return (
-    <MainLayout title="Help & Info">
+    <MainLayout title= {t('helpInfo')}>
       <SafeAreaView style={styles.safeArea}>
         <ScrollView contentContainerStyle={styles.container}>
 

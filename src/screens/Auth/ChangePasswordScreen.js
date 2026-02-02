@@ -14,12 +14,14 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { changePassword } from '../../api/userApi';
 import MainLayout from '../../components/MainLayout';
-import Icon from 'react-native-vector-icons/Ionicons'; // 👈 Added for eye icons
+import Icon from 'react-native-vector-icons/Ionicons';
+import { useTranslation } from 'react-i18next';
 
 const { width } = Dimensions.get('window');
 
 const ChangePasswordScreen = () => {
     const navigation = useNavigation();
+    const { t } = useTranslation();
 
     const [oldPassword, setOldPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
@@ -38,23 +40,25 @@ const ChangePasswordScreen = () => {
         setMessageType(null);
 
         if (!oldPassword || !newPassword || !confirmPassword) {
-            setMessage('Please fill in all fields');
+            setMessage(t('changePasswordFillAll'));
             setMessageType('error');
             return;
         }
 
+
         if (newPassword !== confirmPassword) {
-            setMessage('New passwords do not match');
+            setMessage(t('changePasswordMismatch'));
             setMessageType('error');
             return;
         }
+
 
         try {
             setLoading(true);
             const response = await changePassword(oldPassword, newPassword, confirmPassword);
 
             if (response?.isUpdated && !response?.errorMessages?.length) {
-                const successMsg = response?.data?.successMessages?.[0] || 'Password changed successfully!';
+                const successMsg = response?.data?.successMessages?.[0] || t('changePasswordSuccess');
                 setMessage(successMsg);
                 setMessageType('success');
 
@@ -67,7 +71,7 @@ const ChangePasswordScreen = () => {
                     setMessageType(null);
                 }, 4000);
             } else {
-                const errorMsg = response?.data?.errorMessages?.[0] || 'Old password is incorrect.';
+                const errorMsg = response?.data?.errorMessages?.[0] || t('changePasswordIncorrectOld');
                 setMessage(errorMsg);
                 setMessageType('error');
             }
@@ -84,16 +88,16 @@ const ChangePasswordScreen = () => {
     };
 
     return (
-        <MainLayout title="Change Password">
+        <MainLayout title={t('changePasswordTitle')}>
             <KeyboardAvoidingView
                 behavior={Platform.OS === 'ios' ? 'padding' : undefined}
                 style={styles.keyboardAvoidingView}
             >
                 <ScrollView contentContainerStyle={styles.scrollContainer}>
                     <View style={styles.headerContainer}>
-                        <Text style={styles.header}>Change Password</Text>
+                        <Text style={styles.header}>{t('changePasswordHeader')}</Text>
                         <Text style={styles.subHeader}>
-                            Ensure your account is secure by updating your password regularly.
+                            {t('changePasswordSubHeader')}
                         </Text>
                     </View>
 
@@ -118,12 +122,12 @@ const ChangePasswordScreen = () => {
                     <View style={styles.card}>
                         {/* Old Password */}
                         <View style={styles.inputGroup}>
-                            <Text style={styles.label}>Old Password</Text>
+                            <Text style={styles.label}>{t('oldPassword')}</Text>
                             <View style={styles.inputWrapper}>
                                 <TextInput
                                     style={styles.input}
                                     secureTextEntry={!showOld}
-                                    placeholder="Enter your current password"
+                                    placeholder={t('oldPasswordPlaceholder')}
                                     placeholderTextColor="#999"
                                     value={oldPassword}
                                     onChangeText={setOldPassword}
@@ -136,12 +140,12 @@ const ChangePasswordScreen = () => {
 
                         {/* New Password */}
                         <View style={styles.inputGroup}>
-                            <Text style={styles.label}>New Password</Text>
+                            <Text style={styles.label}>{t('newPassword')}</Text>
                             <View style={styles.inputWrapper}>
                                 <TextInput
                                     style={styles.input}
                                     secureTextEntry={!showNew}
-                                    placeholder="Create a strong new password"
+                                    placeholder={t('newPasswordPlaceholder')}
                                     placeholderTextColor="#999"
                                     value={newPassword}
                                     onChangeText={setNewPassword}
@@ -154,12 +158,12 @@ const ChangePasswordScreen = () => {
 
                         {/* Confirm New Password */}
                         <View style={styles.inputGroup}>
-                            <Text style={styles.label}>Confirm New Password</Text>
+                            <Text style={styles.label}>{t('confirmNewPassword')}</Text>
                             <View style={styles.inputWrapper}>
                                 <TextInput
                                     style={styles.input}
                                     secureTextEntry={!showConfirm}
-                                    placeholder="Confirm your new password"
+                                    placeholder={t('confirmNewPasswordPlaceholder')}
                                     placeholderTextColor="#999"
                                     value={confirmPassword}
                                     onChangeText={setConfirmPassword}
@@ -178,7 +182,7 @@ const ChangePasswordScreen = () => {
                             {loading ? (
                                 <ActivityIndicator color="#fff" />
                             ) : (
-                                <Text style={styles.buttonText}>Update Password</Text>
+                                <Text style={styles.buttonText}> {t('updatePasswordButton')}</Text>
                             )}
                         </TouchableOpacity>
                     </View>

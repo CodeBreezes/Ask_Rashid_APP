@@ -20,6 +20,7 @@ import MainLayout from '../components/MainLayout';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import { BASE_API_URL } from '../api/apiConfig';
+import { useTranslation } from 'react-i18next';
 
 
 
@@ -27,6 +28,7 @@ const { width } = Dimensions.get('window');
 
 const UpdateProfileScreen = () => {
   const navigation = useNavigation();
+  const { t } = useTranslation();
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -161,13 +163,13 @@ const UpdateProfileScreen = () => {
         await AsyncStorage.setItem('phone', String(phoneNumber));
         await AsyncStorage.setItem('address', 'UAE');
 
-        showModal('✅ Success', 'Your profile has been updated.');
+        showModal(t('success'), t('updateProfileSuccess'));
         fetchUserDetails(uniqueId);
       } else {
         showModal('Update Failed', data?.errorMessages?.[0] || 'Something went wrong.');
       }
     } catch (err) {
-      showModal('Error', 'Server error. Please try again.');
+      showModal(t('Error'), t('updateProfileServerError'));
     } finally {
       setLoading(false);
     }
@@ -175,7 +177,7 @@ const UpdateProfileScreen = () => {
 
   if (fetchLoading) {
     return (
-      <MainLayout title="Update Profile">
+      <MainLayout title={t('updateProfileTitle')}>
         <View style={styles.loadingContainer}>
           <ActivityIndicator size="large" color="#6A1B9A" />
         </View>
@@ -184,7 +186,7 @@ const UpdateProfileScreen = () => {
   }
 
   return (
-    <MainLayout title="Update Profile">
+    <MainLayout title={t('updateProfileTitle')}>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
         <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
           <View style={styles.profileImageContainer}>
@@ -204,54 +206,54 @@ const UpdateProfileScreen = () => {
 
           <View style={styles.row}>
             <View style={styles.column}>
-              <Text style={styles.label}>First Name</Text>
+              <Text style={styles.label}>{t('updateProfileFirstName')}</Text>
               <TextInput
                 style={styles.input}
                 value={firstName}
                 onChangeText={setFirstName}
-                placeholder="First Name"
+                placeholder={t('updateProfileFirstName')}
                 placeholderTextColor="#999"
               />
             </View>
 
             <View style={styles.column}>
-              <Text style={styles.label}>Last Name</Text>
+              <Text style={styles.label}>{t('updateProfileLastName')}</Text>
               <TextInput
                 style={styles.input}
                 value={lastName}
                 onChangeText={setLastName}
-                placeholder="Last Name"
+                placeholder={t('updateProfileLastName')}
                 placeholderTextColor="#999"
               />
             </View>
           </View>
 
-          <Text style={styles.label}>Email</Text>
+          <Text style={styles.label}>{t('updateProfileEmail')}</Text>
           <TextInput
             style={styles.input}
             value={email}
             onChangeText={setEmail}
-            placeholder="Enter Email"
+            placeholder={t('updateProfileEmail')}
             placeholderTextColor="#999"
             keyboardType="email-address"
           />
 
-          <Text style={styles.label}>Phone Number</Text>
+          <Text style={styles.label}>{t('updateProfilePhone')}</Text>
           <TextInput
             style={styles.input}
             value={phoneNumber}
             onChangeText={setPhoneNumber}
             placeholder="Enter Phone Number"
             placeholderTextColor="#999"
-            keyboardType="phone-pad"
+            keyboardType={t('updateProfilePhone')}
           />
 
           <View style={styles.row}>
             <View style={styles.column}>
-              <Text style={styles.label}>Date of Birth</Text>
+              <Text style={styles.label}>{t('updateProfileDob')}</Text>
               <TouchableOpacity onPress={() => setDatePickerVisibility(true)} style={styles.input}>
                 <Text style={dob ? styles.dateText : styles.placeholderText}>
-                  {dob ? dob.toDateString() : 'Select DOB'}
+                  {dob ? dob.toDateString() : t('updateProfileSelectDob')}
                 </Text>
               </TouchableOpacity>
               <DateTimePickerModal
@@ -264,7 +266,7 @@ const UpdateProfileScreen = () => {
             </View>
 
             <View style={styles.column}>
-              <Text style={styles.label}>Gender</Text>
+              <Text style={styles.label}>{t('updateProfileGender')}</Text>
               {showGenderDropdown ? (
                 <View style={styles.dropdownContainer}>
                   {['Male', 'Female', 'Prefer Not to Say'].map((option) => (
@@ -301,14 +303,14 @@ const UpdateProfileScreen = () => {
             {loading ? (
               <ActivityIndicator color="#fff" />
             ) : (
-              <Text style={styles.buttonText}>Update Profile</Text>
+              <Text style={styles.buttonText}> {t('updateProfileButton')}</Text>
             )}
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.deleteButton}
             onPress={() => navigation.navigate('Delete')}
           >
-            <Text style={styles.deleteButtonText}>Delete Account</Text>
+            <Text style={styles.deleteButtonText}> {t('updateProfileDeleteAccount')}</Text>
           </TouchableOpacity>
         </ScrollView>
       </KeyboardAvoidingView>
