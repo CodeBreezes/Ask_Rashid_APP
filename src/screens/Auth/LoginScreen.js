@@ -22,9 +22,11 @@ import { loginUser, checkEmailExists, getUserByEmail, CheckIfLoginFromGoogle } f
 import { registerUser } from '../../api/userApi';
 import { configureGoogleSignIn, handleGoogleLogin } from '../../services/googleConfig';
 import { BASE_API_URL } from '../../api/apiConfig';
+import { useTranslation } from 'react-i18next';
+
 const LoginScreen = () => {
   const navigation = useNavigation();
-
+  const { t } = useTranslation();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -211,13 +213,13 @@ const LoginScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <CustomHeader title="Log In" hideMenu />
+      <CustomHeader title={t('loginTitle')} hideMenu />
 
       <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled">
         <View style={{ flex: 1, justifyContent: 'center', paddingHorizontal: 24 }}>
           <View style={styles.inputContainer}>
             <TextInput
-              placeholder="Username or Mobile"
+              placeholder={t('loginUsernamePlaceholder')}
               placeholderTextColor="#999"
               style={styles.input}
               value={username}
@@ -225,7 +227,7 @@ const LoginScreen = () => {
             />
             <View style={styles.passwordWrapper}>
               <TextInput
-                placeholder="🔒 Password"
+                placeholder={t('loginPasswordPlaceholder')}
                 placeholderTextColor="#999"
                 secureTextEntry={!showPassword}
                 style={styles.passwordInput}
@@ -240,22 +242,22 @@ const LoginScreen = () => {
           </View>
 
           <TouchableOpacity style={styles.forgotPasswordContainer} onPress={() => navigation.navigate('ForgotPassword')} >
-            <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
+            <Text style={styles.forgotPasswordText}> {t('forgotPassword')}</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-            <Text style={styles.loginButtonText}>LOG IN</Text>
+            <Text style={styles.loginButtonText}> {t('loginButton')}</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={customStyles.googleSignInButton} onPress={handleGoogleSignIn}>
             <Image source={require('../../assets/google_logo.png')} style={customStyles.googleLogo} />
-            <Text style={customStyles.googleSignInText}>Sign in with Google</Text>
+            <Text style={customStyles.googleSignInText}>{t('googleSignIn')}</Text>
           </TouchableOpacity>
 
           <View style={styles.registerContainer}>
-            <Text style={styles.registerText}>Don't have an account?</Text>
+            <Text style={styles.registerText}> {t('noAccount')}</Text>
             <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-              <Text style={styles.registerLink}> Register</Text>
+              <Text style={styles.registerLink}>  {t('register')}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -265,7 +267,7 @@ const LoginScreen = () => {
       <Modal visible={loading} transparent animationType="fade">
         <View style={customStyles.overlay}>
           <ActivityIndicator size="large" color="#ffffff" />
-          <Text style={customStyles.text}>Logging in...</Text>
+          <Text style={customStyles.text}> {t('loggingIn')}</Text>
         </View>
       </Modal>
 

@@ -103,7 +103,7 @@ const ContactUsScreen = () => {
   };
 
   return (
-    <MainLayout title="Contact Us">
+    <MainLayout title= {t('contactUs')}>
       <ScrollView contentContainerStyle={styles.container}>
         <Text style={styles.subHeaderText}>
           {t('contactIntro')}

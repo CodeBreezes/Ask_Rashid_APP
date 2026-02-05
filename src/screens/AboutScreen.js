@@ -33,7 +33,7 @@ const AboutScreen = () => {
   const { t } = useTranslation();
 
   return (
-    <MainLayout title="About Rashid Bahattab">
+    <MainLayout title= {t('about')}>
       <View style={styles.screen}>
         <ScrollView contentContainerStyle={styles.scrollContainer}>
           <Image

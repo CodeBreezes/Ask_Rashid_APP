@@ -21,7 +21,7 @@ const DashboardScreen = () => {
   const { t } = useTranslation();
 
   return (
-    <MainLayout title="Dashboard">
+    <MainLayout title= {t('dashboard')}>
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.grid}>
 

@@ -12,8 +12,11 @@ import moment from 'moment';
 import MainLayout from '../components/MainLayout';
 import axios from 'axios';
 import { BASE_API_URL } from '../api/apiConfig';
+import { useTranslation } from 'react-i18next';
 
 const PaymentHistoryScreen = () => {
+      const { t } = useTranslation();
+
   const [paymentHistory, setPaymentHistory] = useState([]);
   const [loading, setLoading] = useState(true);
   const [serviceMap, setServiceMap] = useState({});
@@ -95,14 +98,15 @@ const PaymentHistoryScreen = () => {
         <Text style={[styles.status, {
           color: item.paymentStatus === 'Failed' ? 'red' : 'green'
         }]}>
-          {item.paymentStatus || 'Completed'}
+          {item.paymentStatus ||  t('completed')}
         </Text>
       </View>
     </View>
   );
-
+    
   return (
-    <MainLayout title="Payment History">
+    
+    <MainLayout title= {t('paymentHistorys')}>
       <SafeAreaView style={styles.container}>
 
         {loading ? (

@@ -163,7 +163,7 @@ const BookingScreen = () => {
   const { t } = useTranslation();
 
   return (
-    <MainLayout title="Book Appointment">
+    <MainLayout title= {t('bookAppointment')}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{ flex: 1 }}

@@ -16,12 +16,15 @@ import axios from 'axios';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { BASE_API_URL } from '../api/apiConfig';
+import { useTranslation } from 'react-i18next';
+
 const MyBookingsScreen = () => {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [serviceMap, setServiceMap] = useState({});
   const [selectedBooking, setSelectedBooking] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
+  const { t } = useTranslation();
 
   const fetchServices = async () => {
     try {
@@ -111,7 +114,7 @@ const MyBookingsScreen = () => {
         <Text style={styles.cardTitle}>{serviceMap[item.serviceId] || 'N/A'}</Text>
         <View style={styles.statusPill}>
           {/* Replace with actual booking status if available */}
-          <Text style={styles.statusText}>Confirmed</Text>
+          <Text style={styles.statusText}> {t('confirmed')}</Text>
         </View>
       </View>
       <View style={styles.cardDetails}>
@@ -128,7 +131,7 @@ const MyBookingsScreen = () => {
   );
 
   return (
-    <MainLayout title="My Bookings">
+    <MainLayout title= {t('myBooking')}>
       {loading ? (
         <ActivityIndicator size="large" color="#FF6B6B" style={{ marginTop: 50 }} />
       ) : bookings.length > 0 ? (
