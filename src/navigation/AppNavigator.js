@@ -20,13 +20,14 @@ import UpdateProfileScreen from '../screens/UpdateProfileScreen'
 import ContactUsScreen from '../screens/ContactUsScreen'
 import DeleteAccountScreen from '../screens/Auth/DeleteAccountScreen';
 import SlotPickerScreen from '../screens/SlotPickerScreen'
+import LandingScreen from '../screens/Auth/LandingScreen'
 
 const Stack = createNativeStackNavigator();
 
 const AppNavigator = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName="LandingScreen">
         <Stack.Screen name="AuthLoading" component={AuthLoadingScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Signup" component={SignupScreen} options={{ headerShown: false }} />
@@ -46,6 +47,8 @@ const AppNavigator = () => {
         <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Delete" component={DeleteAccountScreen} options={{ headerShown: false }} />
         <Stack.Screen name="SlotPicker" component={SlotPickerScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name="LandingScreen" component={LandingScreen} options={{ headerShown: false }}/>
+
       </Stack.Navigator>
     </NavigationContainer>
   );

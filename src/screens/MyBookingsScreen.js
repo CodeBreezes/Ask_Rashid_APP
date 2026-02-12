@@ -17,6 +17,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { BASE_API_URL } from '../api/apiConfig';
 import { useTranslation } from 'react-i18next';
+import Texts from "../components/Texts";
 
 const MyBookingsScreen = () => {
   const [bookings, setBookings] = useState([]);
@@ -114,7 +115,7 @@ const MyBookingsScreen = () => {
         <Text style={styles.cardTitle}>{serviceMap[item.serviceId] || 'N/A'}</Text>
         <View style={styles.statusPill}>
           {/* Replace with actual booking status if available */}
-          <Text style={styles.statusText}> {t('confirmed')}</Text>
+          <Texts style={styles.statusText}> {t('confirmed')}</Texts>
         </View>
       </View>
       <View style={styles.cardDetails}>

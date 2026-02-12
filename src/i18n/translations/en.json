@@ -136,5 +136,10 @@
   "phoneNumber": "Phone Number",
   "password": "Password",
   "confirmPassword": "Confirm Password",
-  "signUp": "Sign Up"
+  "signUp": "Sign Up",
+  "deleteAccountTitle": "Are you sure?",
+  "deleteAccountMessage": "This action will permanently delete your account and all associated data.",
+  "deleteAccountBtn": "Delete Account",
+  "cancel": "Cancel",
+  "selectservice": "Select Our Service"
 }

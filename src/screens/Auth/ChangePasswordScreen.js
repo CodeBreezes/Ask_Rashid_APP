@@ -16,6 +16,7 @@ import { changePassword } from '../../api/userApi';
 import MainLayout from '../../components/MainLayout';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useTranslation } from 'react-i18next';
+import Texts from "../../components/Texts";
 
 const { width } = Dimensions.get('window');
 
@@ -95,10 +96,10 @@ const ChangePasswordScreen = () => {
             >
                 <ScrollView contentContainerStyle={styles.scrollContainer}>
                     <View style={styles.headerContainer}>
-                        <Text style={styles.header}>{t('changePasswordHeader')}</Text>
-                        <Text style={styles.subHeader}>
+                        <Texts style={styles.header}>{t('changePasswordHeader')}</Texts>
+                        <Texts style={styles.subHeader}>
                             {t('changePasswordSubHeader')}
-                        </Text>
+                        </Texts>
                     </View>
 
                     {message ? (
@@ -108,21 +109,21 @@ const ChangePasswordScreen = () => {
                                 messageType === 'success' ? styles.successBox : styles.errorBox,
                             ]}
                         >
-                            <Text
+                            <Texts
                                 style={[
                                     styles.messageText,
                                     messageType === 'success' ? styles.successText : styles.errorText,
                                 ]}
                             >
                                 {message}
-                            </Text>
+                            </Texts>
                         </View>
                     ) : null}
 
                     <View style={styles.card}>
                         {/* Old Password */}
                         <View style={styles.inputGroup}>
-                            <Text style={styles.label}>{t('oldPassword')}</Text>
+                            <Texts style={styles.label}>{t('oldPassword')}</Texts>
                             <View style={styles.inputWrapper}>
                                 <TextInput
                                     style={styles.input}
@@ -140,7 +141,7 @@ const ChangePasswordScreen = () => {
 
                         {/* New Password */}
                         <View style={styles.inputGroup}>
-                            <Text style={styles.label}>{t('newPassword')}</Text>
+                            <Texts style={styles.label}>{t('newPassword')}</Texts>
                             <View style={styles.inputWrapper}>
                                 <TextInput
                                     style={styles.input}
@@ -158,7 +159,7 @@ const ChangePasswordScreen = () => {
 
                         {/* Confirm New Password */}
                         <View style={styles.inputGroup}>
-                            <Text style={styles.label}>{t('confirmNewPassword')}</Text>
+                            <Texts style={styles.label}>{t('confirmNewPassword')}</Texts>
                             <View style={styles.inputWrapper}>
                                 <TextInput
                                     style={styles.input}
@@ -182,7 +183,7 @@ const ChangePasswordScreen = () => {
                             {loading ? (
                                 <ActivityIndicator color="#fff" />
                             ) : (
-                                <Text style={styles.buttonText}> {t('updatePasswordButton')}</Text>
+                                <Texts style={styles.buttonText}> {t('updatePasswordButton')}</Texts>
                             )}
                         </TouchableOpacity>
                     </View>

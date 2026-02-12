@@ -16,6 +16,7 @@ import CustomAlertModal from '../components/CustomAlertModal';
 import MainLayout from '../components/MainLayout';
 import { BASE_API_URL } from '../api/apiConfig';
 import { useTranslation } from 'react-i18next';
+import Texts from "../components/Texts";
 
 const ContactUsScreen = () => {
   const route = useRoute();
@@ -30,6 +31,7 @@ const ContactUsScreen = () => {
 
   const [modalVisible, setModalVisible] = useState(false);
   const [modalContent, setModalContent] = useState({ title: '', message: '' });
+  const { t } = useTranslation();
 
   const categoryOptions = [
     { label: t('brandCollaboration'), value: 'BrandCollaboration' },
@@ -38,7 +40,6 @@ const ContactUsScreen = () => {
     { label: t('generalEnquiry'), value: 'GeneralEnquiry' },
   ];
 
-  const { t } = useTranslation();
 
   const isCategoryReadonly = defaultCategory === 'Brand Collaboration';
 
@@ -105,13 +106,13 @@ const ContactUsScreen = () => {
   return (
     <MainLayout title= {t('contactUs')}>
       <ScrollView contentContainerStyle={styles.container}>
-        <Text style={styles.subHeaderText}>
+        <Texts style={styles.subHeaderText}>
           {t('contactIntro')}
-        </Text>
+        </Texts>
 
 
         <View style={styles.inputGroup}>
-          <Text style={styles.label}>{t('Name')}</Text>
+          <Texts style={styles.label}>{t('Name')}</Texts>
           <TextInput
             value={fullName}
             editable={false}
@@ -120,7 +121,7 @@ const ContactUsScreen = () => {
         </View>
 
         <View style={styles.inputGroup}>
-          <Text style={styles.label}>{t('email')}</Text>
+          <Texts style={styles.label}>{t('email')}</Texts>
           <TextInput
             value={email}
             editable={false}
@@ -129,10 +130,10 @@ const ContactUsScreen = () => {
         </View>
 
         <View style={styles.inputGroup}>
-          <Text style={styles.label}>{t('category')}</Text>
+          <Texts style={styles.label}>{t('category')}</Texts>
 
           {isCategoryReadonly ? (
-            <Text style={styles.readonlyText}>{category}</Text>
+            <Texts style={styles.readonlyText}>{category}</Texts>
           ) : (
             <View style={styles.pickerContainer}>
               <Picker
@@ -154,7 +155,7 @@ const ContactUsScreen = () => {
         </View>
 
         <View style={styles.inputGroup}>
-          <Text style={styles.label}>{t('message')}</Text>
+          <Texts style={styles.label}>{t('message')}</Texts>
           <TextInput
             placeholder={t('messagePlaceholder')}
             placeholderTextColor="#999"
@@ -175,7 +176,7 @@ const ContactUsScreen = () => {
           {loading ? (
             <ActivityIndicator color="#fff" />
           ) : (
-            <Text style={styles.submitButtonText}> {t('submit')}</Text>
+            <Texts style={styles.submitButtonText}> {t('submit')}</Texts>
           )}
         </TouchableOpacity>
 

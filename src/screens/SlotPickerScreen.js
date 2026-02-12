@@ -87,32 +87,36 @@ const SlotPickerScreen = ({ navigation }) => {
   };
 
   const buildSlotsForDay = (date) => {
-    let slots = [];
-    let bookedTimes = [];
+  let slots = [];
+  let bookedTimes = [];
 
-    calendarData.forEach((y) => {
-      y.months.forEach((m) => {
-        m.days.forEach((d) => {
-          if (d.date === date) {
-            d.bookings.forEach((b) => {
-              bookedTimes.push({ start: b.start, end: b.end });
-            });
+  const now = new Date();
 
-            // Now create available slots
-            d.availableSlots.forEach((s) => {
-              const duration = d.slotDuration;
-              let startTime = new Date(`${date}T${s.start}`);
-              let endTime = new Date(`${date}T${s.end}`);
+  calendarData.forEach((y) => {
+    y.months.forEach((m) => {
+      m.days.forEach((d) => {
+        if (d.date === date) {
 
-              while (startTime < endTime) {
-                let next = new Date(startTime.getTime() + duration * 60000);
-                if (next <= endTime) {
-                  const startStr = startTime.toTimeString().substring(0, 5);
-                  const endStr = next.toTimeString().substring(0, 5);
+          d.bookings.forEach((b) => {
+            bookedTimes.push({ start: b.start, end: b.end });
+          });
+          d.availableSlots.forEach((s) => {
+            const duration = d.slotDuration;
+            let startTime = new Date(`${date}T${s.start}`);
+            let endTime = new Date(`${date}T${s.end}`);
 
-                  // Check if this slot overlaps with any booked slot
-                  const isBooked = bookedTimes.some(bt => startStr >= bt.start && startStr < bt.end);
+            while (startTime < endTime) {
+              let next = new Date(startTime.getTime() + duration * 60000);
 
+              if (next <= endTime) {
+                const startStr = startTime.toTimeString().substring(0, 5);
+                const endStr = next.toTimeString().substring(0, 5);
+
+                const isBooked = bookedTimes.some(
+                  (bt) => startStr >= bt.start && startStr < bt.end
+                );
+                const isPast = startTime < now;
+                if (!isPast) {
                   slots.push({
                     slotId: s.slotId,
                     date: date,
@@ -121,16 +125,18 @@ const SlotPickerScreen = ({ navigation }) => {
                     booked: isBooked
                   });
                 }
-                startTime = next;
               }
-            });
-          }
-        });
+
+              startTime = next;
+            }
+          });
+        }
       });
     });
+  });
 
-    setDaySlots(slots);
-  };
+  setDaySlots(slots);
+};
 
 
   const onSelectDate = (day) => {
@@ -144,12 +150,18 @@ const SlotPickerScreen = ({ navigation }) => {
   const onSelectSlot = (slot) => {
     setVisible(false);
     const endedDateTime = `${slot.date}T${slot.end}:00`;
-    navigation.navigate("BookingScreen", {
-      startedDate: slot.date,
-      startedTime: slot.start,
-      endedTime: endedDateTime,
-      slotId: slot.slotId
+    navigation.goBack();
+    navigation.navigate({
+      name: "BookingScreen",
+      params: {
+        startedDate: slot.date,
+        startedTime: slot.start,
+        endedTime: endedDateTime,
+        slotId: slot.slotId
+      },
+      merge: true
     });
+
   };
 
 
@@ -255,17 +267,17 @@ const SlotPickerScreen = ({ navigation }) => {
                     key={i}
                     style={[
                       styles.slotBox,
-                      s.booked && { backgroundColor: "#eee", borderColor: "#ccc" }
+                      (s.booked || s.past) && { backgroundColor: "#e5e5e5", borderColor: "#ccc" }
                     ]}
-                    onPress={() => !s.booked && onSelectSlot(s)}
-                    disabled={s.booked}
+                    onPress={() => !(s.booked || s.past) && onSelectSlot(s)}
+                    disabled={s.booked || s.past}
                   >
-                    <Text style={[styles.slotText, s.booked && { color: "#999" }]}>
-                      {s.start} - {s.end} {s.booked ? "(Booked)" : ""}
+                    <Text style={[styles.slotText, (s.booked || s.past) && { color: "#888" }]}>
+                      {s.start} - {s.end}{" "}
+                      {s.booked ? "(Booked)" : s.past }
                     </Text>
                   </TouchableOpacity>
                 ))}
-
 
                 {daySlots.length === 0 && (
                   <Text style={{ textAlign: "center", marginTop: 20 }}>

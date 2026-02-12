@@ -21,6 +21,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import { BASE_API_URL } from '../api/apiConfig';
 import { useTranslation } from 'react-i18next';
+import Texts from "../components/Texts";
 
 
 
@@ -131,7 +132,7 @@ const UpdateProfileScreen = () => {
     formData.append('Email', email);
     formData.append('PhoneNumber', phoneNumber);
     formData.append('DateOfBirth', dob.toISOString());
-    formData.append('Address', 'UAE'); // Hardcoded default address
+    formData.append('Address', 'UAE'); 
     formData.append('Gender', gender);
 
     if (profileImage && profileImage.uri && profileImage.uri !== initialImageUri) {
@@ -206,7 +207,7 @@ const UpdateProfileScreen = () => {
 
           <View style={styles.row}>
             <View style={styles.column}>
-              <Text style={styles.label}>{t('updateProfileFirstName')}</Text>
+              <Texts style={styles.label}>{t('updateProfileFirstName')}</Texts>
               <TextInput
                 style={styles.input}
                 value={firstName}
@@ -217,7 +218,7 @@ const UpdateProfileScreen = () => {
             </View>
 
             <View style={styles.column}>
-              <Text style={styles.label}>{t('updateProfileLastName')}</Text>
+              <Texts style={styles.label}>{t('updateProfileLastName')}</Texts>
               <TextInput
                 style={styles.input}
                 value={lastName}
@@ -228,7 +229,7 @@ const UpdateProfileScreen = () => {
             </View>
           </View>
 
-          <Text style={styles.label}>{t('updateProfileEmail')}</Text>
+          <Texts style={styles.label}>{t('updateProfileEmail')}</Texts>
           <TextInput
             style={styles.input}
             value={email}
@@ -238,7 +239,7 @@ const UpdateProfileScreen = () => {
             keyboardType="email-address"
           />
 
-          <Text style={styles.label}>{t('updateProfilePhone')}</Text>
+          <Texts style={styles.label}>{t('updateProfilePhone')}</Texts>
           <TextInput
             style={styles.input}
             value={phoneNumber}
@@ -250,11 +251,11 @@ const UpdateProfileScreen = () => {
 
           <View style={styles.row}>
             <View style={styles.column}>
-              <Text style={styles.label}>{t('updateProfileDob')}</Text>
+              <Texts style={styles.label}>{t('updateProfileDob')}</Texts>
               <TouchableOpacity onPress={() => setDatePickerVisibility(true)} style={styles.input}>
-                <Text style={dob ? styles.dateText : styles.placeholderText}>
+                <Texts style={dob ? styles.dateText : styles.placeholderText}>
                   {dob ? dob.toDateString() : t('updateProfileSelectDob')}
-                </Text>
+                </Texts>
               </TouchableOpacity>
               <DateTimePickerModal
                 isVisible={isDatePickerVisible}
@@ -266,7 +267,7 @@ const UpdateProfileScreen = () => {
             </View>
 
             <View style={styles.column}>
-              <Text style={styles.label}>{t('updateProfileGender')}</Text>
+              <Texts style={styles.label}>{t('updateProfileGender')}</Texts>
               {showGenderDropdown ? (
                 <View style={styles.dropdownContainer}>
                   {['Male', 'Female', 'Prefer Not to Say'].map((option) => (
@@ -278,7 +279,7 @@ const UpdateProfileScreen = () => {
                         setShowGenderDropdown(false);
                       }}
                     >
-                      <Text style={styles.dropdownText}>{option}</Text>
+                      <Texts style={styles.dropdownText}>{option}</Texts>
                     </TouchableOpacity>
                   ))}
                 </View>
@@ -287,9 +288,9 @@ const UpdateProfileScreen = () => {
                   style={styles.genderDisplay}
                   onPress={() => setShowGenderDropdown(true)}
                 >
-                  <Text style={styles.genderDisplayText}>
+                  <Texts style={styles.genderDisplayText}>
                     {gender ? gender : 'Select Gender'}
-                  </Text>
+                  </Texts>
                 </TouchableOpacity>
               )}
             </View>
@@ -303,14 +304,14 @@ const UpdateProfileScreen = () => {
             {loading ? (
               <ActivityIndicator color="#fff" />
             ) : (
-              <Text style={styles.buttonText}> {t('updateProfileButton')}</Text>
+              <Texts style={styles.buttonText}> {t('updateProfileButton')}</Texts>
             )}
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.deleteButton}
             onPress={() => navigation.navigate('Delete')}
           >
-            <Text style={styles.deleteButtonText}> {t('updateProfileDeleteAccount')}</Text>
+            <Texts style={styles.deleteButtonText}> {t('updateProfileDeleteAccount')}</Texts>
           </TouchableOpacity>
         </ScrollView>
       </KeyboardAvoidingView>

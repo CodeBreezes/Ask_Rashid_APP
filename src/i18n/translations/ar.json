@@ -135,5 +135,10 @@
   "password": "كلمة المرور",
   "confirmPassword": "تأكيد كلمة المرور",
   "signUp": "إنشاء حساب",
-  "AskRashid": "أسأل راشد"
+  "selectservice": "اختر إحدى خدماتنا",
+  "AskRashid": "أسأل راشد",
+  "deleteAccountTitle": "هل أنت متأكد؟",
+  "deleteAccountMessage": "هذا الإجراء سيؤدي إلى حذف حسابك وجميع البيانات المرتبطة به بشكل دائم.",
+  "deleteAccountBtn": "حذف الحساب",
+  "cancel": "إلغاء"
 }

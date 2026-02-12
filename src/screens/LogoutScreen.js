@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
+import Texts from "../components/Texts";
 
 const LogoutScreen = () => {
   const navigation = useNavigation();
@@ -21,7 +22,7 @@ const LogoutScreen = () => {
       <Image
         style={styles.image}
       />
-      <Text style={styles.text}>Logging you out...</Text>
+      <Texts style={styles.text}>Logging you out...</Texts>
       <ActivityIndicator size="large" color="#6A5ACD" style={{ marginTop: 20 }} />
     </View>
   );

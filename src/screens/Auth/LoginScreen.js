@@ -23,6 +23,7 @@ import { registerUser } from '../../api/userApi';
 import { configureGoogleSignIn, handleGoogleLogin } from '../../services/googleConfig';
 import { BASE_API_URL } from '../../api/apiConfig';
 import { useTranslation } from 'react-i18next';
+import Texts from "../../components/Texts";
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -242,22 +243,22 @@ const LoginScreen = () => {
           </View>
 
           <TouchableOpacity style={styles.forgotPasswordContainer} onPress={() => navigation.navigate('ForgotPassword')} >
-            <Text style={styles.forgotPasswordText}> {t('forgotPassword')}</Text>
+            <Texts style={styles.forgotPasswordText}> {t('forgotPassword')}</Texts>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-            <Text style={styles.loginButtonText}> {t('loginButton')}</Text>
+            <Texts style={styles.loginButtonText}> {t('loginButton')}</Texts>
           </TouchableOpacity>
 
           <TouchableOpacity style={customStyles.googleSignInButton} onPress={handleGoogleSignIn}>
             <Image source={require('../../assets/google_logo.png')} style={customStyles.googleLogo} />
-            <Text style={customStyles.googleSignInText}>{t('googleSignIn')}</Text>
+            <Texts style={customStyles.googleSignInText}>{t('googleSignIn')}</Texts>
           </TouchableOpacity>
 
           <View style={styles.registerContainer}>
-            <Text style={styles.registerText}> {t('noAccount')}</Text>
+            <Texts style={styles.registerText}> {t('noAccount')}</Texts>
             <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-              <Text style={styles.registerLink}>  {t('register')}</Text>
+              <Texts style={styles.registerLink}>  {t('register')}</Texts>
             </TouchableOpacity>
           </View>
         </View>
@@ -267,7 +268,7 @@ const LoginScreen = () => {
       <Modal visible={loading} transparent animationType="fade">
         <View style={customStyles.overlay}>
           <ActivityIndicator size="large" color="#ffffff" />
-          <Text style={customStyles.text}> {t('loggingIn')}</Text>
+          <Texts style={customStyles.text}> {t('loggingIn')}</Texts>
         </View>
       </Modal>
 
@@ -275,8 +276,8 @@ const LoginScreen = () => {
       <Modal visible={showGoogleModal} transparent animationType="slide">
         <View style={customStyles.overlay}>
           <View style={styles.googleModalBox}>
-            <Text style={styles.googleModalTitle}>👋 Welcome {googleUserData?.givenName}!</Text>
-            <Text style={styles.googleModalSubText}>Please complete your profile</Text>
+            <Texts style={styles.googleModalTitle}>👋 Welcome {googleUserData?.givenName}!</Texts>
+            <Texts style={styles.googleModalSubText}>Please complete your profile</Texts>
 
             <TextInput
               placeholder="📞 Phone Number"
@@ -304,11 +305,11 @@ const LoginScreen = () => {
             />
 
             <TouchableOpacity style={styles.googleSubmitButton} onPress={handleGoogleRegistration}>
-              <Text style={styles.googleSubmitText}>Continue</Text>
+              <Texts style={styles.googleSubmitText}>Continue</Texts>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={() => setShowGoogleModal(false)}>
-              <Text style={styles.googleCancelText}>Cancel</Text>
+              <Texts style={styles.googleCancelText}>Cancel</Texts>
             </TouchableOpacity>
           </View>
         </View>

@@ -13,6 +13,7 @@ import MainLayout from '../components/MainLayout';
 import axios from 'axios';
 import { BASE_API_URL } from '../api/apiConfig';
 import { useTranslation } from 'react-i18next';
+import Texts from "../components/Texts";
 
 const PaymentHistoryScreen = () => {
       const { t } = useTranslation();
@@ -95,11 +96,11 @@ const PaymentHistoryScreen = () => {
       </View>
       <View style={styles.row}>
         <Text style={styles.label}>Status:</Text>
-        <Text style={[styles.status, {
+        <Texts style={[styles.status, {
           color: item.paymentStatus === 'Failed' ? 'red' : 'green'
         }]}>
           {item.paymentStatus ||  t('completed')}
-        </Text>
+        </Texts>
       </View>
     </View>
   );

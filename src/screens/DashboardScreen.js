@@ -11,6 +11,7 @@ import {
 import MainLayout from '../components/MainLayout';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
+import Texts from "../components/Texts";
 
 
 const { width } = Dimensions.get('window');
@@ -32,7 +33,7 @@ const DashboardScreen = () => {
               style={styles.icon}
               resizeMode="contain"
             />
-            <Text style={styles.boxTitle}>{t('bookTalk')}</Text>
+            <Texts style={styles.boxTitle}>{t('selectservice')}</Texts>
           </TouchableOpacity>
 
           {/* Share Your Story */}
@@ -42,7 +43,7 @@ const DashboardScreen = () => {
               style={styles.icon}
               resizeMode="contain"
             />
-            <Text style={styles.boxTitle}>{t('contactUs')}</Text>
+            <Texts style={styles.boxTitle}>{t('contactUs')}</Texts>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -56,7 +57,7 @@ const DashboardScreen = () => {
               style={styles.icon}
               resizeMode="contain"
             />
-            <Text style={styles.boxTitle}>{t('collaboration')}</Text>
+            <Texts style={styles.boxTitle}>{t('collaboration')}</Texts>
           </TouchableOpacity>
 
 
@@ -68,7 +69,7 @@ const DashboardScreen = () => {
               style={styles.icon}
               resizeMode="contain"
             />
-            <Text style={styles.boxTitle}>{t('myBookings')}</Text>
+            <Texts style={styles.boxTitle}>{t('myBookings')}</Texts>
           </TouchableOpacity>
 
           {/* Profile */}
@@ -78,7 +79,7 @@ const DashboardScreen = () => {
               style={styles.icon}
               resizeMode="contain"
             />
-            <Text style={styles.boxTitle}>{t('profile')}</Text>
+            <Texts style={styles.boxTitle}>{t('profile')}</Texts>
           </TouchableOpacity>
 
           {/* Help & Info */}
@@ -88,7 +89,7 @@ const DashboardScreen = () => {
               style={styles.icon}
               resizeMode="contain"
             />
-            <Text style={styles.boxTitle}>{t('helpInfo')}</Text>
+            <Texts style={styles.boxTitle}>{t('helpInfo')}</Texts>
           </TouchableOpacity>
 
         </View>

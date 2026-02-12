@@ -20,6 +20,7 @@ import { registerUser } from '../../api/userApi';
 import { loginUser } from '../../api/loginApi';
 import CustomAlertModal from '../../components/CustomAlertModal';
 import { useTranslation } from 'react-i18next';
+import Texts from "../../components/Texts";
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
@@ -97,7 +98,6 @@ const ProfileScreen = () => {
 
     try {
       const response = await registerUser(payload);
-      debugger;
       if (response.status === 200 || response.status === 201) {
         const resData = response.data;
 
@@ -150,8 +150,8 @@ const ProfileScreen = () => {
         >
           <View style={styles.cardContainer}>
 
-            <Text style={styles.profileTitle}>{t("createProfileTitle")}</Text>
-            <Text style={styles.profileSubtitle}>{t("createProfileSubtitle")}</Text>
+            <Texts style={styles.profileTitle}>{t("createProfileTitle")}</Texts>
+            <Texts style={styles.profileSubtitle}>{t("createProfileSubtitle")}</Texts>
 
             <View style={styles.formContainer}>
               <TextInput
@@ -207,7 +207,7 @@ const ProfileScreen = () => {
                 {loading ? (
                   <ActivityIndicator color="#fff" />
                 ) : (
-                  <Text style={styles.signUpButtonText}>{t("signUp")}</Text>
+                  <Texts style={styles.signUpButtonText}>{t("signUp")}</Texts>
                 )}
               </TouchableOpacity>
             </View>

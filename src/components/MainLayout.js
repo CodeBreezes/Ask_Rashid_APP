@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useCallback } from 'react';
 import {
   View,
   Text,
@@ -14,6 +14,7 @@ import axios from 'axios';
 import { BASE_API_URL } from '../api/apiConfig';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
+import { useFocusEffect } from "@react-navigation/native";
 
 
 const { width, height } = Dimensions.get('window');
@@ -26,48 +27,50 @@ const MainLayout = ({ title, children }) => {
   const [profileImage, setProfileImage] = useState(null);
   const navigation = useNavigation();
 
-  useEffect(() => {
-    const loadUserData = async () => {
-      try {
-        const name = await AsyncStorage.getItem('customerFullName');
-        const phoneNumber = await AsyncStorage.getItem('phone');
-        let imageUrl = await AsyncStorage.getItem('profileImageUrl');
-        const userId = await AsyncStorage.getItem('userId');
+  useFocusEffect(
+    useCallback(() => {
+      const loadUserData = async () => {
+        try {
+          const name = await AsyncStorage.getItem("customerFullName");
+          const phoneNumber = await AsyncStorage.getItem("phone");
+          let imageUrl = await AsyncStorage.getItem("profileImageUrl");
+          const userId = await AsyncStorage.getItem("userId");
 
-        if (name) setFullName(name);
-        if (phoneNumber) setPhone(phoneNumber);
+          if (name) setFullName(name);
+          if (phoneNumber) setPhone(phoneNumber);
 
-        // Remove accidental quotes if any
-        if (imageUrl) {
-          imageUrl = imageUrl.replace(/^"|"$/g, '');
-        }
-
-        // If no valid image, fetch from API
-        if ((!imageUrl || imageUrl === 'null' || imageUrl === 'undefined') && userId) {
-          const res = await axios.get(
-            `${BASE_API_URL}/api/Services/GetUserById?uniqueId=${userId}`
-          );
-          if (res.status === 200 && res.data?.profileImageUrl) {
-            imageUrl = res.data.profileImageUrl;
+          if (imageUrl) {
+            imageUrl = imageUrl.replace(/^"|"$/g, "");
           }
-        }
 
-        // ✅ Normalize image URL (prepend BASE_URL if relative)
-        if (imageUrl && !imageUrl.startsWith('http')) {
-          imageUrl = `${BASE_API_URL}${imageUrl}`;
-        }
+          if ((!imageUrl || imageUrl === "null" || imageUrl === "undefined") && userId) {
+            const res = await axios.get(
+              `${BASE_API_URL}/api/Services/GetUserById?uniqueId=${userId}`
+            );
+            if (res.status === 200 && res.data?.profileImageUrl) {
+              imageUrl = res.data.profileImageUrl;
+            }
+          }
 
-        if (imageUrl) {
-          setProfileImage(imageUrl);
-          await AsyncStorage.setItem('profileImageUrl', imageUrl);
-        }
-      } catch (error) {
-        console.warn('Failed to load user data', error);
-      }
-    };
+          if (imageUrl && !imageUrl.startsWith("http")) {
+            imageUrl = `${BASE_API_URL}${imageUrl}`;
+          }
 
-    loadUserData();
-  }, []);
+          if (imageUrl) {
+            setProfileImage(imageUrl);
+            await AsyncStorage.setItem("profileImageUrl", imageUrl);
+          } else {
+            setProfileImage(null);
+          }
+        } catch (error) {
+          console.warn("Failed to load user data", error);
+        }
+      };
+
+      loadUserData();
+    }, [])
+  );
+
   const { t } = useTranslation();
   const [currentLang, setCurrentLang] = useState(i18n.language);
 
@@ -116,7 +119,7 @@ const MainLayout = ({ title, children }) => {
               <Text style={styles.name}>{fullName}</Text>
               <Text style={styles.subtitle}>{phone || 'No phone available'}</Text>
             </View>
-            {/* LANGUAGE SWITCH */}
+            {/* LANGUAGE SWITCH*/}
             <View style={styles.languageWrapper}>
               <TouchableOpacity style={styles.languageSwitch} onPress={toggleLanguage}>
                 <View
@@ -152,8 +155,6 @@ const MainLayout = ({ title, children }) => {
                 </View>
               </TouchableOpacity>
             </View>
-
-
             <ScrollView style={styles.menuContainer}>
               <DrawerItem
                 icon={require('../assets/icons/home.png')}
@@ -312,11 +313,11 @@ const styles = StyleSheet.create({
     tintColor: '#0D5EA6',
     marginRight: 12,
   },
- label: {
-  fontSize: 16,
-  color: '#333',
-  flexShrink: 1,
-},
+  label: {
+    fontSize: 16,
+    color: '#333',
+    flexShrink: 1,
+  },
 
   content: {
     flex: 1,
@@ -354,7 +355,7 @@ const styles = StyleSheet.create({
     padding: 4,
     borderWidth: 1,
     borderColor: '#DDD',
-    alignSelf: 'center', 
+    alignSelf: 'center',
     shadowColor: '#000',
     shadowOpacity: 0.05,
     shadowRadius: 4,

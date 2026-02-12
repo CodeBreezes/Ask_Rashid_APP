@@ -15,6 +15,7 @@ import { Dimensions } from 'react-native';
 import { BASE_API_URL } from '../api/apiConfig';
 import { useRoute } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
+import Texts from "../components/Texts";
 
 const { height: screenHeight, width: screenWidth } = Dimensions.get('window');
 
@@ -171,9 +172,9 @@ const BookingScreen = () => {
       >
         <ScrollView contentContainerStyle={styles.pageContainer} keyboardShouldPersistTaps="handled">
           <View style={styles.card}>
-            <Text style={styles.label}> {t('welcome')}, {name}</Text>
-            <Text style={styles.label}>{t('bookingIntro')}</Text>
-            <Text style={styles.label}>{t('selectService')}</Text>
+            <Texts style={styles.label}> {t('welcome')}, {name}</Texts>
+            <Texts style={styles.label}>{t('bookingIntro')}</Texts>
+            <Texts style={styles.label}>{t('selectService')}</Texts>
             <TouchableOpacity
               style={styles.dropdownTouchable}
               onPress={async () => {
@@ -207,11 +208,11 @@ const BookingScreen = () => {
                 }
               }}
             >
-              <Text style={styles.dropdownText}>
+              <Texts style={styles.dropdownText}>
                 {selectedService
                   ? `${selectedService.name} - د.إ ${selectedService.cost}`
                   :  t('chooseService')}
-              </Text>
+              </Texts>
             </TouchableOpacity>
 
 
@@ -220,13 +221,13 @@ const BookingScreen = () => {
             <Modal visible={serviceModalVisible} animationType="slide" transparent>
               <View style={styles.modalOverlay}>
                 <View style={[styles.modalContent, { maxHeight: '85%' }]}>
-                  <Text style={styles.modalTitle}>{t('selectService')}</Text>
+                  <Texts style={styles.modalTitle}>{t('selectService')}</Texts>
 
                   {serviceLoading ? (
                     // Loader while services are fetching
                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingVertical: 20 }}>
                       <ActivityIndicator size="large" color="#000" />
-                      <Text style={{ marginTop: 10, color: '#555', fontSize: 14 }}> {t('loadingServices')}</Text>
+                      <Texts style={{ marginTop: 10, color: '#555', fontSize: 14 }}> {t('loadingServices')}</Texts>
                     </View>
                   ) : (
                     <FlatList
@@ -243,8 +244,8 @@ const BookingScreen = () => {
                           }}
                         >
                           <View style={styles.serviceRow}>
-                            <Text style={styles.serviceName}>{item.name}</Text>
-                            <Text style={styles.serviceCost}>د.إ {item.cost}</Text>
+                            <Texts style={styles.serviceName}>{item.name}</Texts>
+                            <Texts style={styles.serviceCost}>د.إ {item.cost}</Texts>
                           </View>
                           <View style={styles.eyeButtonContainer}>
                             <TouchableOpacity
@@ -254,7 +255,7 @@ const BookingScreen = () => {
                                 setDescriptionModalVisible(true);
                               }}
                             >
-                              <Text style={styles.detailsButtonText}>{t('viewDetails')}</Text>
+                              <Texts style={styles.detailsButtonText}>{t('viewDetails')}</Texts>
                             </TouchableOpacity>
                           </View>
                         </TouchableOpacity>
@@ -263,7 +264,7 @@ const BookingScreen = () => {
                   )}
 
                   <TouchableOpacity style={styles.modalClose} onPress={() => setServiceModalVisible(false)}>
-                    <Text style={styles.modalCloseText}>{t('close')}</Text>
+                    <Texts style={styles.modalCloseText}>{t('close')}</Texts>
                   </TouchableOpacity>
                 </View>
               </View>
@@ -279,7 +280,7 @@ const BookingScreen = () => {
                     { maxHeight: screenHeight * 0.8 } // ✅ responsive max height (80% of device)
                   ]}
                 >
-                  <Text style={styles.modalTitle}>{t('serviceDescription')}</Text>
+                  <Texts style={styles.modalTitle}>{t('serviceDescription')}</Texts>
 
                   {/* ✅ Scrollable content area */}
                   <View style={{ flex: 1 }}>
@@ -288,9 +289,9 @@ const BookingScreen = () => {
                       contentContainerStyle={{ paddingBottom: 20 }}
                       showsVerticalScrollIndicator={true}
                     >
-                      <Text style={{ color: '#222', fontSize: 14, fontWeight: '500', lineHeight: 20 }}>
+                      <Texts style={{ color: '#222', fontSize: 14, fontWeight: '500', lineHeight: 20 }}>
                         {selectedServiceDescription}
-                      </Text>
+                      </Texts>
                     </ScrollView>
 
 
@@ -299,14 +300,14 @@ const BookingScreen = () => {
                       style={styles.modalClose}
                       onPress={() => setDescriptionModalVisible(false)}
                     >
-                      <Text style={styles.modalCloseText}>{t('close')}</Text>
+                      <Texts style={styles.modalCloseText}>{t('close')}</Texts>
                     </TouchableOpacity>
                   </View>
                 </View>
               </View>
             </Modal>
 
-            <Text style={styles.label}>{t('enterTopic')}</Text>
+            <Texts style={styles.label}>{t('enterTopic')}</Texts>
             <TextInput
               style={[styles.input, { height: 100, textAlignVertical: 'top' }]}
               placeholder={t('enterTopicPlaceholder')}
@@ -317,7 +318,7 @@ const BookingScreen = () => {
               onChangeText={setTopic}
             />
 
-            <Text style={styles.label}>{t('additionalNotes')}</Text>
+            <Texts style={styles.label}>{t('additionalNotes')}</Texts>
             <TextInput
               style={[styles.input, { height: 100, borderRadius: 25, textAlignVertical: 'top' }]}
               placeholder={t('additionalNotesPlaceholder')}
@@ -330,20 +331,20 @@ const BookingScreen = () => {
             {/*
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 10 }}>
               <View style={{ flex: 1 }}>
-                <Text style={styles.label}>Date</Text>
+                <Texts style={styles.label}>Date</Texts>
                 <TouchableOpacity onPress={() => setShowDatePicker(true)} style={styles.dateButton}>
-                  <Text style={styles.dateButtonText}>
+                  <Texts style={styles.dateButtonText}>
                     {date ? `📆 ${date.toDateString()}` : 'Select Date'}
-                  </Text>
+                  </Texts>
                 </TouchableOpacity>
               </View>
 
               <View style={{ flex: 1 }}>
-                <Text style={styles.label}>Time</Text>
+                <Texts style={styles.label}>Time</Texts>
                 <TouchableOpacity onPress={() => setShowTimePicker(true)} style={styles.dateButton}>
-                  <Text style={styles.dateButtonText}>
+                  <Texts style={styles.dateButtonText}>
                     {time ? `🕒 ${time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}` : 'Select Time'}
-                  </Text>
+                  </Texts>
                 </TouchableOpacity>
               </View>
             </View>
@@ -366,24 +367,24 @@ const BookingScreen = () => {
               date={time}
             />
             End of New Modal Pickers */}
-            <Text style={styles.label}>{t('selectDateTime')}</Text>
+            <Texts style={styles.label}>{t('selectDateTime')}</Texts>
 
             <TouchableOpacity
               onPress={() => navigation.navigate('SlotPicker')}
               style={styles.dateButton}
             >
-              <Text style={styles.dateButtonText}>
+              <Texts style={styles.dateButtonText}>
                 {slotId
                   ? `📅 ${date.toDateString()}  🕒 ${time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`
                   :  t('selectAvailableSlot')}
-              </Text>
+              </Texts>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.bookButton} onPress={handlePaymentBooking} disabled={loading}>
               {loading ? (
                 <ActivityIndicator size="small" color="#fff" />
               ) : (
-                <Text style={styles.bookButtonText}>{t('confirmAndPay')}</Text>
+                <Texts style={styles.bookButtonText}>{t('confirmAndPay')}</Texts>
               )}
             </TouchableOpacity>
           </View>

@@ -10,12 +10,14 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { BASE_API_URL } from '../../api/apiConfig';
+import { useTranslation } from "react-i18next";
+import Texts from "../../components/Texts";
 
 const DeleteAccountScreen = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(true);
   const [loading, setLoading] = useState(false);
   const [userEmail, setUserEmail] = useState("");
-
+  const { t } = useTranslation();
   useEffect(() => {
     const loadUserData = async () => {
       const email = await AsyncStorage.getItem("email");
@@ -75,10 +77,9 @@ const DeleteAccountScreen = ({ navigation }) => {
       <Modal visible={modalVisible} transparent animationType="slide">
         <View style={styles.overlay}>
           <View style={styles.modalContainer}>
-            <Text style={styles.title}>⚠️ Are you sure?</Text>
+            <Texts style={styles.title}>⚠️ {t("deleteAccountTitle")}</Texts>
             <Text style={styles.message}>
-              This action will **permanently** delete your account and all
-              associated data.
+              {t("deleteAccountMessage")}
             </Text>
 
             <View style={styles.buttons}>
@@ -90,7 +91,7 @@ const DeleteAccountScreen = ({ navigation }) => {
                 }}
                 disabled={loading}
               >
-                <Text style={styles.cancelText}>Cancel</Text>
+                <Texts style={styles.cancelText}>{t("cancel")}</Texts>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -101,7 +102,7 @@ const DeleteAccountScreen = ({ navigation }) => {
                 {loading ? (
                   <ActivityIndicator color="#fff" />
                 ) : (
-                  <Text style={styles.confirmText}>Delete Account</Text>
+                  <Texts style={styles.confirmText}> {t("deleteAccountBtn")}</Texts>
                 )}
               </TouchableOpacity>
             </View>

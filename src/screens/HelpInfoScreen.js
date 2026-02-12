@@ -14,26 +14,27 @@ import MainLayout from '../components/MainLayout';
 import { useNavigation } from '@react-navigation/native';
 import { BASE_API_URL } from '../api/apiConfig';
 import { useTranslation } from 'react-i18next';
+import Texts from "../components/Texts";
 
 const HelpInfoScreen = () => {
   const navigation = useNavigation();
   const { t } = useTranslation();
 
   return (
-    <MainLayout title= {t('helpInfo')}>
+    <MainLayout title={t('helpInfo')}>
       <SafeAreaView style={styles.safeArea}>
         <ScrollView contentContainerStyle={styles.container}>
 
           {/* How to Book */}
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>
+            <Texts style={styles.sectionTitle}>
               <Icon name="clipboard-list" size={18} /> {t('howToBookTitle')}
-            </Text>
+            </Texts>
 
             {t('steps', { returnObjects: true }).map((step, index) => (
               <View key={index} style={styles.stepItem}>
-                <Text style={styles.stepNumber}>{index + 1}.</Text>
-                <Text style={styles.stepText}>{step}</Text>
+                <Texts style={styles.stepNumber}>{index + 1}.</Texts>
+                <Texts style={styles.stepText}>{step}</Texts>
               </View>
             ))}
           </View>
@@ -41,62 +42,67 @@ const HelpInfoScreen = () => {
 
           {/* After Booking */}
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>
+            <Texts style={styles.sectionTitle}>
               <Icon name="phone" size={18} /> {t('afterBookingTitle')}
-            </Text>
-            <Text style={styles.paragraph}>
-              {t('afterBookingText')}            </Text>
+            </Texts>
+            <Texts style={styles.paragraph}>
+              {t('afterBookingText')}            </Texts>
           </View>
 
           {/* Payment Info */}
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>
+            <Texts style={styles.sectionTitle}>
               <Icon name="credit-card" size={18} />  {t('paymentTitle')}
-            </Text>
-            <Text style={styles.paragraph}>
-              {t('paymentText')} </Text>
+            </Texts>
+            <Texts style={styles.paragraph}>
+              {t('paymentText')} </Texts>
           </View>
 
           {/* Rescheduling */}
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>
+            <Texts style={styles.sectionTitle}>
               <Icon name="calendar-alt" size={18} /> {t('rescheduleTitle')}
-            </Text>
-            <Text style={styles.paragraph}>
-              {t('rescheduleTitle')}  </Text>
+            </Texts>
+            <Texts style={styles.paragraph}>
+              {t('rescheduleText')}  </Texts>
           </View>
 
           {/* Contact */}
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>
+            <Texts style={styles.sectionTitle}>
               <Icon name="headset" size={18} /> {t('contactTitle')}
-            </Text>
-            <Text style={styles.paragraph}> {t('contactText')}</Text>
+            </Texts>
+            <Texts style={styles.paragraph}> {t('contactText')}</Texts>
             <TouchableOpacity onPress={() => navigation.navigate('ContactUsScreen')}>
-              <Text style={styles.link}>💬 {t('contactUs')}</Text>
+              <Texts style={styles.link}>💬 {t('contactUs')}</Texts>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => Linking.openURL('mailto:info@rashidbahattab.com')}>
-              <Text style={[styles.link, { marginTop: 8 }]}>📧 info@rashidbahattab.com</Text>
+              <Texts style={[styles.link, { marginTop: 8 }]}>📧 info@rashidbahattab.com</Texts>
             </TouchableOpacity>
           </View>
 
           {/* Privacy */}
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>
+            <Texts style={styles.sectionTitle}>
               <Icon name="lock" size={18} /> {t('privacyTitle')}
-            </Text>
-            <Text style={styles.paragraph}>
-              {t('privacyText')} </Text>
+            </Texts>
+            <Texts style={styles.paragraph}>
+              {t('privacyText')} </Texts>
             <TouchableOpacity onPress={() => Linking.openURL(`${BASE_API_URL}/service/PrivacyPolicy`)}>
-              <Text style={[styles.paragraph, { color: '#0D5EA6', textDecorationLine: 'underline' }]}>
+              <Texts style={[styles.paragraph, { color: '#0D5EA6', textDecorationLine: 'underline' }]}>
                 {t('privacyPolicy')}
-              </Text>
+              </Texts>
             </TouchableOpacity>
           </View>
           <View style={styles.section}>
-            <Text style={styles.paragraph}>
-              {t('termsAccepted')}</Text>
+            <Texts style={styles.paragraph}>
+              {t('termsAccepted')}</Texts>
+               <TouchableOpacity onPress={() => Linking.openURL(`${BASE_API_URL}/userAccount/termsandconditions`)}>
+                <Texts style={styles.link}>T&C</Texts>
+              </TouchableOpacity>
           </View>
+         
+
         </ScrollView>
       </SafeAreaView>
     </MainLayout>
@@ -160,9 +166,7 @@ const styles = StyleSheet.create({
     lineHeight: 22,
   },
   link: {
-    fontSize: 15,
     color: '#0D5EA6',
-    marginTop: 6,
     textDecorationLine: 'underline',
   },
 });

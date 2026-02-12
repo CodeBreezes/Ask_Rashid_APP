@@ -11,6 +11,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import styles from '../styles/HomeScreen.styles';
 import { useTranslation } from 'react-i18next';
+import Texts from "../components/Texts";
 
 // Social media links
 const socialLinks = [
@@ -42,7 +43,7 @@ const { t } = useTranslation();
 
         <View style={styles.content}>
           <View style={styles.nameRow}>
-            <Text style={styles.name}>{t('name')}</Text>
+            <Texts style={styles.name}>{t('name')}</Texts>
             <MaterialIcons name="verified" size={20} color="#7442ff" />
           </View>
 
@@ -50,12 +51,12 @@ const { t } = useTranslation();
             {[1, 2, 3, 4, 5].map((_, i) => (
               <FontAwesome key={i} name="star" size={18} color="#FFD700" />
             ))}
-            <Text style={styles.reviewText}>  {t('reviews')}</Text>
+            <Texts style={styles.reviewText}>  {t('reviews')}</Texts>
           </View>
 
-          <Text style={styles.sectionTitle}> {t('aboutTitle')}</Text>
-          <Text style={styles.description}>
-            {t('aboutDescription')} </Text>
+          <Texts style={styles.sectionTitle}> {t('aboutTitle')}</Texts>
+          <Texts style={styles.description}>
+            {t('aboutDescription')} </Texts>
 
           {/* Updated Social Media Icons Section */}
           <View style={{
@@ -89,7 +90,7 @@ const { t } = useTranslation();
             style={styles.button}
             onPress={() => navigation.navigate('AuthLoading')}
           >
-            <Text style={styles.buttonText}> {t('getStarted')}</Text>
+            <Texts style={styles.buttonText}> {t('getStarted')}</Texts>
           </TouchableOpacity>
         </View>
       </ScrollView>

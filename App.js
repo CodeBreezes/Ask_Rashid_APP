@@ -1,11 +1,13 @@
 // App.js
-import React from 'react';
-import { View, Platform, StatusBar } from 'react-native';
+import React, { useEffect } from "react";
+import { View, StatusBar, Text, TextInput } from "react-native";
 import {
   SafeAreaProvider,
   useSafeAreaInsets,
-} from 'react-native-safe-area-context';
-import AppNavigator from './src/navigation/AppNavigator';
+} from "react-native-safe-area-context";
+
+import AppNavigator from "./src/navigation/AppNavigator";
+import i18n from "./src/i18n"; 
 
 function MainLayout({ children }) {
   const insets = useSafeAreaInsets();
@@ -15,7 +17,7 @@ function MainLayout({ children }) {
       style={{
         flex: 1,
         paddingTop: insets.top,
-        backgroundColor: '#FFF',
+        backgroundColor: "#FFF",
       }}
     >
       {children}
@@ -24,9 +26,28 @@ function MainLayout({ children }) {
 }
 
 const App = () => {
+  useEffect(() => {
+    const fontFamily =
+      i18n.language === "ar" ? "NotoKufiArabic-Regular" : undefined;
+
+    console.log("Current Language:", i18n.language);
+    console.log("Font Applied:", fontFamily);
+
+    Text.defaultProps = Text.defaultProps || {};
+    Text.defaultProps.style = [
+      Text.defaultProps.style,
+      { fontFamily: fontFamily },
+    ];
+
+    TextInput.defaultProps = TextInput.defaultProps || {};
+    TextInput.defaultProps.style = [
+      TextInput.defaultProps.style,
+      { fontFamily: fontFamily },
+    ];
+  }, []);
+
   return (
     <SafeAreaProvider>
-      {/* Globally configure status bar */}
       <StatusBar
         barStyle="light-content"
         backgroundColor="#0D5EA6"
